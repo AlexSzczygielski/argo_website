@@ -1,7 +1,8 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;  /* optional, smooth scroll */
+  scroll-behavior: smooth; /* optional, smooth scroll */
 }
 
 html {
@@ -12,13 +13,18 @@ html {
 
 .navbar {
   margin-bottom: 0;
-  /*background-color: #1e3f66;*/
+  background-color: transparent !important;
   z-index: 9999;
   border: 0;
   font-size: 12px !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
   border-radius: 0;
+  transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+    background-color: #1e3f66 !important;
 }
 .navbar .navbar-brand img {
   max-height: 40px; /* Adjust this value as needed */
@@ -26,9 +32,9 @@ html {
 }
 
 .navbar .navbar-brand {
-    padding-top: 0;
-    padding-bottom: 0;
-    font-family: 'Cinzel', serif;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: "Cinzel", serif;
   font-size: 2rem;
   margin-bottom: 1rem;
   letter-spacing: 2px;
@@ -59,12 +65,12 @@ html {
 }
 
 /*JUMBOTRON*/
-  .argo-jumbotron {
+.argo-jumbotron {
   height: 100vh;
   background: linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
-  /*background: linear-gradient(to bottom right, #1e3f66, #2a4f7c),*/
-  /*background: linear-gradient(to bottom right, #1e3f66, #3d6fa5)*/
-              url('../storage/images/sea1.heic') center/cover no-repeat; /*add image */
+    /*background: linear-gradient(to bottom right, #1e3f66, #2a4f7c),*/
+      /*background: linear-gradient(to bottom right, #1e3f66, #3d6fa5)*/
+      url("../storage/images/sea1.heic") center/cover no-repeat; /*add image */
   color: #fff;
   display: flex;
   align-items: center;
@@ -74,7 +80,8 @@ html {
   padding: 0 20px;
 }
 
-.argo-jumbotron, .container {
+.argo-jumbotron,
+.container {
   scroll-snap-align: start;
 }
 
@@ -84,27 +91,27 @@ html {
 }
 
 .argo-title {
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-size: 4rem;
   margin-bottom: 1rem;
   letter-spacing: 2px;
 }
 
 .argo-subtitle {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: #cfd9e3;
 }
 
 .argo-tagline {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.2rem;
   color: #9fb4cc;
 }
 
 .argo-jumbotron .btn {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border: 2px solid #fff;
@@ -117,14 +124,14 @@ html {
 }
 
 .logo {
-    font-size: 200px;
+  font-size: 200px;
+}
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
   }
-  @media screen and (max-width: 768px) {
-    .col-sm-4 {
-      text-align: center;
-      margin: 25px 0;
-    }
-  }
-  .bg-grey {
-    background-color: #f6f6f6;
-  }
+}
+.bg-grey {
+  background-color: #f6f6f6;
+}
