@@ -11,7 +11,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#myPage">ArgoLogo</a>
+    <a class="navbar-brand" href="#home">ArgoLogo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

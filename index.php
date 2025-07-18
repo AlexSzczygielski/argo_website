@@ -12,11 +12,10 @@
 <body>
     <?php require 'layout/navbar.php' ?>
 
-    <div class="p-5 mb-4 rounded-3 argo-jumbotron">
-        <div class="container py-5 text-center">
-            <h1 class="display-5 fw-bold">Company</h1>
-            <p class="col-md-8 mx-auto fs-4">We specialize in blablabla</p>
-            <button class="btn btn-light btn-lg" type="button">Example button</button>
+    <div class="argo-jumbotron" id="home">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">Argo</h1>
+            <p class="col-md-8 mx-auto fs-4">Studencki Klub Regatowy</p>
         </div>
     </div>
 

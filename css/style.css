@@ -36,7 +36,10 @@
 .argo-jumbotron {
   background-color: #1e3f66;
   color: #ffffff;
-  border-radius: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .argo-jumbotron h1,
@@ -44,9 +47,6 @@
   color: #fff;
 }
 
-.argo-jumbotron .btn {
-  margin-top: 20px;
-}
 
 .logo {
     font-size: 200px;
