@@ -51,7 +51,7 @@ html {
   background: linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
   /*background: linear-gradient(to bottom right, #1e3f66, #2a4f7c),*/
   /*background: linear-gradient(to bottom right, #1e3f66, #3d6fa5)*/
-              url('images/greek-sailing-bg.jpg') center/cover no-repeat; /*add image*/
+              url('../storage/images/sea2.jpg') center/cover no-repeat; /*add image*/
   color: #fff;
   display: flex;
   align-items: center;
