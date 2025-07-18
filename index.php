@@ -6,7 +6,7 @@
   <title>SKR Argo AGH</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="SKR ARGO">
+  <meta name="description" content="SKR ARGO AGH">
 </head>
 
 <body>
@@ -25,9 +25,9 @@
   <div class="container py-5">
     <div class="row align-items-center">
       <div class="col-sm-8">
-        <h2>About Company Page</h2>
-        <h4>Lorem ipsum...</h4>
-        <p>Lorem ipsum...</p>
+        <h2>O nas</h2>
+        <h4>Argo to klub regatowy współpracujący z AZS AGH...</h4>
+        <p>Czym jest argo?...</p>
         <button class="btn btn-secondary btn-lg">Get in Touch</button>
       </div>
       <div class="col-sm-4 text-center">
