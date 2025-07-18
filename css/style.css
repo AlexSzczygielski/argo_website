@@ -1,3 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;  /* optional, smooth scroll */
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
 .navbar {
   margin-bottom: 0;
   background-color: #1e3f66;
@@ -40,6 +52,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.argo-jumbotron, .container {
+  scroll-snap-align: start;
 }
 
 .argo-jumbotron h1,
