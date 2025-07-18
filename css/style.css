@@ -12,7 +12,7 @@ html {
 
 .navbar {
   margin-bottom: 0;
-  background-color: #1e3f66;
+  /*background-color: #1e3f66;*/
   z-index: 9999;
   border: 0;
   font-size: 12px !important;
@@ -45,13 +45,20 @@ html {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.argo-jumbotron {
-  background-color: #1e3f66;
-  color: #ffffff;
+/*JUMBOTRON*/
+  .argo-jumbotron {
   height: 100vh;
+  background: linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
+  /*background: linear-gradient(to bottom right, #1e3f66, #2a4f7c),*/
+  /*background: linear-gradient(to bottom right, #1e3f66, #3d6fa5)*/
+              url('images/greek-sailing-bg.jpg') center/cover no-repeat; /*add image*/
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 0 20px;
 }
 
 .argo-jumbotron, .container {
@@ -63,6 +70,38 @@ html {
   color: #fff;
 }
 
+.argo-title {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.argo-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #cfd9e3;
+}
+
+.argo-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #9fb4cc;
+}
+
+.argo-jumbotron .btn {
+  font-family: 'Inter', sans-serif;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid #fff;
+  transition: all 0.3s ease;
+}
+
+.argo-jumbotron .btn:hover {
+  background-color: #fff;
+  color: #1e3f66;
+}
 
 .logo {
     font-size: 200px;
