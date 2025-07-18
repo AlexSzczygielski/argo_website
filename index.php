@@ -44,7 +44,7 @@
       </div>
       <div class="col-sm-8">
         <h2>Our Values</h2>
-        <h4><strong>MISSION:</strong> Our mission lorem ipsum...</h4>
+        <h4><strong>MISSION:</strong> Our Amission lorem ipsum...</h4>
         <p><strong>VISION:</strong> Our vision lorem ipsum...</p>
       </div>
     </div>
