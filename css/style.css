@@ -20,6 +20,19 @@ html {
   letter-spacing: 4px;
   border-radius: 0;
 }
+.navbar .navbar-brand img {
+  max-height: 40px; /* Adjust this value as needed */
+  width: auto;
+}
+
+.navbar .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
 
 /* Brand and links */
 .navbar .navbar-brand,
