@@ -19,7 +19,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#about-anchor">O nas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">Wydarzenia</a></li>
+        <li class="nav-item"><a class="nav-link" href="#blog-anchor">Wydarzenia</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">Dołącz</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>

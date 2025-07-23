@@ -140,4 +140,45 @@ html {
   height: 0;
 }
 
+#about .display-4 {
+  color: #1e3f66;
+}
+
+#about .lead {
+  color: #2c5f88;
+}
+
+#about .btn-primary {
+  background-color: #1e3f66;
+  border-color: #1e3f66;
+}
+
+#about .btn-primary:hover {
+  background-color: #2c5f88;
+  border-color: #2c5f88;
+}
+
+#blog .card {
+  border: none;
+  transition: transform 0.3s;
+}
+
+#blog .card:hover {
+  transform: translateY(-10px);
+}
+
+#blog .card-title {
+  color: #1e3f66;
+}
+
+#blog .btn-outline-secondary {
+  color: #1e3f66;
+  border-color: #1e3f66;
+}
+
+#blog .btn-outline-secondary:hover {
+  background-color: #1e3f66;
+  color: #fff;
+}
+
 
