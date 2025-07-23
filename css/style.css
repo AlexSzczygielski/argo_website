@@ -6,13 +6,14 @@ body {
 }
 
 html {
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100vh;
 }
 
 .navbar {
+  position: fixed;
   margin-bottom: 0;
+  padding: 0;
   background-color: transparent !important;
   z-index: 9999;
   border: 0;
@@ -27,7 +28,7 @@ html {
     background-color: #1e3f66 !important;
 }
 .navbar .navbar-brand img {
-  max-height: 40px; /* Adjust this value as needed */
+  max-height: 40px; 
   width: auto;
 }
 
@@ -80,10 +81,7 @@ html {
   padding: 0 20px;
 }
 
-.argo-jumbotron,
-.container {
-  scroll-snap-align: start;
-}
+
 
 .argo-jumbotron h1,
 .argo-jumbotron p {
@@ -135,3 +133,11 @@ html {
 .bg-grey {
   background-color: #f6f6f6;
 }
+
+.section-anchor {
+  position: relative;
+  top: -80px; /* Same as your navbar height */
+  height: 0;
+}
+
+

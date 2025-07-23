@@ -3,9 +3,9 @@
 $request_uri = strtok($_SERVER['REQUEST_URI'], '?'); // Remove query string
 
 if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
-    $active_site = "index";
+  $active_site = "index";
 } else {
-    $active_site = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_FILENAME);
+  $active_site = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_FILENAME);
 }
 ?>
 
@@ -18,7 +18,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#about">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about-anchor">O nas</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">Wydarzenia</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">Dołącz</a></li>
@@ -29,38 +29,35 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 </nav>
 
 <script>
-$(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+  $(document).ready(function () {
+  var navbarHeight = $('.navbar').outerHeight(true); // Measure it once
 
-  // Make sure this.hash has a value before overriding default behavior
-  if (this.hash !== "") {
+  $(".navbar a").on('click', function (event) {
+    if (this.hash !== "") {
+      event.preventDefault();
 
-    // Prevent default anchor click behavior
-    event.preventDefault();
+      var hash = this.hash; // ✅ Define hash immediately
 
-    // Store hash
-    var hash = this.hash;
+      console.log("Clicked link to:", hash);
+      console.log("Target offset:", $(hash).offset().top);
+      console.log("Navbar height:", navbarHeight);
 
-    // Using jQuery's animate() method to add smooth page scroll
-    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-    $('html, body').animate({
-      scrollTop: $(hash).offset().top
-    }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top - navbarHeight
+      }, 900, function () {
+        window.location.hash = hash; // ✅ Now hash is defined
       });
-    } // End if
+    }
   });
 
-  // Add scrolled class to navbar
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 50) { // Adjust this value as needed
-            $('.navbar').addClass('scrolled');
-        } else {
-            $('.navbar').removeClass('scrolled');
-        }
-    });
-})
+  // Optional: Add class when scrolling past 50px
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+      $('.navbar').addClass('scrolled');
+    } else {
+      $('.navbar').removeClass('scrolled');
+    }
+  });
+});
+
 </script>
