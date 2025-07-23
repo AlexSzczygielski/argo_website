@@ -17,7 +17,7 @@
       <h1 class="argo-title">Argo</h1>
       <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
       <p class="argo-tagline">Inspired by Ancient Mariners. Driven to Win.</p>
-      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Join the Crew</a>
+      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a>
     </div>
   </div>
 
@@ -27,8 +27,8 @@
     <div class="row align-items-center">
       <div class="col-md-6">
         <h2 class="display-4">O nas</h2>
-        <p class="lead">Argo to klub regatowy z pasją do żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
-        <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i przeżyć niezapomniane chwile na wodzie.</p>
+        <p class="lead">Argo to studencki klub regatowy z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
+        <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
         <a href="#contact" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
       </div>
       <div class="col-md-6 text-center">
@@ -47,8 +47,8 @@
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
             <div class="card-body">
-              <h5 class="card-title">Regaty o Puchar Rektora AGH</h5>
-              <p class="card-text">Zapraszamy na coroczne regaty o Puchar Rektora AGH. To wyjątkowa okazja do rywalizacji i dobrej zabawy.</p>
+              <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
+              <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
               <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
             </div>
           </div>
@@ -57,8 +57,8 @@
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Szkolenie">
             <div class="card-body">
-              <h5 class="card-title">Szkolenie z nawigacji</h5>
-              <p class="card-text">Organizujemy profesjonalne szkolenie z nawigacji morskiej. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
+              <h5 class="card-title">Treningi regatowe</h5>
+              <p class="card-text">Organizujemy profesjonalne treningi regatowe w Krakowie. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
               <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
             </div>
           </div>
@@ -67,9 +67,21 @@
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Rejs">
             <div class="card-body">
-              <h5 class="card-title">Rejs po Mazurach</h5>
-              <p class="card-text">Dołącz do naszego rejsu po malowniczych jeziorach mazurskich. Czeka na Ciebie wspaniała przygoda i piękne widoki.</p>
+              <h5 class="card-title">Czym właściwie jest Argo?</h5>
+              <p class="card-text">Czyli dlaczego "nie należy zaniedbywać nauki o pięknie"?</p>
               <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+              <div class="card-body">
+                <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
+                <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
+                <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+              </div>
             </div>
           </div>
         </div>
