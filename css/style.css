@@ -1,3 +1,4 @@
+/* --- GENERAL --- */
 html,
 body {
   margin: 0;
@@ -10,6 +11,7 @@ html {
   height: 100vh;
 }
 
+/* --- NAVBAR --- */
 .navbar {
   position: fixed;
   margin-bottom: 0;
@@ -24,14 +26,18 @@ html {
   transition: background-color 0.3s;
 }
 
+/* Navbar style on scroll */
 .navbar.scrolled {
     background-color: #1e3f66 !important;
 }
+
+/* Navbar logo image */
 .navbar .navbar-brand img {
   max-height: 40px; 
   width: auto;
 }
 
+/* Navbar brand text */
 .navbar .navbar-brand {
   padding-top: 0;
   padding-bottom: 0;
@@ -41,37 +47,35 @@ html {
   letter-spacing: 2px;
 }
 
-/* Brand and links */
+/* Navbar brand and link colors */
 .navbar .navbar-brand,
 .navbar .nav-link {
   color: #fff !important;
 }
 
-/* Hover effect */
+/* Navbar link hover effect */
 .navbar .nav-link:hover,
 .navbar .nav-item.active .nav-link {
   color: #2c5f88 !important;
   background-color: #fff !important;
 }
 
-/* Toggler icon color */
+/* Navbar toggler button */
 .navbar .navbar-toggler {
   border-color: transparent;
   color: #fff !important;
 }
 
-/* Optional: change toggler icon background */
+/* Navbar toggler icon */
 .navbar .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/*JUMBOTRON*/
+/* --- JUMBOTRON, LANDING PAGE --- */
 .argo-jumbotron {
   height: 100vh;
   background: linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
-    /*background: linear-gradient(to bottom right, #1e3f66, #2a4f7c),*/
-      /*background: linear-gradient(to bottom right, #1e3f66, #3d6fa5)*/
-      url("../storage/images/sea1.heic") center/cover no-repeat; /*add image */
+      url("../storage/images/sea1.heic") center/cover no-repeat;
   color: #fff;
   display: flex;
   align-items: center;
@@ -81,13 +85,13 @@ html {
   padding: 0 20px;
 }
 
-
-
+/* Jumbotron text color */
 .argo-jumbotron h1,
 .argo-jumbotron p {
   color: #fff;
 }
 
+/* Jumbotron title text */
 .argo-title {
   font-family: "Cinzel", serif;
   font-size: 4rem;
@@ -95,6 +99,7 @@ html {
   letter-spacing: 2px;
 }
 
+/* Jumbotron subtitle text */
 .argo-subtitle {
   font-family: "Inter", sans-serif;
   font-size: 1.5rem;
@@ -102,12 +107,14 @@ html {
   color: #cfd9e3;
 }
 
+/* Jumbotron tagline text */
 .argo-tagline {
   font-family: "Inter", sans-serif;
   font-size: 1.2rem;
   color: #9fb4cc;
 }
 
+/* Jumbotron button */
 .argo-jumbotron .btn {
   font-family: "Inter", sans-serif;
   padding: 0.75rem 1.5rem;
@@ -116,30 +123,21 @@ html {
   transition: all 0.3s ease;
 }
 
+/* Jumbotron button hover effect */
 .argo-jumbotron .btn:hover {
   background-color: #fff;
   color: #1e3f66;
 }
 
-.logo {
-  font-size: 200px;
-}
-@media screen and (max-width: 768px) {
-  .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-  }
-}
-.bg-grey {
-  background-color: #f6f6f6;
-}
-
+/* --- SECTIONS --- */
+/* Anchor for offsetting scroll position */
 .section-anchor {
   position: relative;
-  top: -80px; /* Same as your navbar height */
+  top: -80px; /* Same as navbar height */
   height: 0;
 }
 
+/* --- ABOUT SECTION --- */
 #about .display-4 {
   color: #1e3f66;
 }
@@ -158,27 +156,47 @@ html {
   border-color: #2c5f88;
 }
 
+/* --- BLOG/EVENTS SECTION --- */
+/* Card base style */
 #blog .card {
   border: none;
   transition: transform 0.3s;
 }
 
+/* Card hover effect */
 #blog .card:hover {
   transform: translateY(-10px);
 }
 
+/* Card title color */
 #blog .card-title {
   color: #1e3f66;
 }
 
+/* Card button style */
 #blog .btn-outline-secondary {
   color: #1e3f66;
   border-color: #1e3f66;
 }
 
+/* Card button hover effect */
 #blog .btn-outline-secondary:hover {
   background-color: #1e3f66;
   color: #fff;
+}
+
+/* --- CURRENTLY UNUSED --- */
+.logo {
+  font-size: 200px;
+}
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+  }
+}
+.bg-grey {
+  background-color: #f6f6f6;
 }
 
 
