@@ -146,6 +146,7 @@
     </div>
   </div>
 
+  <?php require 'layout/footer.php' ?>
 </body>
 
 </html>

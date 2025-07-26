@@ -201,6 +201,131 @@ html {
   object-position: center;
 }
 
+
+/* --- FOOTER --- */
+/* Footer base style: light bg, subtle border, main font */
+footer {
+  background-color: #f8f9fa; /* light background similar to bg-light */
+  border-top: 1px solid #e3e6ea; /* subtle top border for separation */
+  font-family: "Inter", sans-serif;
+  color: #1e3f66; /* main dark blue color */
+  padding: 1.5rem 0;
+}
+
+/* Footer container: flex layout, spaced and aligned nicely */
+footer .container {
+  display: flex;
+  flex-wrap: wrap; /* wrap on small screens */
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Left section: logo + Bootstrap 5 text */
+footer .logo-text {
+  font-family: "Cinzel", serif; /* heading font for logo text */
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1e3f66;
+  display: flex;
+  align-items: flex-start;;
+  gap: 0.5rem; /* space between logo and text */
+}
+
+/* Center section: main text + company name, centered */
+footer .center-text {
+  text-align: center;
+  flex-grow: 1; /* take available space */
+}
+
+/* Main text in center with Cinzel font, bigger and bold */
+footer .center-text .main-text {
+  font-family: 'Lora', serif; /* or Cormorant Garamond */
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}
+
+/* Sub-text with Inter, lighter blue */
+footer .center-text .sub-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #2c5f88;
+}
+
+/* Right section: contact info and social icons */
+footer .contact {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #1e3f66;
+  min-width: 180px; /* keep some width for layout consistency */
+  max-width: 190px;
+}
+
+/* Contact email link style */
+footer .contact a {
+  color: #1e3f66;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Contact email hover effect */
+footer .contact a:hover {
+  color: #2c5f88;
+}
+
+/* Social icons container spacing */
+footer .social-icons {
+  margin-top: 0.5rem;
+}
+
+/* Social icons base style: color, size and spacing */
+footer .social-icons a {
+  color: #1e3f66;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Social icons hover color change */
+footer .social-icons a:hover {
+  color: #2c5f88;
+}
+
+/* Creator credit text below footer, muted and italic */
+footer .creator-credit {
+  text-align: center;
+  color: #6c757d; /* muted gray */
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 767px) {
+  /* Stack footer content vertically and center align on small screens */
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Contact section centered with spacing */
+  footer .contact {
+    text-align: center;
+    min-width: auto;
+    margin-top: 1rem;
+  }
+
+  /* Reduce side margin on social icons */
+  footer .social-icons a {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+
+
 /* --- CURRENTLY UNUSED --- */
 .logo {
   font-size: 200px;
@@ -214,5 +339,3 @@ html {
 .bg-grey {
   background-color: #f6f6f6;
 }
-
-
