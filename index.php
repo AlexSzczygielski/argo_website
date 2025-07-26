@@ -60,7 +60,7 @@
               <!-- Card 1 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+                  <img src="storage/images/2025/AMP25.jpg" class="card-img-top" alt="Regaty">
                   <div class="card-body">
                     <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
                     <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
@@ -71,7 +71,7 @@
               <!-- Card 2 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Szkolenie">
+                  <img src="storage/images/2024/Amp1.jpg" class="card-img-top" alt="Szkolenie">
                   <div class="card-body">
                     <h5 class="card-title">Treningi regatowe</h5>
                     <p class="card-text">Organizujemy profesjonalne treningi regatowe w Krakowie. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
@@ -82,7 +82,7 @@
               <!-- Card 3 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Rejs">
+                  <img src="storage/images/argo_painting.jpg" class="card-img-top" alt="Rejs">
                   <div class="card-body">
                     <h5 class="card-title">Czym właściwie jest Argo?</h5>
                     <p class="card-text">Czyli dlaczego "nie należy zaniedbywać nauki o pięknie"?</p>
@@ -96,29 +96,36 @@
           <!-- Slide 2 -->
           <div class="carousel-item">
             <div class="row">
-              <!-- Reused Card 1 as a placeholder -->
+              <!-- Card 1 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+                  <img src="storage/images/2024/Amp2.jpg" class="card-img-top" alt="Regaty">
                   <div class="card-body">
-                    <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
-                    <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
+                    <h5 class="card-title">Nasze ostatnie starty</h5>
+                    <p class="card-text">Zobacz relacje z regat, w których bierzemy udział.</p>
                     <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
                   </div>
                 </div>
               </div>
-              <!-- Empty Cards or Future Items -->
+              <!-- Card 2 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/2024/boat_sleep.webp" class="card-img-top" alt="Regaty">
                   <div class="card-body text-center">
-                    <p class="card-text">Nowe wydarzenia już wkrótce!</p>
+                    <h5 class="card-title">Jak dbamy o sprzęt?</h5>
+                    <p class="card-text">Uchylamy rąbka tajemnicy przygotowania najszybszych akademickich łódek.</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
                   </div>
                 </div>
               </div>
+              <!-- Card 3 -->
               <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/2024/boat_storage.webp" class="card-img-top" alt="Regaty">
                   <div class="card-body text-center">
-                    <p class="card-text">Bądź na bieżąco!</p>
+                    <h5 class="card-title">Pozostałe</h5>
+                    <p class="card-text">Zobacz resztę wpisów</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
                   </div>
                 </div>
               </div>
