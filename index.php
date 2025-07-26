@@ -21,7 +21,6 @@
       <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a>
     </div>
   </div>
-  <!---->
 
   <!-- O Nas Section -->
   <div id="about-anchor" class="section-anchor"></div>
@@ -38,72 +37,107 @@
       </div>
     </div>
   </div>
-  <!---->
 
   <!-- Wydarzenia Section -->
   <div id="blog-anchor" class="section-anchor"></div>
   <div id="blog" class="bg-light py-5">
     <div class="container">
       <h2 class="text-center display-4">Wydarzenia</h2>
-      <!--Row 1-->
-      <div class="row mt-4">
-        <!--Card 1-->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
-            <div class="card-body">
-              <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
-              <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+
+      <div id="eventsCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel">
+        <!-- Carousel -->
+        <div class="carousel-inner">
+
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          </div>
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <div class="row">
+              <!-- Card 1 -->
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+                  <div class="card-body">
+                    <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
+                    <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Szkolenie">
+                  <div class="card-body">
+                    <h5 class="card-title">Treningi regatowe</h5>
+                    <p class="card-text">Organizujemy profesjonalne treningi regatowe w Krakowie. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Rejs">
+                  <div class="card-body">
+                    <h5 class="card-title">Czym właściwie jest Argo?</h5>
+                    <p class="card-text">Czyli dlaczego "nie należy zaniedbywać nauki o pięknie"?</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <div class="row">
+              <!-- Reused Card 1 as a placeholder -->
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+                  <div class="card-body">
+                    <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
+                    <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Empty Cards or Future Items -->
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <div class="card-body text-center">
+                    <p class="card-text">Nowe wydarzenia już wkrótce!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <div class="card-body text-center">
+                    <p class="card-text">Bądź na bieżąco!</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <!---->
-        <!-- CARD 2 -->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="storage/images/sea2.jpg" class="card-img-top" alt="Szkolenie">
-            <div class="card-body">
-              <h5 class="card-title">Treningi regatowe</h5>
-              <p class="card-text">Organizujemy profesjonalne treningi regatowe w Krakowie. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
-            </div>
-          </div>
-        </div>
-        <!---->
-        <!-- CARD 3 -->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="storage/images/sea2.jpg" class="card-img-top" alt="Rejs">
-            <div class="card-body">
-              <h5 class="card-title">Czym właściwie jest Argo?</h5>
-              <p class="card-text">Czyli dlaczego "nie należy zaniedbywać nauki o pięknie"?</p>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
-            </div>
-          </div>
-        </div>
-        <!---->
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Poprzedni</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Następny</span>
+        </button>
       </div>
-      <!---->
-      <!-- ROW 2 -->
-      <div class="row mt-4">
-        <!-- CARD 1 -->
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
-            <div class="card-body">
-              <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
-              <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
-            </div>
-          </div>
-        </div>
-        <!---->
-      </div>
-      <!---->
     </div>
   </div>
-  <!---->
 
 </body>
 
