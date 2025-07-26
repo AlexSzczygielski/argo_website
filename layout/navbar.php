@@ -2,6 +2,8 @@
 //remove query string, to allow passing pages with query
 $request_uri = strtok($_SERVER['REQUEST_URI'], '?'); // Remove query string
 
+
+//Redirect to index if no php
 if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
   $active_site = "index";
 } else {
@@ -9,55 +11,69 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 }
 ?>
 
+<!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container-fluid">
+    <!-- Logo/Text Logo -->
     <a class="navbar-brand" href="#home">Argo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    <!---->
     <div class="collapse navbar-collapse" id="myNavbar">
+      <!--Navbar Content-->
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#about-anchor">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sponsor-anchor">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="#blog-anchor">Wydarzenia</a></li>
-        <li class="nav-item"><a class="nav-link" href="#services">Współpraca</a></li>
-        <li class="nav-item"><a class="nav-link" href="#portfolio">Dołącz</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
+        <li class="nav-item"><a class="nav-link" href="#join">Dołącz</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact-anchor">Kontakt</a></li>
       </ul>
+      <!---->
     </div>
   </div>
 </nav>
+<!---->
 
 <script>
-  $(document).ready(function () {
-  var navbarHeight = $('.navbar').outerHeight(true); // Measure it once
+  $(document).ready(function() {
+    // Store the navbar's height to offset scroll position accurately.
+    var navbarHeight = $('.navbar').outerHeight(true);
 
-  $(".navbar a").on('click', function (event) {
-    if (this.hash !== "") {
-      event.preventDefault();
+    /**
+     * Smooth scrolling for anchor links within the navbar.
+     * When a nav link with a hash is clicked, this prevents the default jump,
+     * and smoothly animates the scroll to the target element.
+     */
+    $(".navbar a").on('click', function(event) {
+      if (this.hash !== "") {
+        event.preventDefault();
 
-      var hash = this.hash; // ✅ Define hash immediately
+        // Store the hash from the clicked link.
+        var hash = this.hash;
 
-      console.log("Clicked link to:", hash);
-      console.log("Target offset:", $(hash).offset().top);
-      console.log("Navbar height:", navbarHeight);
+        // Animate the scroll to the target element.
+        // The scroll position is offset by the navbar's height to prevent the
+        // target section from being hidden behind the fixed navbar.
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top - navbarHeight
+        }, 900, function() {
+          // After the animation completes, update the URL hash.
+          window.location.hash = hash;
+        });
+      }
+    });
 
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top - navbarHeight
-      }, 900, function () {
-        window.location.hash = hash; // ✅ Now hash is defined
-      });
-    }
+    /**
+     * Allows for applying different styles to the navbar,
+     * once the user has scrolled past a certain point.
+     */
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 50) {
+        $('.navbar').addClass('scrolled');
+      } else {
+        $('.navbar').removeClass('scrolled');
+      }
+    });
   });
-
-  // Optional: Add class when scrolling past 50px
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 50) {
-      $('.navbar').addClass('scrolled');
-    } else {
-      $('.navbar').removeClass('scrolled');
-    }
-  });
-});
-
 </script>

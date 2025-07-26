@@ -12,6 +12,7 @@
 <body>
   <?php require 'layout/navbar.php' ?>
 
+  <!-- Jumbotron Welcome Page-->
   <div class="argo-jumbotron" id="home">
     <div class="container text-center">
       <h1 class="argo-title">Argo</h1>
@@ -20,8 +21,9 @@
       <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a>
     </div>
   </div>
+  <!---->
 
-  <!-- About Section -->
+  <!-- O Nas Section -->
   <div id="about-anchor" class="section-anchor"></div>
   <div id="about" class="container py-5">
     <div class="row align-items-center">
@@ -36,13 +38,16 @@
       </div>
     </div>
   </div>
+  <!---->
 
-  <!-- Values Section -->
+  <!-- Wydarzenia Section -->
   <div id="blog-anchor" class="section-anchor"></div>
   <div id="blog" class="bg-light py-5">
     <div class="container">
       <h2 class="text-center display-4">Wydarzenia</h2>
+      <!--Row 1-->
       <div class="row mt-4">
+        <!--Card 1-->
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
@@ -53,6 +58,8 @@
             </div>
           </div>
         </div>
+        <!---->
+        <!-- CARD 2 -->
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Szkolenie">
@@ -63,6 +70,8 @@
             </div>
           </div>
         </div>
+        <!---->
+        <!-- CARD 3 -->
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <img src="storage/images/sea2.jpg" class="card-img-top" alt="Rejs">
@@ -73,21 +82,28 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4">
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
-              <div class="card-body">
-                <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
-                <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
-                <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
-              </div>
+        <!---->
+      </div>
+      <!---->
+      <!-- ROW 2 -->
+      <div class="row mt-4">
+        <!-- CARD 1 -->
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="storage/images/sea2.jpg" class="card-img-top" alt="Regaty">
+            <div class="card-body">
+              <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
+              <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
             </div>
           </div>
         </div>
+        <!---->
       </div>
+      <!---->
     </div>
   </div>
+  <!---->
 
 </body>
 
