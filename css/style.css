@@ -75,7 +75,7 @@ html {
 .argo-jumbotron {
   height: 100vh;
   background: linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
-      url("../storage/images/sea1.heic") center/cover no-repeat;
+      url("../storage/images/background_sea_fallback.jpg") center/cover no-repeat; /*@supports!*/
   color: #fff;
   display: flex;
   align-items: center;
@@ -83,6 +83,15 @@ html {
   text-align: center;
   position: relative;
   padding: 0 20px;
+}
+
+/* WebP, if browser supports WebP use it instead of jpg*/
+@supports (background-image: url("image.webp")) {
+  .argo-jumbotron {
+    background: 
+      linear-gradient(rgba(30, 63, 102, 0.8), rgba(30, 63, 102, 0.8)),
+      url("../storage/images/background_sea.webp") center/cover no-repeat;
+  }
 }
 
 /* Jumbotron text color */
