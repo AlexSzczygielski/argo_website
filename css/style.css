@@ -194,6 +194,13 @@ html {
   color: #fff;
 }
 
+#blog .card-img-top {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* --- CURRENTLY UNUSED --- */
 .logo {
   font-size: 200px;
