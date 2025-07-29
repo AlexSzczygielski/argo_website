@@ -307,14 +307,22 @@ footer .creator-credit {
   /* Stack footer content vertically and center align on small screens */
   footer .container {
     flex-direction: column;
+    align-items: center; /* Center items horizontally */
     text-align: center;
+    gap: 1.5rem; /* Add space between stacked items */
   }
 
-  /* Contact section centered with spacing */
+  /* Center logo text content */
+  footer .logo-text {
+    justify-content: center;
+  }
+
+  /* Adjust contact section for centered layout */
   footer .contact {
     text-align: center;
     min-width: auto;
-    margin-top: 1rem;
+    max-width: 100%; /* Allow it to take full width */
+    margin-top: 0; /* Remove margin, use gap instead */
   }
 
   /* Reduce side margin on social icons */
