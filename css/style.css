@@ -322,7 +322,29 @@ footer .creator-credit {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
+
+  /* Responsive font sizes for smaller screens */
+  .argo-title {
+    font-size: 3rem;
+  }
+
+  .argo-subtitle {
+    font-size: 1.2rem;
+  }
+
+  #about .display-4 {
+    font-size: 2.5rem;
+  }
+
+  #blog .card-title {
+    font-size: 1rem;
+  }
+
+  #blog .card-text {
+    font-size: 0.9rem;
+  }
 }
+/* ------ */
 
 
 

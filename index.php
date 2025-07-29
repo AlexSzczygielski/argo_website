@@ -18,7 +18,8 @@
       <h1 class="argo-title">Argo</h1>
       <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
       <p class="argo-tagline">Inspired by Ancient Mariners. Driven to Win.</p>
-      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a>
+      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
+      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
     </div>
   </div>
 
@@ -26,7 +27,7 @@
   <div id="about-anchor" class="section-anchor"></div>
   <div id="about" class="container py-5">
     <div class="row align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
         <h2 class="display-4">O nas</h2>
         <p class="lead">Argo to studencki klub regatowy z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
         <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
@@ -58,7 +59,7 @@
           <div class="carousel-item active">
             <div class="row">
               <!-- Card 1 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/2025/AMP25.jpg" class="card-img-top" alt="Regaty">
                   <div class="card-body">
@@ -69,7 +70,7 @@
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/2024/Amp1.jpg" class="card-img-top" alt="Szkolenie">
                   <div class="card-body">
@@ -80,7 +81,7 @@
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/argo_painting.jpg" class="card-img-top" alt="Rejs">
                   <div class="card-body">
@@ -97,7 +98,7 @@
           <div class="carousel-item">
             <div class="row">
               <!-- Card 1 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/2024/Amp2.jpg" class="card-img-top" alt="Regaty">
                   <div class="card-body">
@@ -108,7 +109,7 @@
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/2024/boat_sleep.webp" class="card-img-top" alt="Regaty">
                   <div class="card-body text-center">
@@ -119,7 +120,7 @@
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="col-md-4">
+              <div class="col-6 col-md-4">
                 <div class="card mb-4 shadow-sm">
                   <img src="storage/images/2024/boat_storage.webp" class="card-img-top" alt="Regaty">
                   <div class="card-body text-center">
