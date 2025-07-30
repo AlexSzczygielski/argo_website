@@ -11,7 +11,7 @@
 
 <body>
   <?php require 'layout/navbar.php' ?>
-  
+
   <div id="blog-anchor" class="section-anchor"></div>
   <div id="blog" class="bg-light py-5">
     <div class="container">
@@ -67,12 +67,48 @@
           </div>
         </div>
 
-        <!-- Add more cards -->
-      </div>
+        <!-- Add more cards to show at start below -->
 
+      </div>
+    </div>
+
+    <!-- Pozostale (starsze) Wyswietl Wszystko -->
+    <!-- Read All button -->
+    <br><br><br>
+    <div id="show_more" class="text-center">
+      <div class="container">
+        <div id="blog_more" class="bg-light py-5">
+          <span id="show_more" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</span>
+          <div class="show_more_group_container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+              <!-- Card 4 -->
+              <div class="col">
+                <div class="card h-100 shadow-sm">
+                  <img src="storage/images/2024/boat_storage.webp" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Kolejny wpis</h5>
+                    <p class="card-text">Opis wpisu lub wydarzenia do pokazania w skrócie.</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Czytaj dalej</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+
+
+  <script>
+    $('.argo-blog-more-btn').on('click', function(e) {
+      console.log("here");
+      $(this).hide();
+      //$(this).parent().find('.show_more_button').hide();
+      $(this).parent().find('.show_more_group_container').show();
+    });
+  </script>
   <?php require 'layout/footer.php' ?>
 </body>
 

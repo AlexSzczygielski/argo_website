@@ -15,7 +15,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 <nav class="navbar navbar-expand-lg navbar-light fixed-top <?php echo ($active_site === 'index') ? 'navbar-transparent' : ''; ?>">
   <div class="container-fluid">
     <!-- Logo/Text Logo -->
-    <a class="navbar-brand" href="#home">Argo</a>
+    <a class="navbar-brand" href="<?php echo ($active_site === 'index') ? '#home' : $base_url . '/#home'; ?>">Argo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

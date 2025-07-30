@@ -212,6 +212,37 @@ html {
   object-position: center;
 }
 
+/* Blog section CTA button: clean flat modern design */
+.btn.btn-outline-secondary.argo-blog-more-btn {
+  font-family: "Inter", sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  padding: 0.8rem 2.2rem !important;
+  border-radius: 8px !important;
+  letter-spacing: 0.5px !important;
+  background-color: transparent !important;
+  color: #1e3f66 !important;
+  border: 2px solid #1e3f66 !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn.btn-outline-secondary.argo-blog-more-btn:hover {
+  background-color: #1e3f66 !important;
+  color: #fff !important;
+  border-color: #1e3f66 !important;
+}
+
+.show_more_button,
+.show_more_group_button {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.show_more_container,
+.show_more_group_container {
+  display: none;
+}
 
 /* --- FOOTER --- */
 /* Footer base style: light bg, subtle border, main font */
@@ -312,6 +343,7 @@ footer .creator-credit {
   font-size: 0.8rem;
   font-style: italic;
 }
+
 
 /* --- RESPONSIVE --- */
 @media (max-width: 767px) {
