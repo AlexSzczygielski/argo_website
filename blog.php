@@ -81,6 +81,7 @@
           <span id="show_more" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</span>
           <div class="show_more_group_container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
               <!-- Card 4 -->
               <div class="col">
                 <div class="card h-100 shadow-sm">
@@ -92,6 +93,9 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Add older cards here -->
+               
             </div>
           </div>
         </div>
