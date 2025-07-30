@@ -134,15 +134,20 @@
           </div>
         </div>
 
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+        <!-- Controls for carousel -->
+        <!--<button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Poprzedni</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Następny</span>
-        </button>
+        </button>-->
+      </div>
+
+      <!-- Read All button -->  
+      <div class="text-center">
+        <a href="blog.php" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</a>
       </div>
     </div>
   </div>
