@@ -2,7 +2,7 @@
 //remove query string, to allow passing pages with query
 $request_uri = strtok($_SERVER['REQUEST_URI'], '?'); // Remove query string
 
-
+$base_url = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 //Redirect to index if no php
 if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
   $active_site = "index";
@@ -23,11 +23,11 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     <div class="collapse navbar-collapse" id="myNavbar">
       <!--Navbar Content-->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#about-anchor">O nas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#sponsor-anchor">Współpraca</a></li>
-        <li class="nav-item"><a class="nav-link" href="#blog-anchor">Wydarzenia</a></li>
-        <li class="nav-item"><a class="nav-link" href="#join">Dołącz</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact-anchor">Kontakt</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#about-anchor'; ?>">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#sponsor-anchor'; ?>">Współpraca</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#blog-anchor';?>">Wydarzenia</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#join'?>">Dołącz</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#contact-anchor'?>">Kontakt</a></li>
       </ul>
       <!---->
     </div>
@@ -35,6 +35,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 </nav>
 <!---->
 
+<?php if ($active_site === 'index'): ?>
 <script>
   $(document).ready(function() {
     // Store the navbar's height to offset scroll position accurately.
@@ -77,3 +78,4 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     });
   });
 </script>
+<?php endif; ?>
