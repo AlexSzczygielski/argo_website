@@ -7,7 +7,7 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ## Table of Contents
 
-- [🛠️ Setup and Deployment](#-setup-and-deployment)  
+- [🛠 Setup and Deployment](#-setup-and-deployment)  
 - [🚀 Technologies Used](#-technologies-used)  
 - [📝 Project Structure](#-project-structure)  
 - [🔎 Key Components](#-key-components)  
@@ -18,7 +18,7 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ---
 
-## 🛠️ Setup and Deployment
+## 🛠 Setup and Deployment
 
 1. Open VPN connection with AGH servers.
 2. Log into Argo AGH server through SSH protocol (instructions + password [panel.agh.edu.pl](https://panel.agh.edu.pl/)).
