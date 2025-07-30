@@ -32,40 +32,13 @@
       <!-- Grid of blog cards -->
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <!-- Card 1 -->
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <img src="storage/images/2024/Amp1.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Tytuł wpisu</h5>
-              <p class="card-text">Krótki opis wydarzenia lub wpisu blogowego.</p>
-              <a href="#" class="btn btn-outline-primary btn-sm">Czytaj dalej</a>
-            </div>
-          </div>
-        </div>
+        <?php require 'blog/cards/treningi_card.php' ?>
 
         <!-- Card 2 -->
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <img src="storage/images/2024/Amp2.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Kolejny wpis</h5>
-              <p class="card-text">Opis wpisu lub wydarzenia do pokazania w skrócie.</p>
-              <a href="#" class="btn btn-outline-primary btn-sm">Czytaj dalej</a>
-            </div>
-          </div>
-        </div>
+        <?php require 'blog/cards/treningi_card.php' ?>
 
         <!-- Card 3 -->
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <img src="storage/images/2024/boat_storage.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Kolejny wpis</h5>
-              <p class="card-text">Opis wpisu lub wydarzenia do pokazania w skrócie.</p>
-              <a href="#" class="btn btn-outline-primary btn-sm">Czytaj dalej</a>
-            </div>
-          </div>
-        </div>
+        <?php require 'blog/cards/ostatnie_starty.php' ?>
 
         <!-- Add more cards to show at start below -->
 
@@ -83,16 +56,7 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
               <!-- Card 4 -->
-              <div class="col">
-                <div class="card h-100 shadow-sm">
-                  <img src="storage/images/2024/boat_storage.webp" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Kolejny wpis</h5>
-                    <p class="card-text">Opis wpisu lub wydarzenia do pokazania w skrócie.</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">Czytaj dalej</a>
-                  </div>
-                </div>
-              </div>
+              <?php require 'blog/cards/ostatnie_starty.php' ?>
 
               <!-- Add older cards here -->
                
