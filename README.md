@@ -7,14 +7,14 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ## Table of Contents
 
-- [🛠️ Setup and Deployment](#setup-and-deployment)  
-- [🚀 Technologies Used](#technologies-used)  
-- [📝 Project Structure](#project-structure)  
-- [🔎 Key Components](#key-components)  
-- [🎨 Styling and Responsiveness](#styling-and-responsiveness)  
+- [🛠️ Setup and Deployment](#-setup-and-deployment)  
+- [🚀 Technologies Used](#-technologies-used)  
+- [📝 Project Structure](#-project-structure)  
+- [🔎 Key Components](#-key-components)  
+- [🎨 Styling and Responsiveness](#-styling-and-responsiveness)  
 - [Dynamic Navigation Bar](#dynamic-navigation-bar)  
 - [Smooth Scrolling](#smooth-scrolling)  
-- [🔢Versioning](#versioning)   
+- [🔢Versioning](#-versioning)   
 
 ---
 
