@@ -20,10 +20,10 @@
             <a href="argo.agh.edu.pl">argo.agh.edu.pl</a>
             <!-- Social icons with Font Awesome 6 -->
             <div class="social-icons">
-                <a href="https://facebook.com/yourpage" target="_blank" class="text-dark me-3" aria-label="Facebook">
+                <a href="https://facebook.com/" target="_blank" class="text-dark me-3" aria-label="Facebook">
                     <i class="fab fa-facebook-f fs-4"></i>
                 </a>
-                <a href="https://instagram.com/yourpage" target="_blank" class="text-dark" aria-label="Instagram">
+                <a href="https://instagram.com/" target="_blank" class="text-dark" aria-label="Instagram">
                     <i class="fab fa-instagram fs-4"></i>
                 </a>
             </div>

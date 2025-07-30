@@ -16,7 +16,7 @@ html {
   position: fixed;
   margin-bottom: 0;
   padding: 0;
-  background-color: transparent !important;
+  background-color: #1e3f66;
   z-index: 9999;
   border: 0;
   font-size: 12px !important;
@@ -24,6 +24,11 @@ html {
   letter-spacing: 4px;
   border-radius: 0;
   transition: background-color 0.3s;
+}
+
+/* Navbar with transparent functionality - for landing page */
+.navbar.navbar-transparent {
+  background-color: transparent !important;
 }
 
 /* Navbar style on scroll */
@@ -166,6 +171,12 @@ html {
 }
 
 /* --- BLOG/EVENTS SECTION --- */
+/* blog section styling */
+#blog {
+  min-height: 300px !important;
+  margin-top: 80px; /* to push below navbar */
+}
+
 /* Card base style */
 #blog .card {
   border: none;

@@ -12,7 +12,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 ?>
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top <?php echo ($active_site === 'index') ? 'navbar-transparent' : ''; ?>">
   <div class="container-fluid">
     <!-- Logo/Text Logo -->
     <a class="navbar-brand" href="#home">Argo</a>

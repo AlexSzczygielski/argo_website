@@ -65,7 +65,7 @@
                   <div class="card-body">
                     <h5 class="card-title">Akademickie Mistrzostwa Polski w Żeglarstwie 2025</h5>
                     <p class="card-text">Zobacz relację ze startu Argonautów w Akademickich Mistrzostwach Polski w Żeglarstwie.</p>
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+                    <a href="blog/AMP_2025.php" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
                   </div>
                 </div>
               </div>
