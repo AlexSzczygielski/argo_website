@@ -531,3 +531,16 @@ footer .creator-credit {
 .bg-grey {
   background-color: #f6f6f6;
 }
+
+/* --- PAGE TEMPLATE --- */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+  padding-top: 80px; /* Push content below the fixed navbar */
+  background-color: #f6f6f6; /* Light gray background */
+}

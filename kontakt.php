@@ -2,7 +2,7 @@
 <html lang="pl">
 
 <head>
-    <title>SKR Argo AGH - O nas</title>
+    <title>SKR Argo AGH - Kontakt</title>
     <?php require_once('layout/header.php'); ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -17,8 +17,8 @@
 
             <!-- Page content starts here -->
             <div class="container p-4">
-                <h1 class="mt-5">O nas</h1>
-                <p class="lead">Tutaj możesz dodać treść o sekcji.</p>
+                <h1 class="mt-5">Kontakt</h1>
+                <p class="lead">Tutaj możesz dodać treść.</p>
             </div>
             <!-- Page content ends here -->
 

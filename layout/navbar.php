@@ -26,8 +26,8 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
         <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#about-anchor'; ?>">O nas</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#sponsor-anchor' : $base_url . '/#sponsor-anchor'; ?>">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.php">Wydarzenia</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#join' : $base_url . '/#join' ?>">Dołącz</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#contact-anchor' : $base_url . '/#contact-anchor' ?>">Kontakt</a></li>
+        <li class="nav-item"><a class="nav-link" href="dolacz.php">Dołącz</a></li>
+        <li class="nav-item"><a class="nav-link" href="kontakt.php">Kontakt</a></li>
       </ul>
       <!---->
     </div>

@@ -18,8 +18,8 @@
       <h1 class="argo-title">Argo</h1>
       <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
       <p class="argo-tagline">Inspired by Ancient Mariners. Driven to Win.</p>
-      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
-      <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
+      <a href="dolacz.php" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
+      <a href="sponsorzy_oferta.php" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
     </div>
 
     <!-- Social Icons below navbar -->
@@ -41,7 +41,7 @@
         <h2 class="display-4">O nas</h2>
         <p class="lead">Argo to studencki klub regatowy z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
         <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
-        <a href="#contact" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
+        <a href="about.php" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
       </div>
       <div class="col-md-6 text-center">
         <img src="storage/images/argologo.png" alt="Argo Logo" class="img-fluid rounded-circle">
@@ -59,7 +59,7 @@
         <!-- Description -->
         <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim w stylu sztuki klasycznej, legitymacją AGH oraz częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.</p>
         <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej regatowej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
-        <a href="#contact" class="btn btn-primary btn-lg">Więcej informacji</a>
+        <a href="sponsorzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
       <div class="col-md-6 text-center">
         <div class="logos">
