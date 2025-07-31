@@ -57,8 +57,8 @@
         <!-- Heading -->
         <h2 class="display-4">Zostań naszym sponsorem</h2>
         <!-- Description -->
-        <p class="lead">Argo to dynamiczny klub regatowy, który angażuje studentów i pasjonatów żeglarstwa. Naszym celem jest rozwój regatowego żeglarstwa na poziomie akademickim oraz współpraca z firmami, które chcą się z nami rozwijać.</p>
-        <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej żeglarskiej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
+        <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim w stylu sztuki klasycznej, legitymacją AGH oraz częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.</p>
+        <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej regatowej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
         <a href="#contact" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
       <div class="col-md-6 text-center">

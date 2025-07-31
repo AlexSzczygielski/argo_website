@@ -517,6 +517,7 @@ footer .creator-credit {
   #blog .card-text {
     font-size: 0.9rem;
   }
+
 }
 /* ------ */
 
@@ -526,12 +527,7 @@ footer .creator-credit {
 .logo {
   font-size: 200px;
 }
-@media screen and (max-width: 768px) {
-  .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-  }
-}
+
 .bg-grey {
   background-color: #f6f6f6;
 }
