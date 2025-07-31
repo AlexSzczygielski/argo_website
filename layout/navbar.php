@@ -26,8 +26,8 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
         <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#about-anchor'; ?>">O nas</a></li>
         <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#sponsor-anchor' : $base_url . '/#sponsor-anchor'; ?>">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.php">Wydarzenia</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#join' : $base_url . '/#join'?>">Dołącz</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#contact-anchor' : $base_url . '/#contact-anchor'?>">Kontakt</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#join' : $base_url . '/#join' ?>">Dołącz</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#contact-anchor' : $base_url . '/#contact-anchor' ?>">Kontakt</a></li>
       </ul>
       <!---->
     </div>
@@ -36,46 +36,51 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 <!---->
 
 <?php if ($active_site === 'index'): ?>
-<script>
-  $(document).ready(function() {
-    // Store the navbar's height to offset scroll position accurately.
-    var navbarHeight = $('.navbar').outerHeight(true);
+  <script>
+    $(document).ready(function() {
+      // Store the navbar's height to offset scroll position accurately.
+      var navbarHeight = $('.navbar').outerHeight(true);
 
-    /**
-     * Smooth scrolling for anchor links within the navbar.
-     * When a nav link with a hash is clicked, this prevents the default jump,
-     * and smoothly animates the scroll to the target element.
-     */
-    $(".navbar a").on('click', function(event) {
-      if (this.hash !== "") {
-        event.preventDefault();
+      /**
+       * Smooth scrolling for anchor links within the navbar.
+       * When a nav link with a hash is clicked, this prevents the default jump,
+       * and smoothly animates the scroll to the target element.
+       */
+      $(".navbar a").on('click', function(event) {
+        if (this.hash !== "") {
+          event.preventDefault();
 
-        // Store the hash from the clicked link.
-        var hash = this.hash;
+          // Store the hash from the clicked link.
+          var hash = this.hash;
 
-        // Animate the scroll to the target element.
-        // The scroll position is offset by the navbar's height to prevent the
-        // target section from being hidden behind the fixed navbar.
-        $('html, body').animate({
-          scrollTop: $(hash).offset().top - navbarHeight
-        }, 900, function() {
-          // After the animation completes, update the URL hash.
-          window.location.hash = hash;
-        });
-      }
+          // Animate the scroll to the target element.
+          // The scroll position is offset by the navbar's height to prevent the
+          // target section from being hidden behind the fixed navbar.
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top - navbarHeight
+          }, 900, function() {
+            // After the animation completes, update the URL hash.
+            window.location.hash = hash;
+          });
+        }
+      });
+
+      /**
+       * Allows for applying different styles to the navbar,
+       * once the user has scrolled past a certain point.
+       */
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+          $('.navbar').addClass('scrolled');
+        } else {
+          $('.navbar').removeClass('scrolled');
+        }
+      });
+
+      //Toggle hamburger menu (narrow screens)
+      $('.navbar-toggler').on('click', function() {
+        $('#myNavbar').slideToggle(); // toggles the menu with a slide animation
+      });
     });
-
-    /**
-     * Allows for applying different styles to the navbar,
-     * once the user has scrolled past a certain point.
-     */
-    $(window).scroll(function() {
-      if ($(this).scrollTop() > 50) {
-        $('.navbar').addClass('scrolled');
-      } else {
-        $('.navbar').removeClass('scrolled');
-      }
-    });
-  });
-</script>
+  </script>
 <?php endif; ?>
