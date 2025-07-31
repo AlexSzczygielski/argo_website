@@ -208,7 +208,7 @@ html {
 
 /* --- SPONSOR SECTION --- */
 #sponsor {
-  max-width: 85%; 
+  max-width: 90%; 
   margin: 0 auto;
   background-color: #ffffff; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow for subtle depth */
