@@ -201,6 +201,13 @@ html {
 }
 
 /* --- BLOG/EVENTS SECTION --- */
+
+/* Adjust carousel width */
+#eventsCarousel {
+  max-width: 95%; /* Or any other percentage, e.g., 75%, 90% */
+  margin: 0 auto; /* Centers the carousel */
+}
+
 /* blog section styling */
 #blog {
   min-height: 300px !important;
@@ -210,7 +217,26 @@ html {
 /* Card base style */
 #blog .card {
   border: none;
+  height: 550px; /* Fixed card height */
+  display: flex;
+  flex-direction: column; /* Allow content to flow vertically */
   transition: transform 0.3s;
+  overflow: hidden; /* Ensure content stays within card boundaries */
+}
+
+/* Card content (title, text) */
+#blog .card-body {
+  display: flex;
+  flex-grow: 1; /* Allow content to grow */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Space out content */
+}
+
+/* Ensure the button is always at the bottom and aligned left */
+#blog .card-body .btn-outline-secondary {
+  margin-top: auto; /* Push button to the bottom */
+  align-self: flex-start; /* Align button to the left */
+  width: auto; /* Prevent button from stretching */
 }
 
 /* Card hover effect */
@@ -221,6 +247,7 @@ html {
 /* Card title color */
 #blog .card-title {
   color: #1e3f66;
+  margin-bottom: 1rem; /* Space between title and text */
 }
 
 /* Card button style */
@@ -242,7 +269,7 @@ html {
   object-position: center;
 }
 
-/* Blog section CTA button: clean flat modern design */
+/* Show more button, index */
 .btn.btn-outline-secondary.argo-blog-more-btn {
   font-family: "Inter", sans-serif !important;
   font-size: 1.25rem !important;
