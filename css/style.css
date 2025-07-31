@@ -269,9 +269,15 @@ html {
 /* --- BLOG/EVENTS SECTION --- */
 
 /* Adjust carousel width */
-#eventsCarousel {
+#eventsCarousel, #eventsCarouselDesktop, #eventsCarouselMobile {
   max-width: 95%; /* Or any other percentage, e.g., 75%, 90% */
   margin: 0 auto; /* Centers the carousel */
+}
+
+/* Move carousel indicators down */
+#eventsCarouselDesktop .carousel-indicators,
+#eventsCarouselMobile .carousel-indicators {
+  bottom: -20px; /* Adjust this value as needed */
 }
 
 /* blog section styling */

@@ -161,6 +161,7 @@
 
       <!-- Read All button -->
       <div class="text-center">
+        <br>
         <a href="blog.php" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</a>
       </div>
     </div>
