@@ -49,6 +49,28 @@
     </div>
   </div>
 
+  <!-- Wspolpraca/sponost Section -->
+  <div id="sponsor-anchor" class="section-anchor"></div>
+  <div id="sponsor" class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+        <!-- Heading -->
+        <h2 class="display-4">Zostań naszym sponsorem</h2>
+        <!-- Description -->
+        <p class="lead">Argo to dynamiczny klub regatowy, który angażuje studentów i pasjonatów żeglarstwa. Naszym celem jest rozwój regatowego żeglarstwa na poziomie akademickim oraz współpraca z firmami, które chcą się z nami rozwijać.</p>
+        <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej żeglarskiej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
+        <a href="#contact" class="btn btn-primary btn-lg">Więcej informacji</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="logos">
+          <!-- University 1 Logo -->
+          <img src="storage/images/agh_logo.svg" alt="University 1 Logo" class="sponsor-logo">
+          <!-- University 2 Logo -->
+          <img src="storage/images/azs_logo.webp" alt="University 2 Logo" class="sponsor-logo">
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Wydarzenia Section -->
   <div id="blog-anchor" class="section-anchor"></div>
   <div id="blog" class="bg-light py-5">
