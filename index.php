@@ -21,6 +21,16 @@
       <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
       <a href="#about-anchor" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
     </div>
+
+    <!-- Social Icons below navbar -->
+    <div class="social-icons">
+      <a href="https://facebook.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Facebook">
+        <i class="fab fa-facebook-f fs-4"></i>
+      </a>
+      <a href="https://instagram.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Instagram">
+        <i class="fab fa-instagram fs-4"></i>
+      </a>
+    </div>
   </div>
 
   <!-- O Nas Section -->
@@ -91,7 +101,7 @@
         </button>-->
       </div>
 
-      <!-- Read All button -->  
+      <!-- Read All button -->
       <div class="text-center">
         <a href="blog.php" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</a>
       </div>

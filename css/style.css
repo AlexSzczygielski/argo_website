@@ -143,6 +143,36 @@ html {
   color: #1e3f66;
 }
 
+/* --- SOCIAL ICONS INSIDE JUMBOTRON --- */
+.argo-jumbotron .social-icons {
+  position: absolute;
+  top: 60px; /* How much below navbar */
+  right: 10px; /* Position the icons on the right side */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.argo-jumbotron .social-icons a {
+  color: #fff;
+  margin-bottom: 5px; /* Margin between two icons */
+  padding: 1; /* Remove padding to make the icons smaller */
+  border: 0; /* Remove border from buttons to make them smaller */
+  background-color: transparent;
+  font-size: 10px;
+  transition: color 0.3s ease;
+}
+
+/* Icon size */
+.argo-jumbotron .social-icons a i {
+  font-size: 10px;
+}
+
+.argo-jumbotron .social-icons a:hover {
+  color: #2c5f88; /* Hover color */
+}
+
 /* --- SECTIONS --- */
 /* Anchor for offsetting scroll position */
 .section-anchor {
