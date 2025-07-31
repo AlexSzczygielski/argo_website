@@ -206,15 +206,15 @@ html {
   border-color: #2c5f88;
 }
 
-/* --- SPONSOR SECTION --- */
-#sponsor {
+/* --- PARTNER SECTION --- */
+#partners {
   max-width: 90%; 
   margin: 0 auto;
   background-color: #ffffff; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow for subtle depth */
 }
 
-#sponsor .display-4 {
+#partners .display-4 {
   font-family: 'Cinzel', serif; 
   color: #333333; 
   font-weight: 700;
@@ -223,7 +223,7 @@ html {
   text-transform: uppercase;
 }
 
-#sponsor .lead {
+#partners .lead {
   color: #666666; 
   font-weight: 400;
   font-size: 1.1rem;
@@ -231,7 +231,7 @@ html {
   font-family: 'Cinzel', serif; 
 }
 
-#sponsor .btn-primary {
+#partners .btn-primary {
   background-color: #1e3f66; 
   border-color: #1e3f66;
   padding: 0.75rem 2.5rem;
@@ -242,25 +242,25 @@ html {
   transition: all 0.3s ease;
 }
 
-#sponsor .btn-primary:hover {
+#partners .btn-primary:hover {
   background-color: #2c5f88; 
   border-color: #2c5f88;
   transform: translateY(-3px); 
 }
 
-#sponsor .logos {
+#partners .logos {
   display: flex;
   justify-content: center;
   gap: 30px;
 }
 
-#sponsor .sponsor-logo {
+#partners .partner-logo {
   max-width: auto;
   height: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#sponsor .sponsor-logo:hover {
+#partners .partner-logo:hover {
   transform: scale(1.05);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }

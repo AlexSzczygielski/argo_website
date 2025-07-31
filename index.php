@@ -49,24 +49,24 @@
     </div>
   </div>
 
-  <!-- Wspolpraca/sponost Section -->
-  <div id="sponsor-anchor" class="section-anchor"></div>
-  <div id="sponsor" class="container py-5">
+  <!-- Wspolpraca/partnerzy Section -->
+  <div id="partners-anchor" class="section-anchor"></div>
+  <div id="partners" class="container py-5">
     <div class="row align-items-center">
       <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
         <!-- Heading -->
-        <h2 class="display-4">Zostań naszym sponsorem</h2>
+        <h2 class="display-4">Zostań naszym partnerem</h2>
         <!-- Description -->
         <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim w stylu sztuki klasycznej, legitymacją AGH oraz częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.</p>
         <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej regatowej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
-        <a href="sponsorzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
+        <a href="partnerzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
       <div class="col-md-6 text-center">
         <div class="logos">
           <!-- University 1 Logo -->
-          <img src="storage/images/agh_logo.svg" alt="University 1 Logo" class="sponsor-logo">
+          <img src="storage/images/agh_logo.svg" alt="University 1 Logo" class="partner-logo">
           <!-- University 2 Logo -->
-          <img src="storage/images/azs_logo.webp" alt="University 2 Logo" class="sponsor-logo">
+          <img src="storage/images/azs_logo.webp" alt="University 2 Logo" class="partner-logo">
         </div>
       </div>
     </div>
