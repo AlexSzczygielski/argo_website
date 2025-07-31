@@ -497,27 +497,57 @@ footer .creator-credit {
     margin-right: 0.5rem;
   }
 
+  /* Reduce letter spacing in navbar */
+  .navbar {
+    letter-spacing: 2px;
+  }
+
   /* Responsive font sizes for smaller screens */
   .argo-title {
-    font-size: 3rem;
-  }
-
-  .argo-subtitle {
-    font-size: 1.2rem;
-  }
-
-  #about .display-4 {
     font-size: 2.5rem;
   }
 
-  #blog .card-title {
+  .argo-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .argo-tagline {
     font-size: 1rem;
+  }
+
+  #about .display-4,
+  #partners .display-4 {
+    font-size: 2.2rem;
+  }
+
+  /* Adjust partner logos for mobile */
+  #partners .partner-logo {
+    height: 150px;
+  }
+
+  /* Make blog cards responsive */
+  #blog .card {
+    height: auto; /* Let content define height */
+    margin-bottom: 1.5rem;
+  }
+
+  #blog .card-img-top {
+    height: 250px; /* Adjust image height for mobile */
+  }
+
+  #blog .card-title {
+    font-size: 1.2rem;
   }
 
   #blog .card-text {
     font-size: 0.9rem;
   }
 
+  /* Center cards in mobile carousel */
+  #eventsCarouselMobile .carousel-item .card {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 /* ------ */
 

@@ -77,50 +77,86 @@
     <div class="container">
       <h2 class="text-center display-4">Wydarzenia</h2>
 
-      <div id="eventsCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel">
-        <!-- Carousel -->
+      <!-- Carousel for Desktop (screens md and up) -->
+      <div id="eventsCarouselDesktop" class="carousel slide carousel-dark d-none d-md-block" data-bs-ride="carousel">
         <div class="carousel-inner">
-
-          <!-- Indicators -->
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="1" aria-label="Slide 2"></button>
           </div>
-
-          <!-- Slide 1 -->
+          <!-- Row 1 -->
           <div class="carousel-item active">
             <div class="row">
               <!-- Card 1 -->
-              <?php require 'blog/cards/amp2025_card.php' ?>
+              <div class="col-md-4">
+                <?php require 'blog/cards/amp2025_card.php' ?>
+              </div>
               <!-- Card 2 -->
-              <?php require 'blog/cards/treningi_card.php' ?>
+              <div class="col-md-4">
+                <?php require 'blog/cards/treningi_card.php' ?>
+              </div>
               <!-- Card 3 -->
-              <?php require 'blog/cards/argo_history_card.php' ?>
+              <div class="col-md-4">
+                <?php require 'blog/cards/argo_history_card.php' ?>
+              </div>
             </div>
           </div>
-
-          <!-- Slide 2 -->
+          <!-- Row 2 -->
           <div class="carousel-item">
             <div class="row">
-              <!-- Card 1 -->
-              <?php require 'blog/cards/ostatnie_starty.php' ?>
-              <!-- Card 2 -->
-              <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
-              <!-- Card 3 -->
-              <?php require 'blog/cards/pozostale_redirect_card.php' ?>
+              <!-- Card 4 -->
+              <div class="col-md-4">
+                <?php require 'blog/cards/ostatnie_starty.php' ?>
+              </div>
+              <!-- Card 5 -->
+              <div class="col-md-4">
+                <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
+              </div>
+              <!-- Card 6 -->
+              <div class="col-md-4">
+                <?php require 'blog/cards/pozostale_redirect_card.php' ?>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Controls for carousel -->
-        <!--<button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Poprzedni</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Następny</span>
-        </button>-->
+      <!-- Carousel for Mobile (screens sm and down) -->
+      <div id="eventsCarouselMobile" class="carousel slide carousel-dark d-block d-md-none" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="5" aria-label="Slide 6"></button>
+          </div>
+          <!-- Card 1 -->
+          <div class="carousel-item active">
+            <?php require 'blog/cards/amp2025_card.php' ?>
+          </div>
+          <!-- Card 2 -->
+          <div class="carousel-item">
+            <?php require 'blog/cards/treningi_card.php' ?>
+          </div>
+          <!-- Card 3 -->
+          <div class="carousel-item">
+            <?php require 'blog/cards/argo_history_card.php' ?>
+          </div>
+          <!-- Card 4 -->
+          <div class="carousel-item">
+            <?php require 'blog/cards/ostatnie_starty.php' ?>
+          </div>
+          <!-- Card 5 -->
+          <div class="carousel-item">
+            <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
+          </div>
+          <!-- Card 6 -->
+          <div class="carousel-item">
+            <?php require 'blog/cards/pozostale_redirect_card.php' ?>
+          </div>
+        </div>
       </div>
 
       <!-- Read All button -->
