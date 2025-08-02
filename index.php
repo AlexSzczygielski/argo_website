@@ -19,7 +19,7 @@
       <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
       <p class="argo-tagline">Inspired by Ancient Mariners. Driven to Win.</p>
       <a href="dolacz.php" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
-      <a href="sponsorzy_oferta.php" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
+      <a href="partnerzy_oferta.php" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
     </div>
 
     <!-- Social Icons below navbar -->
@@ -57,7 +57,8 @@
         <!-- Heading -->
         <h2 class="display-4">Zostań naszym partnerem</h2>
         <!-- Description -->
-        <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim w stylu sztuki klasycznej, legitymacją AGH oraz częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.</p>
+        <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, 
+          na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim, legitymacją AGH oraz częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.</p>
         <p>Jeśli chcesz wspierać młodych sportowców i być częścią naszej regatowej społeczności, dołącz do nas i pomóż tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
         <a href="partnerzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
