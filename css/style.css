@@ -125,7 +125,15 @@ html {
 .argo-tagline {
   font-family: "Inter", sans-serif;
   font-size: 1.2rem;
+  margin-bottom: 0.1rem;
   color: #9fb4cc;
+}
+
+/* Jumbotron motto's author text */
+.argo-author-credit {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: #89a0bb !important;
 }
 
 /* Jumbotron button */

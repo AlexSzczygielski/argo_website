@@ -4,4 +4,5 @@ return [
     'argo_history',
     'treningi',
     'dbamy_sprzet',
+    'AMP_2024',
 ];

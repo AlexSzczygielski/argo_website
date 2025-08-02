@@ -24,10 +24,8 @@
                     <div class="col-md-8">
                         <section class="mb-5">
                             <p class="lead">
-                                Argo to wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji na szerokiej arenie zawodów akademickich, 
-                                na ogólnokrajowym poziomie. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i organizacji, a to w połączeniu z naszym unikatowym motywem przewodnim, legitymacją AGH oraz 
-                                częstymi wizytami na podium zapewni ekspozycję na trudno dostępnych w innych kanałach promocyjnych klientów.
-                            </p>
+                                Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji podczas różnorodnych zawodów akademickich,
+                                odbywających się na poziomie ogólnokrajowym. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i wiele ważnych organizacji, a to w połączeniu z naszym wyjątkowym motywem przewodnim, legitymacją AGH oraz częstymi sukcesami na podium, zapewni możliwość zaprezentowania Państwa wizerunku, unikatowym i niszowym klientom.</p>
                         </section>
 
                         <section class="mb-5">
@@ -40,8 +38,8 @@
                             </ul>
                         </section>
 
-                            <!-- Formularz zgloszenowy -->
-                            <a href="Kontakt.php" class="btn btn-primary">Skontaktuj się z nami</a>
+                        <!-- Formularz zgloszenowy -->
+                        <a href="Kontakt.php" class="btn btn-primary">Skontaktuj się z nami</a>
                         </section>
                     </div>
 

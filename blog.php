@@ -20,25 +20,31 @@
       <!-- Featured blog post -->
       <div class="row mb-5">
         <div class="col-md-8">
-          <img src="storage/images/2025/AMP25.jpg" class="img-fluid rounded mb-3" alt="Featured">
+          <img src="storage/images/2024/AMP24.jpg" class="img-fluid rounded mb-3" alt="Featured">
         </div>
         <div class="col-md-4 d-flex flex-column justify-content-center">
           <h3 class="fw-bold">Akademickie Mistrzostwa Polski 2024</h3>
-          <p>To jest krótki opis głównego wpisu blogowego. Można tutaj umieścić streszczenie najnowszego wydarzenia.</p>
-          <a href="#" class="btn btn-primary mt-2">Czytaj więcej</a>
+          <p>Krótki opis głównego wpisu blogowego. Streszczenie głównego wydarzenia.</p>
+          <a href="blog_post.php?page=AMP_2024" class="btn btn-primary mt-2">Czytaj więcej</a>
         </div>
       </div>
 
       <!-- Grid of blog cards -->
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <!-- Card 1 -->
-        <?php require 'blog/cards/treningi_card.php' ?>
+        <?php require 'blog/cards/amp2025_card.php' ?>
 
         <!-- Card 2 -->
         <?php require 'blog/cards/treningi_card.php' ?>
 
         <!-- Card 3 -->
-        <?php require 'blog/cards/ostatnie_starty_card.php' ?>
+        <?php require 'blog/cards/argo_history_card.php' ?>
+
+        <!-- Card 4 -->
+        <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
+
+        <!-- Card 5 -->
+        <?php require 'blog/cards/amp2024_card.php' ?>
 
         <!-- Add more cards to show at start below -->
 
@@ -55,7 +61,7 @@
           <div class="show_more_group_container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-              <!-- Card 4 -->
+              <!-- Card ? -->
               <?php require 'blog/cards/ostatnie_starty_card.php' ?>
 
               <!-- Add older cards here -->

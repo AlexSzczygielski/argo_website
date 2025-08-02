@@ -24,8 +24,8 @@
                     <div class="col-md-8">
                         <section class="mb-5">
                             <p class="lead">
-                                Do naszej organizacji zapraszamy wszystkich aktywnych studentów/doktorantów AGH. Dla osób z doświadczeniem regatowym oferujemy ściagnie się w jednej z najbardziej wymagającej stawek w Polsce.
-                                Dla osób bez doświadczenia regatowego oferujemy możliwość pierwszego kontaktu z najpiękniejszą formą żeglarstwa, w trakcie naszych treningów bezpiecznie i pod okiem doświadczonych zawodników i trenerów. Wspólnie będziemy rozwijać Twoje umiejętności żeglarskie i pasję do regat.
+                                Do naszej organizacji zapraszamy wszystkich aktywnych studentów/doktorantów AGH. Dla osób z doświadczeniem regatowym oferujemy ściganie się w jednej z najbardziej wymagającej stawek w Polsce.
+                                Dla osób bez doświadczenia regatowego oferujemy możliwość poznania najpiękniejszej formy żeglarstwa, które może być sportowym wyzwaniem, zapraszając wszystkich chętnych na nasze treningi odbywające się bezpiecznie pod okiem doświadczonych zawodników i trenerów. Wspólnie będziemy rozwijać Twoje umiejętności żeglarskie i pasję do regat.
                             </p>
                         </section>
 
@@ -48,7 +48,7 @@
                             <br>
                             <h2>Spróbuj swoich sił!</h2>
                             <p>
-                                Masz dodatkowe pytania? Skontaktuj się z nami poprzez e-mail <a href="mailto:argo@agh.edu.pl">argo@agh.edu.pl</a> lub przyjdź na trening, — chętnie odpowiemy na wszystkie i zachęcimy Cię do wstąpienia w nasze szeregi.
+                                Masz dodatkowe pytania? Skontaktuj się z nami poprzez e-mail <a href="mailto:argo@agh.edu.pl">argo@agh.edu.pl</a> lub przyjdź na trening, — chętnie udzielimy odpowiedzi i zachęcimy Cię do wstąpienia w nasze szeregi.
                             </p>
                             <!-- Formularz zgloszenowy -->
                             <a href="dolacz.php" class="btn btn-primary">Dołącz do nas!</a>

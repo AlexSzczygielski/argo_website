@@ -19,7 +19,7 @@
             <div class="container p-4">
                 <h1 class="mt-5"><strong>Kontakt:</strong></h1>
                 <p class="lead">
-                    Argo Studenckie Koło Regatowe Akademii Górniczo - Hutniczej<br>
+                    Studenckie Koło Regatowe Argo Akademii Górniczo-Hutniczej<br>
                     al. Mickiewicza 30<br>
                     30-059 Kraków<br>
                     <a href="mailto:argo@agh.edu.pl">argo@agh.edu.pl</a>

@@ -31,10 +31,10 @@
                         <section class="mb-5">
                             <h2>Założenia naszej organizacji</h2>
                             <ul>
-                                <li>Popularyzacja żeglarstwa regatowego wśród wspólnoty akademickiej,</li>
-                                <li>Popularyzacja i doskonalenie umiejętności żeglarskich w zakresie rywalizacji sportowej,</li>
+                                <li>Popularyzacja żeglarstwa regatowego wśród wspólnoty akademickiej</li>
+                                <li>Popularyzacja i doskonalenie umiejętności żeglarskich w zakresie rywalizacji sportowej</li>
                                 <li>Organizacja wyjazdów i treningów regatowych na wodach śródlądowych oraz przybrzeżnych</li>
-                                <li>Organizacja zawodów – regat żeglarskich na arenie uczelnianej - wydziałowej, międzywydziałowej, a także ogólnopolskiej. </li>
+                                <li>Organizacja zawodów – regat żeglarskich na arenie uczelnianej - wydziałowej, międzywydziałowej, a także ogólnopolskiej</li>
                             </ul>
                         </section>
 
