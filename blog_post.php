@@ -2,7 +2,7 @@
 <html lang="pl">
 
 <head>
-    <title>SKR Argo AGH - AMP 2025</title>
+    <title>SKR Argo AGH - Blog</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">

@@ -3,6 +3,6 @@
     <div class="card-body">
         <h5 class="card-title">Nasze ostatnie starty</h5>
         <p class="card-text">Podsumowanie ostatnich startów i osiągnięć naszych załóg. Zobacz, gdzie rywalizowaliśmy i jakie odnieśliśmy sukcesy.</p>
-        <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+        <a href="blog.php" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
     </div>
 </div>

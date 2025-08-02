@@ -11,6 +11,6 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     <div class="card-body">
         <h5 class="card-title">Treningi regatowe</h5>
         <p class="card-text">Organizujemy profesjonalne treningi regatowe w Krakowie. Zdobądź nowe umiejętności i poczuj się pewniej na wodzie.</p>
-        <a href="#" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
+        <a href="blog_post.php?page=treningi" class="btn btn-sm btn-outline-secondary">Czytaj więcej</a>
     </div>
 </div>

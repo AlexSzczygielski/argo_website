@@ -107,7 +107,7 @@
             <div class="row">
               <!-- Card 4 -->
               <div class="col-md-4">
-                <?php require 'blog/cards/ostatnie_starty.php' ?>
+                <?php require 'blog/cards/ostatnie_starty_card.php' ?>
               </div>
               <!-- Card 5 -->
               <div class="col-md-4">
@@ -147,7 +147,7 @@
           </div>
           <!-- Card 4 -->
           <div class="carousel-item">
-            <?php require 'blog/cards/ostatnie_starty.php' ?>
+            <?php require 'blog/cards/ostatnie_starty_card.php' ?>
           </div>
           <!-- Card 5 -->
           <div class="carousel-item">

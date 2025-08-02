@@ -38,7 +38,7 @@
         <?php require 'blog/cards/treningi_card.php' ?>
 
         <!-- Card 3 -->
-        <?php require 'blog/cards/ostatnie_starty.php' ?>
+        <?php require 'blog/cards/ostatnie_starty_card.php' ?>
 
         <!-- Add more cards to show at start below -->
 
@@ -56,7 +56,7 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
               <!-- Card 4 -->
-              <?php require 'blog/cards/ostatnie_starty.php' ?>
+              <?php require 'blog/cards/ostatnie_starty_card.php' ?>
 
               <!-- Add older cards here -->
                
