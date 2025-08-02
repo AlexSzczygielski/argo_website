@@ -42,7 +42,7 @@
         <h2 class="display-4">O nas</h2>
         <p class="lead">Argo to studencki klub regatowy skupiający ludzi z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
         <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
-        <a href="about.php" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
+        <a href="about.php" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
       <div class="col-md-6 text-center">
         <img src="storage/images/argologo.png" alt="Argo Logo" class="img-fluid rounded-circle">
