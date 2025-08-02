@@ -20,11 +20,11 @@
       <!-- Featured blog post -->
       <div class="row mb-5">
         <div class="col-md-8">
-          <img src="storage/images/2024/AMP24.jpg" class="img-fluid rounded mb-3" alt="Featured">
+          <img src="storage/images/AMP_LOGO_CROPPED.jpg" class="img-fluid rounded mb-3" alt="Featured">
         </div>
         <div class="col-md-4 d-flex flex-column justify-content-center">
           <h3 class="fw-bold">Akademickie Mistrzostwa Polski 2024</h3>
-          <p>Krótki opis głównego wpisu blogowego. Streszczenie głównego wydarzenia.</p>
+          <p>W tym roku Argo do najważniejszych regat w sezonie wystawiło trzy załogi.</p>
           <a href="blog_post.php?page=AMP_2024" class="btn btn-primary mt-2">Czytaj więcej</a>
         </div>
       </div>
@@ -41,10 +41,16 @@
         <?php require 'blog/cards/argo_history_card.php' ?>
 
         <!-- Card 4 -->
-        <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
+        <?php require 'blog/cards/amwim2024_card.php' ?>
 
         <!-- Card 5 -->
         <?php require 'blog/cards/amp2024_card.php' ?>
+
+        <!-- Card 6 -->
+        <?php require 'blog/cards/amp2023_card.php' ?>
+
+        <!-- Card 7 -->
+        <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
 
         <!-- Add more cards to show at start below -->
 
