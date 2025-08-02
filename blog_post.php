@@ -17,7 +17,8 @@
 
             <!-- Page content starts here -->
             <?php
-            $allowedPages = require 'layout/allowed_pages.php';
+            //Fetch the allowed pages from the layout
+            $allowedPages = require 'layout/blog_allowed_pages.php';
 
             if (isset($_GET['page']) && in_array($_GET['page'], $allowedPages, true)) {
                 require "blog/posts/{$_GET['page']}.php";

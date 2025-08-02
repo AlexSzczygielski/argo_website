@@ -23,7 +23,7 @@
           <img src="storage/images/2025/AMP25.jpg" class="img-fluid rounded mb-3" alt="Featured">
         </div>
         <div class="col-md-4 d-flex flex-column justify-content-center">
-          <h3 class="fw-bold">Tytuł głównego wpisu</h3>
+          <h3 class="fw-bold">Akademickie Mistrzostwa Polski 2024</h3>
           <p>To jest krótki opis głównego wpisu blogowego. Można tutaj umieścić streszczenie najnowszego wydarzenia.</p>
           <a href="#" class="btn btn-primary mt-2">Czytaj więcej</a>
         </div>
