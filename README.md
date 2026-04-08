@@ -20,17 +20,20 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ## 🛠 Setup and Deployment
 
-1. Open VPN connection with AGH servers.
-2. Log into Argo AGH server through SSH protocol (instructions + password [panel.agh.edu.pl](https://panel.agh.edu.pl/)).
-3. Create safe SSH (e.g. `ssh-keygen -t rsa -b 4096 "Imie"`)
-4. Add  your new SSH key to github - **⚠️ Remember to remove it from github keys after you're done!**
-5. Clone repository to home (~) folder.
-6. Change repository name to `public_html/` using `mv` command.
+1. Open [VPN connection with AGH servers](https://cri.agh.edu.pl/pomoc-it/instrukcje/konfiguracja-polaczenia-vpn).
+2. Log into Argo AGH server through SSH protocol 
+   ```bash
+   ssh argo@web.agh.edu.pl
+   ```
+   You will be prompted for password - contact [administrator](https://cri.agh.edu.pl/pomoc-it) to reset it or one of founders - Aleksander Szczygielski to access it.
+
+   Alternative would be to set public/private `rsa key` pair.
+  
+3. Currently web.agh.edu.pl does not grant access to shell commands, so the only possibility is to upload files using `scp` or other `sftp` tools.
+
 7. *AGH servers automatically redirect to public_html/index.php so be sure that landing page is contained in this path*.
 8. Verify Boot strap, jQuery, and FontAwesome dependencies are accessible in `plugins/` folder or update links accordingly.
-9. **🚨 After you're done cloning site, remove your SSH key from github! 🚨**
-10. Et voilà it's ready!
-11. *If styling does not work, give it some time before trying to make fixes, usually it starts to work on it's own after few hours*
+11. ‼️ *If styling does not work, give it some time before trying to make fixes, usually it starts to work on it's own after few hours*
 
 ---
 
