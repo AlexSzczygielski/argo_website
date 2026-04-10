@@ -1,0 +1,53 @@
+name: Deploy new website with VPN + SFTP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn
+
+      - name: Setup VPN config
+        run: |
+          echo "${{ secrets.OVPN_CONFIG }}" > vpn.ovpn
+
+      - name: Connect to VPN
+        run: |
+          sudo openvpn --config vpn.ovpn --daemon
+          for i in {1..30}; do # wait for connection
+            echo "Attempt $i (elapsed: $((i-1))s)"
+            if ping -c 1 web.agh.edu.pl; then
+                echo "Connected successfully"
+                exit 0
+            fi
+            sleep 1
+          done
+
+          echo "Failed to connect to VPN"
+          exit 1
+
+      - name: Install deployment dependencies
+        run: sudo apt-get install -y rsync sshpass
+
+      - name: Deploy via rsync (password auth)
+        env:
+          SSHPASS: ${{ secrets.VPS_PASSWORD }}
+        run: |
+          sshpass -e rsync -avz --delete \
+            --exclude=".git" \
+            --exclude=".github" \
+            -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
+            ./ \
+            aszcz@student.agh.edu.pl:~/public_html/
