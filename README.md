@@ -3,7 +3,7 @@
 
 > 🚨 To repozytorium wykorzystuje CI/CD (automatyczne wysłanie kodu na serwer - aktualizacja strony) po `git push` na branch `main`. Ta funkcjonalność wymaga certyfikatu `.ovpn`, który wygasa co roku, więc co roku wymaga aktualizacji. Certyfikat przechowywany jest w [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions) tego repozytorium. Instrukcja aktualizacji certyfikatu znajduje się w punkcie [🔧 CI/CD](#-cicd).
 
-### Built With
+### Project Status
 [![Deploy](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml/badge.svg)](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml)
 [![Last commit](https://img.shields.io/github/last-commit/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website/commits)
 [![Repo size](https://img.shields.io/github/repo-size/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website)
