@@ -33,7 +33,7 @@ The workflow:
 
 1. **As `web.agh.edu.pl` server, which hosts our website requires VPN access, we have to allow the GH Actions access to it. The VPN certificate is safely stored inside [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions) as `OVPN_CONFIG`. This certifacte has to be updated each year. It is done by obtaining new certificate from [panel.agh.edu.pl](panel.agh.edu.pl) and copying all of it's contents (e.g. `cat certificate_name.ovpn`) into GH secrets OVPN_CONFIG**
 
-2. **Another thing that GH Actions require is VPS password. It is stored under `VPS_PASSWORD` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). This should'nt change without explicit user intervetion, however if for some reason it does not work you have to contact [Pomoc IT AGH](https://cri.agh.edu.pl/pomoc-it) to reset it and update accordingly.**
+2. **Another thing that GH Actions require is VPS password. It is stored under `VPS_PASSWORD` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). This should'nt change without explicit user intervetion, however if for some reason it does not work, you have to contact [Pomoc IT AGH](https://cri.agh.edu.pl/pomoc-it) to reset it and update accordingly.**
 ### CI/CD Workflow Overview
 
 ```mermaid
@@ -95,6 +95,8 @@ graph LR
 ```
 
 ## 🛠 Setup and Deployment
+
+0. Currently website is auto deployed using CI/CD - please refer to [🔧 CI/CD](#-cicd) section.
 
 1. Open [VPN connection with AGH servers](https://cri.agh.edu.pl/pomoc-it/instrukcje/konfiguracja-polaczenia-vpn).
 2. Log into Argo AGH server through SSH protocol 
