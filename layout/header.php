@@ -3,7 +3,8 @@
 ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="storage/images/favicon.ico" />
+<link rel="icon" href="storage/images/argologo.svg" />
+<link rel="alternate icon" href="storage/images/favicon_v2.ico">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat%3A600%2C100%2C100italic%2C200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CMuli%3A200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&subset=cyrillic%2Clatin-ext,latin-ext&display=swap" media="all" onload="this.media='all'">
 <link rel="stylesheet" type="text/css" href="css/style.css?ver=<?php echo $app_version; ?>">
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap/5.3.3/css/bootstrap.css?ver=<?php echo $app_version; ?>">
