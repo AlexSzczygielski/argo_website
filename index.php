@@ -45,7 +45,7 @@
         <a href="about.php" class="btn btn-primary btn-lg">Więcej informacji</a>
       </div>
       <div class="col-md-6 text-center">
-        <img src="storage/images/argologo.png" alt="Argo Logo" class="img-fluid rounded-circle">
+        <img src="storage/images/argologo.svg" alt="Argo Logo" class="img-fluid rounded-circle">
       </div>
     </div>
   </div>
