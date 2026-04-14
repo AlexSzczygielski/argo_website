@@ -7,6 +7,7 @@
 [![Deploy](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml/badge.svg)](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml)
 [![Last commit](https://img.shields.io/github/last-commit/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website/commits)
 [![Repo size](https://img.shields.io/github/repo-size/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website)
+[![Website](https://img.shields.io/website?url=https://argo.agh.edu.pl)](https://argo.agh.edu.pl)
 
 A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a student reagtta club promoting competitive sailing and water sports. This project uses modern frontend and backend technologies to deliver a smooth, interactive user experience.
 
