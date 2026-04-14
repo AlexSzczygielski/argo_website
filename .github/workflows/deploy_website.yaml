@@ -50,4 +50,4 @@ jobs:
             --exclude=".github" \
             -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
             ./ \
-            argo@web.agh.edu.pl:~/public_html/
+            argo@web.agh.edu.pl:public_html/
