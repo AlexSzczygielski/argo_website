@@ -1,5 +1,7 @@
 # SKR Argo AGH Website
 
+> 🚨 To repozytorium wykorzystuje CI/CD (automatyczne wysłanie kodu na serwer - aktualizacja strony) po `git push` na branch `main`. Ta funkcjonalność wymaga certyfikatu `.ovpn`, który wygasa co roku, więc co roku wymaga aktualizacji. Certyfikat przechowywany jest w [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions) tego repozytorium. Instrukcja aktualizacji certyfikatu znajduje się w punkcie [🔧 CI/CD](#-cicd).
+
 A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a student reagtta club promoting competitive sailing and water sports. This project uses modern frontend and backend technologies to deliver a smooth, interactive user experience.
 
 **✍️ Should the original creator no longer be affiliated with the university, please retain his attribution as the first author of this page. Thank You!**
@@ -7,6 +9,7 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ## Table of Contents
 
+- [🔧 CI/CD](#-cicd)  
 - [🛠 Setup and Deployment](#-setup-and-deployment)  
 - [🚀 Technologies Used](#-technologies-used)  
 - [📝 Project Structure](#-project-structure)  
@@ -17,6 +20,79 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 - [🔢Versioning](#-versioning)   
 
 ---
+
+## 🔧 CI/CD
+Website deployment is automated with Github Actions [deploy_website.yaml](.github/workflows/deploy_website.yaml).
+
+The workflow:
+- connects to the AGH internal network via VPN
+- securely uploads files using rsync over SSH
+- deploys content to the `public_html` directory
+
+### CI/CD Maintanance
+
+1. **As `web.agh.edu.pl` server, which hosts our website requires VPN access, we have to allow the GH Actions access to it. The VPN certificate is safely stored inside [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions) as `OVPN_CONFIG`. This certifacte has to be updated each year. It is done by obtaining new certificate from [panel.agh.edu.pl](panel.agh.edu.pl) and copying all of it's contents (e.g. `cat certificate_name.ovpn`) into GH secrets OVPN_CONFIG**
+
+2. **Another thing that GH Actions require is VPS password. It is stored under `VPS_PASSWORD` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). This should'nt change without explicit user intervetion, however if for some reason it does not work you have to contact [Pomoc IT AGH](https://cri.agh.edu.pl/pomoc-it) to reset it and update accordingly.**
+### CI/CD Workflow Overview
+
+```mermaid
+graph TD
+    A[Push to main / Manual trigger]:::github --> B[GitHub Actions Workflow]:::pipeline
+    
+    B --> C[Checkout repository]:::pipeline
+    C --> D[Install OpenVPN]:::pipeline
+    D --> E[Load VPN config from secrets]:::pipeline
+    E --> F[Connect to VPN]:::vpn
+    
+    F --> G{VPN connected?}:::decision
+    G -- No --> X[Fail job]:::error
+    G -- Yes --> H[Install rsync + sshpass]:::pipeline
+    
+    H --> I[Run rsync deploy]:::deploy
+    I --> J[/Upload files to server/]:::deploy
+    
+    J --> K{{web.agh.edu.pl}}:::server
+    K --> L[/public_html/]:::server
+    
+    L --> M[Website updated 🎉]:::success
+
+    %% Classes
+    classDef github fill:#24292e,color:#fff;
+    classDef pipeline fill:#2ea44f,color:#fff;
+    classDef vpn fill:#6f42c1,color:#fff;
+    classDef deploy fill:#0366d6,color:#fff;
+    classDef server fill:#d73a49,color:#fff;
+    classDef decision fill:#f9c513,color:#000;
+    classDef error fill:#d73a49,color:#fff;
+    classDef success fill:#28a745,color:#fff;
+```
+
+### GH Actions Overview
+```mermaid
+graph LR
+    A[GitHub Repo]:::github --> B[GitHub Actions Runner]:::pipeline
+    
+    B --> C[Secrets]:::secret
+    C --> D1[OVPN_CONFIG]:::secret
+    C --> D2[VPS_PASSWORD]:::secret
+    
+    B --> E[OpenVPN Connection]:::vpn
+    E --> F[AGH Internal Network]:::network
+    
+    F --> G[SSH + rsync]:::deploy
+    G --> H{{web.agh.edu.pl}}:::server
+    H --> I[/public_html/]:::server
+
+    %% Classes
+    classDef github fill:#24292e,color:#fff;
+    classDef pipeline fill:#2ea44f,color:#fff;
+    classDef vpn fill:#6f42c1,color:#fff;
+    classDef deploy fill:#0366d6,color:#fff;
+    classDef server fill:#d73a49,color:#fff;
+    classDef secret fill:#f66a0a,color:#fff;
+    classDef network fill:#1b1f23,color:#fff;
+```
 
 ## 🛠 Setup and Deployment
 
