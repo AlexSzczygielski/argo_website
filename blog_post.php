@@ -49,6 +49,10 @@
                         <?= htmlspecialchars($post['title']) ?>
                     </h1>
 
+                    <p class="text-muted mb-4" style="font-size: 0.9rem;">
+                        <?= date("d.m.Y", strtotime($post['date'])) ?>
+                    </p>
+
                     <p class="lead mb-4">
                         <?= htmlspecialchars($post['excerpt']) ?>
                     </p>
