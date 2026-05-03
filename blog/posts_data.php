@@ -63,4 +63,14 @@ $posts = [
         "author" => "Aleksander Szczygielski",
         "date" => "2024-05-10"
     ],
+
+    [
+        "id" => "prace_przedsezonowe",
+        "title" => "Prace Przedsezonowe",
+        "excerpt" => "Przed sezonem dbamy dokładnie o nasz sprzęt!",
+        "image" => "storage/images/2026/clean.jpg",
+        "content" => "blog/posts/prace_przedsezonowe.php",
+        "author" => "Aleksander Szczygielski",
+        "date" => "2026-05-03"
+    ],
 ];

@@ -1,0 +1,1 @@
+Przed sezonem dbamy dokładnie o nasz sprzęt! Łódki czyste i wypolerowane pływają szybciej, więc członkowie ARGO zaangażowali się do pracy.
