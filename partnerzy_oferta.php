@@ -45,7 +45,7 @@
 
                     <!-- Right column: images -->
                     <div class="col-md-4">
-                        <img src="storage/images/2024/AMP2.jpg" alt="Zdjęcie klubu" class="img-fluid rounded mb-4">
+                        <img src="storage/images/2024/Amp2.jpg" alt="Zdjęcie klubu" class="img-fluid rounded mb-4">
                         <img src="storage/images/2024/boat_storage.webp" alt="Inne zdjęcie" class="img-fluid rounded mb-4">
                     </div>
                 </div>
