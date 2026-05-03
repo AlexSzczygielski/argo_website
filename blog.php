@@ -10,86 +10,155 @@
 </head>
 
 <body>
-  <?php require 'layout/navbar.php' ?>
 
-  <div id="blog-anchor" class="section-anchor"></div>
-  <div id="blog" class="bg-light py-5">
-    <div class="container">
-      <h2 class="text-center display-4 mb-5">Wydarzenia</h2>
+<?php require 'layout/navbar.php' ?>
 
-      <!-- Featured blog post -->
-      <div class="row mb-5">
-        <div class="col-md-8">
-          <img src="storage/images/AMP_LOGO_CROPPED.jpg" class="img-fluid rounded mb-3" alt="Featured">
-        </div>
-        <div class="col-md-4 d-flex flex-column justify-content-center">
-          <h3 class="fw-bold">Akademickie Mistrzostwa Polski 2024</h3>
-          <p>W tym roku Argo do najważniejszych regat w sezonie wystawiło trzy załogi.</p>
-          <a href="blog_post.php?page=AMP_2024" class="btn btn-primary mt-2">Czytaj więcej</a>
-        </div>
+<?php
+require 'blog/posts_data.php';
+
+/* PAGE NUMBER */
+$pageNum = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
+
+/* SORT POSTS (newest first) */
+usort($posts, function($a, $b) {
+    return strtotime($b['date']) - strtotime($a['date']);
+});
+
+/* PAGINATION SETTINGS */
+$perPage = 6;
+$totalPosts = count($posts);
+$totalPages = ceil($totalPosts / $perPage);
+
+$offset = ($pageNum - 1) * $perPage;
+
+/* CURRENT PAGE POSTS */
+$visiblePosts = array_slice($posts, $offset, $perPage);
+
+/* FEATURED POST */
+$featuredPost = $posts[0] ?? null;
+?>
+
+<div id="blog-anchor" class="section-anchor"></div>
+
+<div id="blog" class="bg-light py-5">
+  <div class="container">
+
+    <h2 class="text-center display-4 mb-5">Wydarzenia</h2>
+
+    <!-- FEATURED POST -->
+     
+    <?php if ($featuredPost): ?>
+    <div class="row mb-5">
+      <div class="col-md-8">
+        <img src="<?= htmlspecialchars($featuredPost['image']) ?>" class="img-fluid rounded mb-3" alt="">
       </div>
-
-      <!-- Grid of blog cards -->
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <!-- Card 1 -->
-        <?php require 'blog/cards/amp2025_card.php' ?>
-
-        <!-- Card 2 -->
-        <?php require 'blog/cards/treningi_card.php' ?>
-
-        <!-- Card 3 -->
-        <?php require 'blog/cards/argo_history_card.php' ?>
-
-        <!-- Card 4 -->
-        <?php require 'blog/cards/amwim2024_card.php' ?>
-
-        <!-- Card 5 -->
-        <?php require 'blog/cards/amp2024_card.php' ?>
-
-        <!-- Card 6 -->
-        <?php require 'blog/cards/amp2023_card.php' ?>
-
-        <!-- Card 7 -->
-        <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
-
-        <!-- Add more cards to show at start below -->
-
+      <div class="col-md-4 d-flex flex-column justify-content-center">
+        <h3 class="fw-bold"><?= htmlspecialchars($featuredPost['title']) ?></h3>
+        <p><?= htmlspecialchars($featuredPost['excerpt']) ?></p>
+        <a href="blog_post.php?page=<?= urlencode($featuredPost['id']) ?>" class="btn btn-primary mt-2">
+          Czytaj więcej
+        </a>
       </div>
     </div>
+    <?php endif; ?>
 
-    <!-- Pozostale (starsze) Wyswietl Wszystko -->
-    <!-- Read All button -->
-    <br><br><br>
-    <div id="show_more" class="text-center">
-      <div class="container">
-        <div id="blog_more" class="bg-light py-5">
-          <span id="show_more" class="btn btn-sm btn-outline-secondary argo-blog-more-btn">Wyświetl wszystkie wpisy</span>
-          <div class="show_more_group_container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- POSTS GRID (PAGINATED) -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-              <!-- Card ? -->
-              <?php require 'blog/cards/ostatnie_starty_card.php' ?>
-
-              <!-- Add older cards here -->
-               
+      <?php foreach ($visiblePosts as $post): ?>
+        <div class="col">
+          <div class="card h-100">
+            <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+              <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
+              <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+                Czytaj więcej
+              </a>
             </div>
           </div>
         </div>
-      </div>
+      <?php endforeach; ?>
+
     </div>
+
+    <!-- PAGINATION -->
+    <?php if ($totalPages > 1): ?>
+
+    <div class="d-flex justify-content-center mt-5 flex-wrap gap-2">
+
+      <!-- PREVIOUS -->
+      <?php if ($pageNum > 1): ?>
+        <a class="btn btn-sm btn-outline-secondary" href="?p=<?= $pageNum - 1 ?>">
+          Poprzednia
+        </a>
+      <?php else: ?>
+        <span class="btn btn-sm btn-outline-secondary disabled">
+          Poprzednia
+        </span>
+      <?php endif; ?>
+
+
+      <?php
+      $range = 2;
+
+      $start = max(1, $pageNum - $range);
+      $end = min($totalPages, $pageNum + $range);
+      ?>
+
+      <!-- FIRST PAGE -->
+      <?php if ($start > 1): ?>
+        <a class="btn btn-sm btn-outline-secondary" href="?p=1">1</a>
+
+        <?php if ($start > 2): ?>
+          <span class="btn btn-sm btn-light disabled">...</span>
+        <?php endif; ?>
+      <?php endif; ?>
+
+
+      <!-- PAGE RANGE -->
+      <?php for ($i = $start; $i <= $end; $i++): ?>
+        <a class="btn btn-sm 
+          <?= ($i === $pageNum) ? 'btn-secondary active' : 'btn-outline-secondary' ?>"
+          href="?p=<?= $i ?>">
+          <?= $i ?>
+        </a>
+      <?php endfor; ?>
+
+
+      <!-- LAST PAGE -->
+      <?php if ($end < $totalPages): ?>
+
+        <?php if ($end < $totalPages - 1): ?>
+          <span class="btn btn-sm btn-light disabled">...</span>
+        <?php endif; ?>
+
+        <a class="btn btn-sm btn-outline-secondary" href="?p=<?= $totalPages ?>">
+          <?= $totalPages ?>
+        </a>
+
+      <?php endif; ?>
+
+
+      <!-- NEXT -->
+      <?php if ($pageNum < $totalPages): ?>
+        <a class="btn btn-sm btn-outline-secondary" href="?p=<?= $pageNum + 1 ?>">
+          Następna
+        </a>
+      <?php else: ?>
+        <span class="btn btn-sm btn-outline-secondary disabled">
+          Następna
+        </span>
+      <?php endif; ?>
+
+    </div>
+
+    <?php endif; ?>
+
   </div>
+</div>
 
+<?php require 'layout/footer.php' ?>
 
-
-  <script>
-    $('.argo-blog-more-btn').on('click', function(e) {
-      console.log("here");
-      $(this).hide();
-      //$(this).parent().find('.show_more_button').hide();
-      $(this).parent().find('.show_more_group_container').show();
-    });
-  </script>
-  <?php require 'layout/footer.php' ?>
 </body>
-
 </html>

@@ -79,86 +79,141 @@
     <div class="container">
       <h2 class="text-center display-4">Wydarzenia</h2>
 
+      <!-- Get cards -->
+      <?php
+      require 'blog/posts_data.php';
+
+      /* SORT newest first */
+      usort($posts, function($a, $b) {
+          return strtotime($b['date']) - strtotime($a['date']);
+      });
+
+      /* helper: find post by id */
+      function findPostById($posts, $id) {
+          foreach ($posts as $post) {
+              if ($post['id'] === $id) {
+                  return $post;
+              }
+          }
+          return null;
+      }
+
+      /* 1. LATEST POST */
+      $latest1 = $posts[0] ?? null;
+
+      /* 2. FIXED POSTS */
+      $argoHistory   = findPostById($posts, 'argo_history');
+      $dbamySprzet   = findPostById($posts, 'dbamy_sprzet');
+      $treningi      = findPostById($posts, 'treningi');
+
+      /* 3. NEXT LATEST (skip already used) */
+      $usedIds = [
+          $latest1['id'] ?? null,
+          'argo_history',
+          'dbamy_sprzet',
+          'treningi'
+      ];
+
+      $remaining = [];
+
+      foreach ($posts as $post) {
+          if (!in_array($post['id'], $usedIds)) {
+              $remaining[] = $post;
+          }
+      }
+
+      /* 4. TAKE 2nd and 3rd latest */
+      $latest2 = $remaining[0] ?? null;
+      $latest3 = $remaining[1] ?? null;
+
+      /* 5. FINAL ORDER */
+      $carouselPosts = array_filter([
+          $latest1,
+          $argoHistory,
+          $dbamySprzet,
+          $treningi,
+          $latest2,
+          $latest3
+      ]);
+      ?>
+
       <!-- Carousel for Desktop (screens md and up) -->
       <div id="eventsCarouselDesktop" class="carousel slide carousel-dark d-none d-md-block" data-bs-ride="carousel">
+
         <div class="carousel-inner">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          </div>
-          <!-- Row 1 -->
-          <div class="carousel-item active">
-            <div class="row">
-              <!-- Card 1 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/amp2025_card.php' ?>
-              </div>
-              <!-- Card 2 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/treningi_card.php' ?>
-              </div>
-              <!-- Card 3 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/argo_history_card.php' ?>
-              </div>
-            </div>
-          </div>
-          <!-- Row 2 -->
-          <div class="carousel-item">
-            <div class="row">
-              <!-- Card 4 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/ostatnie_starty_card.php' ?>
-              </div>
-              <!-- Card 5 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
-              </div>
-              <!-- Card 6 -->
-              <div class="col-md-4">
-                <?php require 'blog/cards/pozostale_redirect_card.php' ?>
+
+          <?php
+          $chunks = array_chunk($carouselPosts, 3); // 3 cards per slide
+          foreach ($chunks as $index => $chunk):
+          ?>
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+              <div class="row">
+                <?php foreach ($chunk as $post): ?>
+                  <div class="col-md-4">
+                    <div class="card h-100">
+                      <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
+                      <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                        <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
+                        <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+                          Czytaj więcej
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
               </div>
             </div>
-          </div>
+          <?php endforeach; ?>
+
         </div>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <?php foreach ($chunks as $index => $_): ?>
+            <button type="button"
+                    data-bs-target="#eventsCarouselDesktop"
+                    data-bs-slide-to="<?= $index ?>"
+                    class="<?= $index === 0 ? 'active' : '' ?>">
+            </button>
+          <?php endforeach; ?>
+        </div>
+
       </div>
 
       <!-- Carousel for Mobile (screens sm and down) -->
       <div id="eventsCarouselMobile" class="carousel slide carousel-dark d-block d-md-none" data-bs-ride="carousel">
+
         <div class="carousel-inner">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="4" aria-label="Slide 5"></button>
-            <button type="button" data-bs-target="#eventsCarouselMobile" data-bs-slide-to="5" aria-label="Slide 6"></button>
-          </div>
-          <!-- Card 1 -->
-          <div class="carousel-item active">
-            <?php require 'blog/cards/amp2025_card.php' ?>
-          </div>
-          <!-- Card 2 -->
-          <div class="carousel-item">
-            <?php require 'blog/cards/treningi_card.php' ?>
-          </div>
-          <!-- Card 3 -->
-          <div class="carousel-item">
-            <?php require 'blog/cards/argo_history_card.php' ?>
-          </div>
-          <!-- Card 4 -->
-          <div class="carousel-item">
-            <?php require 'blog/cards/ostatnie_starty_card.php' ?>
-          </div>
-          <!-- Card 5 -->
-          <div class="carousel-item">
-            <?php require 'blog/cards/dbamy_sprzet_card.php' ?>
-          </div>
-          <!-- Card 6 -->
-          <div class="carousel-item">
-            <?php require 'blog/cards/pozostale_redirect_card.php' ?>
-          </div>
+
+          <?php foreach ($carouselPosts as $index => $post): ?>
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+              <div class="card">
+                <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                  <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
+                  <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+                    Czytaj więcej
+                  </a>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+
         </div>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <?php foreach ($carouselPosts as $index => $_): ?>
+            <button type="button"
+                    data-bs-target="#eventsCarouselMobile"
+                    data-bs-slide-to="<?= $index ?>"
+                    class="<?= $index === 0 ? 'active' : '' ?>">
+            </button>
+          <?php endforeach; ?>
+        </div>
+
       </div>
 
       <!-- Read All button -->
