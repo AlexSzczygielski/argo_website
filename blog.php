@@ -48,9 +48,9 @@ $featuredPost = $posts[0] ?? null;
     <!-- FEATURED POST -->
      
     <?php if ($featuredPost): ?>
-    <div class="row mb-5">
+    <div class="row mb-5 d-none d-md-flex">
       <div class="col-md-8">
-        <img src="<?= htmlspecialchars($featuredPost['image']) ?>" class="img-fluid rounded mb-3" alt="">
+        <img src="<?= htmlspecialchars($featuredPost['image']) ?>" class="img-fluid rounded mb-3" alt="" style="max-height: 850px; object-fit: cover; width: 100%;">
       </div>
       <div class="col-md-4 d-flex flex-column justify-content-center">
         <h3 class="fw-bold"><?= htmlspecialchars($featuredPost['title']) ?></h3>
