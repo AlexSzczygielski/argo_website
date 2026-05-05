@@ -14,7 +14,7 @@
 
         <div class="col-6">
             <a href="#" data-bs-toggle="modal" data-bs-target="#imgModal0">
-                <img src="storage/images/2024/AMWIM24.JPG" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
+                <img src="storage/images/2024/AMWIM24.jpg" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
             </a>
         </div>
 
