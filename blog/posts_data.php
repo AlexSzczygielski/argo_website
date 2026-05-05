@@ -71,6 +71,16 @@ $posts = [
         "image" => "storage/images/2026/clean.jpg",
         "content" => "blog/posts/prace_przedsezonowe.php",
         "author" => "Aleksander Szczygielski",
-        "date" => "2026-05-03"
+        "date" => "2026-03-20"
+    ],
+
+    [
+        "id" => "rozpoczynamy_treningi",
+        "title" => "Rozpoczynamy treningi",
+        "excerpt" => "Wraz z początkiem kwietnia rozpoczynamy nasze przygotowania do sezonu regatowego.",
+        "image" => "storage/images/2026/trening3.JPG",
+        "content" => "blog/posts/rozpoczynamy_treningi.php",
+        "author" => "Aleksander Szczygielski",
+        "date" => "2026-04-26"
     ],
 ];
