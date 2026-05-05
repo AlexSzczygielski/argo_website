@@ -41,14 +41,14 @@ jobs:
       - name: Install deployment dependencies
         run: sudo apt-get install -y rsync sshpass
 
-      - name: Deploy via rsync (password auth)
+      - name: Deploy via rsync (password auth) # Exclude post generation python automation script (tools/)
         env:
           SSHPASS: ${{ secrets.VPS_PASSWORD }}
         run: |
           sshpass -e rsync -avz --delete \
             --exclude=".git" \
             --exclude=".github" \
-            --exclude="tools" \# Exclude post generation python automation script
+            --exclude="tools" \
             -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
             ./ \
             argo@web.agh.edu.pl:public_html/
