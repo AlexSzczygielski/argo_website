@@ -40,10 +40,10 @@ $posts = [
         "id" => "AMWIM_2024",
         "title" => "Akademickie Mistrzostwa Warszawy i Mazowsza w Żeglarstwie 2024",
         "excerpt" => "W tym roku Argo wystawiło dwie załogi.",
-        "image" => "storage/images/2024/AMWIM24.jpg",
+        "image" => "storage/images/2024/puchar_uw.jpeg",
         "content" => "blog/posts/AMWIM_2024.php",
         "author" => "Aleksander Szczygielski",
-        "date" => "2025-05-10"
+        "date" => "2024-05-11"
     ],
     [
         "id" => "AMP_2024",
@@ -52,7 +52,7 @@ $posts = [
         "image" => "storage/images/2024/AMP24.jpg",
         "content" => "blog/posts/AMP_2024.php",
         "author" => "Aleksander Szczygielski",
-        "date" => "2025-05-10"
+        "date" => "2024-05-26"
     ],
     [
         "id" => "AMP_2023",
@@ -61,7 +61,7 @@ $posts = [
         "image" => "storage/images/2023/AMP23.jpg",
         "content" => "blog/posts/AMP_2023.php",
         "author" => "Aleksander Szczygielski",
-        "date" => "2024-05-10"
+        "date" => "2023-05-26"
     ],
 
     [

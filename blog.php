@@ -55,7 +55,7 @@ $featuredPost = $posts[0] ?? null;
       <div class="col-md-4 d-flex flex-column justify-content-center">
         <h3 class="fw-bold"><?= htmlspecialchars($featuredPost['title']) ?></h3>
         <p><?= htmlspecialchars($featuredPost['excerpt']) ?></p>
-        <a href="blog_post.php?page=<?= urlencode($featuredPost['id']) ?>" class="btn btn-primary mt-2">
+        <a href="blog_post.php?page=<?= urlencode($featuredPost['id']) ?>" class="btn btn-sm btn-outline-secondary mt-2">
           Czytaj więcej
         </a>
       </div>
