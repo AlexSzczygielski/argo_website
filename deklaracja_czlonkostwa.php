@@ -3,7 +3,7 @@
 <html lang="pl">
 
 <head>
-    <title>SKR Argo AGH - Deklaracja członkowstwa</title>
+    <title>SKR Argo AGH - Deklaracja członkostwa</title>
     <?php require_once('layout/header.php'); ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,7 +30,7 @@
 
         <!-- Page content starts here -->
         <div class="container py-4 px-3 px-md-4">
-            <h1 class="mt-4 mb-4">Deklaracja członkowstwa</h1>
+            <h1 class="mt-4 mb-4">Deklaracja członkostwa</h1>
 
             <div class="row align-items-start">
 
@@ -62,7 +62,7 @@
                             <li class="mb-2">
                                 <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=PwOxgOAhgkq7wPBf3M07yM-Xa0THU7pMhLrElNwbQopUMEYyTkJWOUhZUE02ME9RMk1XUUZWSzNXSi4u"
                                    class="text-break">
-                                    Deklaracja członkowstwa 2025/2026
+                                    Deklaracja członkostwa 2025/2026
                                 </a>
                             </li>
                         </ul>
