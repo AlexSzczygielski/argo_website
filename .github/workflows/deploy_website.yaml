@@ -48,7 +48,7 @@ jobs:
           sshpass -e rsync -avz --delete \
             --exclude=".git" \
             --exclude=".github" \
-            --exclude="tools" \
+            --exclude="tools" \ # Exclude post generation python automation script
             -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
             ./ \
             argo@web.agh.edu.pl:public_html/
