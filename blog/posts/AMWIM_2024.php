@@ -41,7 +41,7 @@
     <div class="modal-content bg-transparent border-0">
 
       <div class="modal-body text-center p-0">
-        <img src="storage/images/2024/AMWIM24.JPG"  class="img-fluid rounded shadow">
+        <img src="storage/images/2024/AMWIM24.jpg"  class="img-fluid rounded shadow">
       </div>
 
     </div>
