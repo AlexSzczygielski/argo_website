@@ -8,6 +8,18 @@ POSTS_DATA_PATH = "blog/posts_data.php"
 POSTS_DIR = "blog/posts"
 IMAGES_DIR = "storage/images"
 
+MAX_FILE_SIZE_MB = 1
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+
+
+# ----------------------------
+# Exceptions
+# ----------------------------
+
+class ImageTooLargeException(Exception):
+    pass
+
+
 # ----------------------------
 # Helpers
 # ----------------------------
@@ -36,12 +48,27 @@ def read_multiline(prompt="Enter content (end with empty line):"):
     return "\n".join(lines)
 
 
+# ----------------------------
+# File pickers
+# ----------------------------
+
 def get_image_path():
     root = tk.Tk()
     root.withdraw()
 
     return filedialog.askopenfilename(
-        title="Select image for blog post",
+        title="Select cover image",
+        initialdir=IMAGES_DIR,
+        filetypes=[("Image files", "*.jpg *.jpeg *.png *.webp")]
+    )
+
+
+def get_image_paths():
+    root = tk.Tk()
+    root.withdraw()
+
+    return filedialog.askopenfilenames(
+        title="Select extra images",
         initialdir=IMAGES_DIR,
         filetypes=[("Image files", "*.jpg *.jpeg *.png *.webp")]
     )
@@ -51,19 +78,71 @@ def get_image_path():
 # Validation
 # ----------------------------
 
-def check_duplicates(slug, title):
-    with open(POSTS_DATA_PATH, "r", encoding="utf-8") as f:
-        data = f.read()
+def validate_image_size(path: str):
+    size_mb = os.path.getsize(path) / (1024 * 1024)
 
-    if f'"id" => "{slug}"' in data:
-        raise Exception(f"❌ ERROR: Post with id '{slug}' already exists!")
+    print(f"[INFO] {os.path.basename(path)} = {size_mb:.2f} MB")
 
-    if f'"title" => "{title}"' in data:
-        print(f"⚠️ WARNING: A post with title '{title}' already exists!")
+    if size_mb > MAX_FILE_SIZE_MB:
+        raise ImageTooLargeException(
+            f"{path} too large ({size_mb:.2f} MB). Max allowed is {MAX_FILE_SIZE_MB} MB."
+        )
+
+
+def to_rel(path: str) -> str:
+    return os.path.relpath(path, os.getcwd()).replace("\\", "/")
 
 
 # ----------------------------
-# File writing
+# HTML IMAGE BLOCK (2 per row + modal)
+# ----------------------------
+
+def build_extra_images_html(images):
+    if not images:
+        return ""
+
+    html = """
+<div class="post-extra-images mt-5">
+    <div class="row g-3">
+"""
+
+    modals = ""
+
+    for idx, img in enumerate(images):
+        modal_id = f"imgModal{idx}"
+
+        html += f"""
+        <div class="col-6">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#{modal_id}">
+                <img src="{img}" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
+            </a>
+        </div>
+"""
+
+        modals += f"""
+<div class="modal fade" id="{modal_id}" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+
+      <div class="modal-body text-center p-0">
+        <img src="{img}" class="img-fluid rounded shadow">
+      </div>
+
+    </div>
+  </div>
+</div>
+"""
+
+    html += """
+    </div>
+</div>
+"""
+
+    return html + modals
+
+
+# ----------------------------
+# File operations
 # ----------------------------
 
 def create_post_file(filename, content):
@@ -72,7 +151,7 @@ def create_post_file(filename, content):
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"[OK] Created post file: {path}")
+    print(f"[OK] Created {path}")
 
 
 def update_posts_file(entry: dict):
@@ -80,8 +159,6 @@ def update_posts_file(entry: dict):
         data = f.read()
 
     pos = data.rfind("];")
-    if pos == -1:
-        raise Exception("Could not find end of posts array")
 
     php_block = f"""
     [
@@ -102,47 +179,76 @@ def update_posts_file(entry: dict):
     with open(POSTS_DATA_PATH, "w", encoding="utf-8") as f:
         f.write(updated)
 
-    print("[OK] Updated posts_data.php")
+    print("[OK] posts_data.php updated")
+
+
+def check_duplicates(slug, title):
+    with open(POSTS_DATA_PATH, "r", encoding="utf-8") as f:
+        data = f.read()
+
+    if f'"id" => "{slug}"' in data:
+        raise Exception("Duplicate post ID")
+
+    if f'"title" => "{title}"' in data:
+        print("[WARN] Duplicate title")
 
 
 # ----------------------------
-# Main
+# MAIN
 # ----------------------------
 
 def main():
-    print("=== CREATE NEW BLOG POST ===")
+    print("=== BLOG POST GENERATOR ===")
 
-    title = input("Title: ").strip()
+    # ------------------------
+    # COVER IMAGE
+    # ------------------------
+    cover = get_image_path()
+
+    if not cover:
+        cover = "storage/images/placeholder.jpg"
+    else:
+        validate_image_size(cover)
+        cover = to_rel(cover)
+
+    # ------------------------
+    # EXTRA IMAGES
+    # ------------------------
+    extra_html = ""
+
+    if input("Add extra images? (y/n): ").lower() == "y":
+        imgs = get_image_paths()
+
+        valid = []
+        for i in imgs:
+            validate_image_size(i)
+            valid.append(to_rel(i))
+
+        extra_html = build_extra_images_html(valid)
+
+    # ------------------------
+    # SAFE INPUT (LAST)
+    # ------------------------
+    title = input("\nTitle: ").strip()
     author = input("Author (optional): ").strip()
-
-    print("\nPaste content:")
-    content = read_multiline()
 
     slug = slugify(title)
     filename = f"{slug}.php"
 
-    # check duplicates first
     check_duplicates(slug, title)
 
-    print("\nSelect image...")
+    print("\nPaste content:")
+    content = read_multiline()
 
-    image_path = get_image_path()
+    final_content = content + "\n\n" + extra_html
 
-    if not image_path:
-        image_path = "storage/images/placeholder.jpg"
-    else:
-        # convert absolute path -> project relative path
-        image_path = os.path.relpath(image_path, os.getcwd())
-        image_path = image_path.replace("\\", "/")
-
-    # create post file
-    create_post_file(filename, content)
+    create_post_file(filename, final_content)
 
     post = {
         "id": slug,
         "title": title,
         "excerpt": extract_first_sentence(content),
-        "image": image_path,
+        "image": cover,
         "content": f"blog/posts/{filename}",
         "author": author if author else None,
         "date": str(date.today())
@@ -150,8 +256,14 @@ def main():
 
     update_posts_file(post)
 
-    print("\n[DONE] Post successfully created!")
+    print("\n[DONE] Post created successfully!")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except ImageTooLargeException as e:
+        print(f"[ERROR] {e}")
+        print("[ABORTED] Nothing saved.")
+    except Exception as e:
+        print(f"[ERROR] {e}")

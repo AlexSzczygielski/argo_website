@@ -35,6 +35,15 @@ A local Python script used to quickly create new blog posts.
 
 ---
 
+## Usage
+
+```bash
+cd argo_website
+```
+```bash
+python3 tools/create_post.py
+```
+
 ## Purpose
 
 These tools exist to simplify content management without needing a full CMS.
