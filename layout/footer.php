@@ -1,8 +1,18 @@
 <?php require 'layout/header.php' ?>
+<style>
+    /* The sail-as-letter icon */
+.footer-logo-icon {
+  height: 1em;       /* matches font size exactly */
+  width: auto;
+  display: inline-block;
+  transform: translateY(0.05em); /* tiny optical correction */
+}
+</style>
 <footer>
     <div class="container">
         <!-- Left: Bootstrap logo + text -->
         <div class="logo-text">
+            <img src="storage/images/sail.png" alt="A sail logo" class="footer-logo-icon">
             <span>Argo</span>
         </div>
 
