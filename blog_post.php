@@ -1,3 +1,8 @@
+<?php
+$page_title = "Blog - SKR Argo AGH";
+$page_description = "Wydarzenia";
+$page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>

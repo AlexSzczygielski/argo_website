@@ -1,3 +1,8 @@
+<?php
+$page_title = "Oferta sponsorska - SKR Argo AGH";
+$page_description = "Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek.";
+$page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 

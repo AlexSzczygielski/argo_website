@@ -1,3 +1,8 @@
+<?php
+$page_title = "O Nas - SKR Argo AGH";
+$page_description = "Argo to studencki klub regatowy z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH.";
+$page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 

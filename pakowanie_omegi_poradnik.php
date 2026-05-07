@@ -1,6 +1,6 @@
 <?php
-$page_title = "SKR Argo AGH";
-$page_description = "Pakowanie Omegi";
+$page_title = "Pakowanie Omegi - SKR Argo AGH";
+$page_description = "Pakowanie Omegi - poradnik";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 ?>
 <!DOCTYPE html>

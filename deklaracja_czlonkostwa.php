@@ -1,3 +1,8 @@
+<?php
+$page_title = "Deklaracja członkostwa - SKR Argo AGH";
+$page_description = "Wypełnij deklarację";
+$page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+?>
 <!DOCTYPE html>
 
 <html lang="pl">

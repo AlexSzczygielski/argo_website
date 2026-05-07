@@ -1,5 +1,5 @@
 <?php
-$page_title = "SKR Argo AGH";
+$page_title = "Checklista SKR Argo AGH";
 $page_description = "Checklista Regaty Omega";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 ?>
@@ -190,6 +190,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="tape">
                             <label class="form-check-label" for="tape">Silver tape</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tape">
+                            <label class="form-check-label" for="tape">Taśma izolacyjna</label>
                         </div>
 
                         <div class="form-check">
