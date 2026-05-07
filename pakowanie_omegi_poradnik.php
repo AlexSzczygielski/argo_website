@@ -131,6 +131,50 @@
                             UWAGA: <strong>Po tranporcie koniecznie poluzować pasy!</strong>
                         </div>
                     </section>
+
+                    <section class="mb-4 mt-4">
+                        <h2>Produkt końcowy</h2>
+                        <div class="post-extra-images mt-5">
+                            <div class="row g-3">
+
+                                <div class="col-6">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imgModal0">
+                                        <img src="storage/images/dla_czlonkow/omega_spakowana_1.jpeg" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
+                                    </a>
+                                </div>
+
+                                <div class="col-6">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imgModal1">
+                                        <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="imgModal0" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-transparent border-0">
+
+                            <div class="modal-body text-center p-0">
+                                <img src="storage/images/dla_czlonkow/omega_spakowana_1.jpeg" class="img-fluid rounded shadow">
+                            </div>
+
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="modal fade" id="imgModal1" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-transparent border-0">
+
+                            <div class="modal-body text-center p-0">
+                                <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow">
+                            </div>
+
+                            </div>
+                        </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
