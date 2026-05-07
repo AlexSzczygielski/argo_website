@@ -3,9 +3,20 @@
 ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title><?= !empty($page_title) ? $page_title : 'SKR Argo AGH' ?></title>
+
+<meta name="description" content="<?= !empty($page_description) ? $page_description : 'Studenckie Koło Regatowe Argo AGH' ?>">
+
+<!-- Open Graph -->
 <meta property="og:title" content="<?= !empty($page_title) ? $page_title : 'SKR Argo AGH' ?>">
 <meta property="og:description" content="<?= !empty($page_description) ? $page_description : 'Studenckie Koło Regatowe Argo AGH' ?>">
-<meta property="og:image" content="<?= !empty($page_image) ? $page_image : 'https://argo.agh.edu.pl/storage/images/argologo.svg' ?>">
+<meta property="og:image" content="<?= !empty($page_image) ? $page_image : 'https://argo.agh.edu.pl/storage/images/argologo.png' ?>">
+<meta property="og:url" content="<?= 'https://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER['REQUEST_URI'], '?') ?>">
+<meta property="og:type" content="website">
+
 <link rel="icon" href="storage/images/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="storage/images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="storage/images/favicon-16.png">

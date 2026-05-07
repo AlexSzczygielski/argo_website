@@ -1,3 +1,8 @@
+<?php
+$page_title = "SKR Argo AGH";
+$page_description = "Studenckie Koło Regatowe Argo AGH";
+$page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 
