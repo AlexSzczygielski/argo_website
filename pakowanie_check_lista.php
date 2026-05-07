@@ -171,6 +171,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="spare">
+                            <label class="form-check-label" for="spare">Strech (do masztu)</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="spare">
                             <label class="form-check-label" for="spare">Korki</label>
                         </div>
                         
@@ -201,6 +206,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                             <input class="form-check-input" type="checkbox" id="tools">
                             <label class="form-check-label" for="tools">Torba IKEA (pasy + wanty)</label>
                         </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tools">
+                            <label class="form-check-label" for="tools">Ciśnienie w oponach - ok. 2,5 bara</label>
+                        </div>
                     </div>
 
                     <!-- DOCUMENTS -->
@@ -209,6 +219,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="insurance">
                             <label class="form-check-label" for="insurance">Ubezpieczenie łódki</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="insurance">
+                            <label class="form-check-label" for="insurance">Certyfikat klasowy (dowód rejestracyjny łódki)</label>
                         </div>
                     </div>
 
