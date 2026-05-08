@@ -153,6 +153,12 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                         <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
                                     </a>
                                 </div>
+                                
+                                <div class="col-6">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imgModal2">
+                                        <img src="storage/images/2024/boat_storage.webp" class="img-fluid rounded shadow-sm" style="cursor:pointer;">
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -174,6 +180,18 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
                             <div class="modal-body text-center p-0">
                                 <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow">
+                            </div>
+
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div class="modal fade" id="imgModal2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-transparent border-0">
+
+                            <div class="modal-body text-center p-0">
+                                <img src="storage/images/2024/boat_storage.webp" class="img-fluid rounded shadow">
                             </div>
 
                             </div>
