@@ -47,7 +47,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
             <div class="row g-5">
 
-                <!-- TEXT SECTION -->
+                <!-- LEFT COLUMN -->
                 <div class="col-md-7">
 
                     <h1 class="mt-4 mb-3">
@@ -62,31 +62,40 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <?= htmlspecialchars($post['excerpt']) ?>
                     </p>
 
-                    <div class="mb-4">
-                        <?php require $post['content']; ?>
+                    <!-- MOBILE IMAGE -->
+                    <div class="d-block d-md-none mb-4 text-center">
+                        <img
+                            src="<?= htmlspecialchars($post['image']) ?>"
+                            alt="<?= htmlspecialchars($post['title']) ?>"
+                            class="img-fluid rounded shadow-sm"
+                        >
                     </div>
 
+                    <article class="mb-4">
+                        <?php require $post['content']; ?>
+                    </article>
+
                     <div class="mt-5 text-muted"
-                         style="font-style: italic; font-size: 0.9rem;">
+                        style="font-style: italic; font-size: 0.9rem;">
                         AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
                     </div>
 
                 </div>
 
-                <!-- IMAGE SECTION -->
-                <div class="col-md-5 text-center text-md-end">
+                <!-- DESKTOP IMAGE -->
+                <div class="col-md-5 text-center text-md-end d-none d-md-block">
 
                     <img
                         src="<?= htmlspecialchars($post['image']) ?>"
                         alt="<?= htmlspecialchars($post['title']) ?>"
-                        class="img-fluid rounded"
+                        class="img-fluid rounded shadow-sm"
                     >
 
                 </div>
 
             </div>
 
-        </div>
+    </div>
 
     </div>
 </div>
