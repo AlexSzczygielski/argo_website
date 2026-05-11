@@ -83,4 +83,14 @@ $posts = [
         "author" => "Aleksander Szczygielski",
         "date" => "2026-04-26"
     ],
+
+    [
+        "id" => "azs_sailing_cup_otwarty_puchar_mazowsza_w_żeglarstwie_2026",
+        "title" => "AZS Sailing Cup – Otwarty Puchar Mazowsza w żeglarstwie, Akademickie Mistrzostwa Warszawy i Mazowsza",
+        "excerpt" => "Załoga ARGO AGH Kraków wraca z brązem z regat AMWIM na Zegrzu!",
+        "image" => "storage/images/2026/amwim/zaloga_4.jpg",
+        "content" => "blog/posts/azs_sailing_cup_otwarty_puchar_mazowsza_w_żeglarstwie_2026.php",
+        "author" => "Gabriela Cielecka",
+        "date" => "2026-05-11"
+    ],
 ];
