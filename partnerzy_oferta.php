@@ -32,7 +32,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                 Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji podczas różnorodnych zawodów akademickich,
                                 odbywających się na poziomie ogólnokrajowym. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i wiele ważnych organizacji, a to w połączeniu z naszym wyjątkowym motywem przewodnim, legitymacją AGH oraz częstymi sukcesami na podium, zapewni możliwość zaprezentowania Państwa wizerunku, unikatowym i niszowym klientom.</p>
                         </section>
-
+<!--
                         <section class="mb-5">
                             <h2>W tej sekcji pojawi się</h2>
                             <ul>
@@ -42,9 +42,10 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                 <li>Plan zagospodarowania pozyskanych środków</li>
                             </ul>
                         </section>
+-->                        
 
                         <!-- Formularz zgloszenowy -->
-                        <a href="Kontakt.php" class="btn btn-primary">Skontaktuj się z nami</a>
+                        <a href="kontakt.php" class="btn btn-primary">Skontaktuj się z nami</a>
                         </section>
                     </div>
 
