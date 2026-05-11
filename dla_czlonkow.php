@@ -88,6 +88,12 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                     Członkostwo
                                 </a>
                             </li>
+                            <li class="mb-2">
+                                <a href="legitymacja_azs.php"
+                                   class="text-break">
+                                    Legitymacja AZS i Certyfikat Przynależności
+                                </a>
+                            </li>
                         </ul>
                     </section>
 
