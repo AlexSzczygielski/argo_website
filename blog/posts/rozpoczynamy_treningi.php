@@ -1,5 +1,9 @@
-Wraz z początkiem kwietnia rozpoczynamy nasze przygotowania do sezonu regatowego. Zwroty, starty, sparingi - wszystkie te elementy mają nas rozgrzać przed mistrzostwami wojewódzkimi oraz zawodami z cyklu Pucharu Polskiej Klasy Omega. Nie zapominamy także o Akademickich Mistrzostwach Polski, które odbędą się już pod koniec maja.
+<p>Wraz z początkiem kwietnia rozpoczynamy nasze przygotowania do sezonu regatowego. Zwroty, starty, sparingi - wszystkie te elementy mają nas rozgrzać przed mistrzostwami wojewódzkimi oraz zawodami z cyklu Pucharu Polskiej Klasy Omega. Nie zapominamy także o Akademickich Mistrzostwach Polski, które odbędą się już pod koniec maja.</p>
 
+<div class="mt-5 text-muted"
+    style="font-style: italic; font-size: 0.9rem;">
+    AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
+</div>
 
 <div class="post-extra-images mt-5">
     <div class="row g-3">

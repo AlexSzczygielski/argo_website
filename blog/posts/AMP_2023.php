@@ -1,4 +1,4 @@
-<h4>Wyniki:</h4>
+<h4 class="mt-5">Wyniki:</h4>
 <ul class="list-unstyled">
     <li><strong>21.</strong> Aleksander Szczygielski, Jan Gorgoń, Gabriela Cielecka</li>
     <li><strong>55.</strong> Wiktor Leśkiewicz, Katarzyna Szczęsna, Sara Szczepankowska</li>
@@ -11,3 +11,8 @@
         </strong>
     </li>
 </ul>
+
+<div class="mt-5 text-muted"
+    style="font-style: italic; font-size: 0.9rem;">
+    AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
+</div>

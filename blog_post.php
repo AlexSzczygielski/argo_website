@@ -75,11 +75,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <?php require $post['content']; ?>
                     </article>
 
-                    <div class="mt-5 text-muted"
-                        style="font-style: italic; font-size: 0.9rem;">
-                        AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
-                    </div>
-
                 </div>
 
                 <!-- DESKTOP IMAGE -->

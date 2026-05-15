@@ -214,7 +214,12 @@ def main():
     # ------------------------
     # EXTRA IMAGES
     # ------------------------
-    extra_html = ""
+    extra_html = """
+    <div class="mt-5 text-muted"
+        style="font-style: italic; font-size: 0.9rem;">
+        AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
+    </div>
+    """
 
     if input("Add extra images? (y/n): ").lower() == "y":
         imgs = get_image_paths()
@@ -224,7 +229,7 @@ def main():
             validate_image_size(i)
             valid.append(to_rel(i))
 
-        extra_html = build_extra_images_html(valid)
+        extra_html = extra_html + build_extra_images_html(valid)
 
     # ------------------------
     # SAFE INPUT (LAST)

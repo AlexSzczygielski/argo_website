@@ -1,6 +1,12 @@
 <p>
     W tym roku Argo do najważniejszych regat w sezonie wystawiło dwie załogi. Zawody AMP 2025 ponownie okazały się wymagającym sprawdzianem — zmienne warunki na wodzie, momentami bardzo nieprzewidywalny wiatr oraz ciasna rywalizacja sprawiły, że o każdym miejscu decydowały detale. Obie nasze ekipy przez cały czas walczyły równo i konsekwentnie, zdobywając cenne doświadczenie na przyszłość. Choć nie obyło się bez trudniejszych momentów, wyjeżdżamy z poczuciem dobrze wykonanej pracy i sportowej satysfakcji.
 </p>
+
+<div class="mt-5 text-muted"
+    style="font-style: italic; font-size: 0.9rem;">
+    AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
+</div>
+
 <h4 class="mt-5">Wyniki:</h4>
 <ul class="list-unstyled">
     <li><strong>36.</strong> Wiktor Leśkiewicz, Kacper Ćwiokowski, Hubert Kraj</li>
