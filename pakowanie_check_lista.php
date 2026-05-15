@@ -53,6 +53,12 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 Lista rzeczy na regaty - Omega.
             </p>
 
+            <section class="mb-4 mt-4">
+                <p class="lead">
+                    Sprawdź także <a href="pakowanie_omegi_poradnik.php" class="text-break">poradnik pakowania</a>.
+                </p>
+            </section>
+
             <div class="row">
 
                 <!-- IMAGE -->
@@ -182,6 +188,14 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="spare">
                             <label class="form-check-label" for="spare">Wiosełko</label>
+                        </div>
+                        <div class=" text-muted" style="font-style: italic; font-size: 0.9rem;">
+                            (Wymagane w przepisach xd)
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="spare">
+                            <label class="form-check-label" for="spare">Flaga Protestowa</label>
                         </div>
                         <div class=" text-muted" style="font-style: italic; font-size: 0.9rem;">
                             (Wymagane w przepisach xd)

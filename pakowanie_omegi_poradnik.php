@@ -74,6 +74,15 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                 <strong>Czerwona łódka:</strong> zielony worek (AZS)
                             </li>
                         </ul>
+
+                        <p>Przed pakowaniem <strong>wybrać hals</strong> oraz upewnić się, że <strong>nic nie leży na łódce</strong> — zwłaszcza na dziobie w miejscach na spin bom.</p>
+
+                        <p><strong>Zakleić kieszenie</strong> na żaglu, żeby nic nie wpadło podczas transportu.</p>
+                        <div class="col-12 col-sm-6 col-md-4 mt-3 mb-3">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imgModalKieszenie">
+                                <img src="storage/images/dla_czlonkow/zaklejone_kieszenie.jpeg" class="img-fluid rounded shadow-sm" style="cursor:pointer;" alt="Zaklejone kieszenie">
+                            </a>
+                        </div>
                     </section>
 
                     <section class="mb-4 mt-4">
@@ -103,7 +112,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         </p>
 
                         <h4>Bom</h4>
-                        <p>Bom chowamy do auta. Można ostretchować.</p>
+                        <p>Bom chowamy do auta. Można ostretchować. <strong>Wiosełko również chowamy do auta.</strong></p>
 
                         <h4>Maszt</h4>
                         <p>
@@ -111,6 +120,23 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         </p>
                         <div class="mt-4 mb-4 text-muted" style="font-style: italic; font-size: 0.9rem;">
                             UWAGA: <strong>Zwróć szczególną uwagę, czy maszt nie wysunie się podczas hamowania!</strong>
+                        </div>
+
+                        <div class="post-extra-images mt-3 mb-3">
+                            <div class="row g-3">
+                                <?php
+                                $maszt_imgs = [1,2,3,4,5,6];
+                                foreach ($maszt_imgs as $i): ?>
+                                <div class="col-6 col-md-4">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imgModalMaszt<?= $i ?>">
+                                        <img src="storage/images/dla_czlonkow/mocowanie_masztu_<?= $i ?>.jpeg"
+                                             class="img-fluid rounded shadow-sm"
+                                             style="cursor:pointer;"
+                                             alt="Mocowanie masztu <?= $i ?>">
+                                    </a>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </section>
                     
@@ -121,19 +147,55 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         Wjeżdżamy łódką, do momentu aż otwór zabezpieczenia w wózku slipowym pokryje się z otworem w przyczepie. 
                         <strong>Zabezpieczamy to śrubą</strong>.
                         <br>
-                        Chowamy najazdy, zabezpieczamy śrubami oraz taśmą.
+                        Chowamy najazdy, zabezpieczamy <strong>śrubami oraz taśmą</strong>.
                         </p>
 
+                        <div class="col-12 col-sm-6 col-md-4 mt-3 mb-3">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imgModalNajazdy">
+                                <img src="storage/images/dla_czlonkow/najazdy_1.jpeg"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="cursor:pointer;"
+                                     alt="Najazdy">
+                            </a>
+                        </div>
+
+                        <div class="mt-3 mb-3">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imgModalTrzpien">
+                                <img src="storage/images/dla_czlonkow/trzpien_zabezpieczenie_lodki.jpeg"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="cursor:pointer; max-width: 300px;"
+                                     alt="Trzpień zabezpieczenia łódki">
+                            </a>
+                        </div>
+
                         <h4>Światła</h4>
-                        <p>Światła montujemy tam gdzie ster. Kabel poprawdź przez łódkę. Sprawdź światła przed jazdą.</p>
+                        <p>Światła montujemy tam gdzie ster. Kabel poprowadź przez łódkę. Sprawdź światła przed jazdą.</p>
                         <div class="mt-4 mb-4 text-muted" style="font-style: italic; font-size: 0.9rem;">
                             UWAGA: Sprawdzić czy światła nie obijają łódki.
                         </div>
 
                         <h4>Pasy</h4>
-                        <p>Łódkę spiąć pasami tranportowymi.</p>
+                        <p>Łódkę spiąć pasami transportowymi. <strong>Przed założeniem pasa podłożyć szmatkę</strong> w miejscu styku pasa z łódką, żeby jej nie porysować. <strong>Klamry montować w taki sposób, by nie obijały łódki.</strong></p>
+
+                        <div class="post-extra-images mt-3 mb-3">
+                            <div class="row g-3">
+                                <?php
+                                $pas_imgs = [1,2,3,4,5];
+                                foreach ($pas_imgs as $i): ?>
+                                <div class="col-6 col-md-4">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#imgModalPas<?= $i ?>">
+                                        <img src="storage/images/dla_czlonkow/pas_montaz_<?= $i ?>.jpeg"
+                                             class="img-fluid rounded shadow-sm"
+                                             style="cursor:pointer;"
+                                             alt="Montaż pasa <?= $i ?>">
+                                    </a>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
                         <div class="mt-4 mb-4 text-muted" style="font-style: italic; font-size: 0.9rem;">
-                            UWAGA: <strong>Po tranporcie koniecznie poluzować pasy!</strong>
+                            UWAGA: <strong>Po transporcie koniecznie poluzować pasy! Sprawdzić napięcie pasów po ok. 0,5 h jazdy.</strong>
                         </div>
                     </section>
 
@@ -161,43 +223,8 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modal fade" id="imgModal0" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content bg-transparent border-0">
-
-                            <div class="modal-body text-center p-0">
-                                <img src="storage/images/dla_czlonkow/omega_spakowana_1.jpeg" class="img-fluid rounded shadow">
-                            </div>
-
-                            </div>
-                        </div>
-                        </div>
-
-                        <div class="modal fade" id="imgModal1" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content bg-transparent border-0">
-
-                            <div class="modal-body text-center p-0">
-                                <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow">
-                            </div>
-
-                            </div>
-                        </div>
-                        </div>
-                        
-                        <div class="modal fade" id="imgModal2" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content bg-transparent border-0">
-
-                            <div class="modal-body text-center p-0">
-                                <img src="storage/images/2024/boat_storage.webp" class="img-fluid rounded shadow">
-                            </div>
-
-                            </div>
-                        </div>
-                        </div>
                     </section>
+
                 </div>
             </div>
         </div>
@@ -206,6 +233,99 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     </div>
 
     <?php require_once('layout/footer.php'); ?>
+</div>
+
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Zaklejone kieszenie -->
+<div class="modal fade" id="imgModalKieszenie" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/zaklejone_kieszenie.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mocowanie masztu -->
+<?php for ($i = 1; $i <= 6; $i++): ?>
+<div class="modal fade" id="imgModalMaszt<?= $i ?>" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/mocowanie_masztu_<?= $i ?>.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endfor; ?>
+
+<!-- Najazdy -->
+<div class="modal fade" id="imgModalNajazdy" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/najazdy_1.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Trzpień -->
+<div class="modal fade" id="imgModalTrzpien" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/trzpien_zabezpieczenie_lodki.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Montaż pasów -->
+<?php for ($i = 1; $i <= 5; $i++): ?>
+<div class="modal fade" id="imgModalPas<?= $i ?>" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/pas_montaz_<?= $i ?>.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endfor; ?>
+
+<!-- Produkt końcowy -->
+<div class="modal fade" id="imgModal0" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/omega_spakowana_1.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imgModal1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/dla_czlonkow/omega_spakowana_2.jpeg" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imgModal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img src="storage/images/2024/boat_storage.webp" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
 </div>
 
 
