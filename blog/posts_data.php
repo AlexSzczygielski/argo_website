@@ -93,4 +93,14 @@ $posts = [
         "author" => "Gabriela Cielecka",
         "date" => "2026-05-11"
     ],
+
+    [
+        "id" => "akademickie_mistrzostwa_polski_w_żeglarstwie_2026",
+        "title" => "Akademickie Mistrzostwa Polski w Żeglarstwie 2026",
+        "excerpt" => "Tegoroczne Akademickie Mistrzostwa Polski upłynęły pod znakiem wymagających, niemal bezwietrznych warunków.",
+        "image" => "storage/images/2026/amp/podium_1.JPG",
+        "content" => "blog/posts/akademickie_mistrzostwa_polski_w_żeglarstwie_2026.php",
+        "author" => "Gabriela Cielecka",
+        "date" => "2026-05-26"
+    ],
 ];
