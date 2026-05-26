@@ -42,9 +42,9 @@ $gallery = [
     </div>
 <h4 class="mt-5">Wyniki</h4>
     <ul class="list-unstyled">
-    <li><strong>6.</strong> Leon Gniadek Jan Tymoteusz Mika</li>
-    <li><strong>28.</strong> Wiktor Leśkiewicz Hubert Kraj Kacper Ćwiokowski</li>
-    <li><strong>34.</strong> Aleksander Szczygielski Jan Gorgoń Gabriela Cielecka</li>
+    <li><strong>6.</strong> Leon Gniadek, Jan Pacheco-Śledź, Tymoteusz Mika</li>
+    <li><strong>28.</strong> Wiktor Leśkiewicz, Hubert Kraj, Kacper Ćwiokowski</li>
+    <li><strong>34.</strong> Aleksander Szczygielski, Jan Gorgoń, Gabriela Cielecka</li>
 
     </ul>
 
