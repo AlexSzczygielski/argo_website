@@ -381,6 +381,34 @@ html {
   display: none;
 }
 
+/* --- BLOG MODAL PICTURES --- */
+
+.blog-post-content p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.post-gallery .gallery-item {
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.post-gallery .gallery-image {
+  transition: transform 0.3s ease;
+}
+
+.post-gallery .gallery-image:hover {
+  transform: scale(1.03);
+}
+
+.modal-body img {
+  max-height: 90vh;
+  object-fit: contain;
+}
+
 /* --- FOOTER --- */
 /* Footer base style: light bg, subtle border, main font */
 footer {

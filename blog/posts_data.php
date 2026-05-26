@@ -97,7 +97,7 @@ $posts = [
     [
         "id" => "akademickie_mistrzostwa_polski_w_żeglarstwie_2026",
         "title" => "Akademickie Mistrzostwa Polski w Żeglarstwie 2026",
-        "excerpt" => "Tegoroczne Akademickie Mistrzostwa Polski upłynęły pod znakiem wymagających, niemal bezwietrznych warunków.",
+        "excerpt" => "Wicemistrzostwo Polski w UTE!",
         "image" => "storage/images/2026/amp/podium_1.JPG",
         "content" => "blog/posts/akademickie_mistrzostwa_polski_w_żeglarstwie_2026.php",
         "author" => "Gabriela Cielecka",
