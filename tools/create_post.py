@@ -3,6 +3,9 @@ import re
 from datetime import date
 import tkinter as tk
 from tkinter import filedialog
+import tempfile
+import subprocess
+import sys
 
 POSTS_DATA_PATH = "blog/posts_data.php"
 POSTS_DIR = "blog/posts"
@@ -37,15 +40,31 @@ def extract_first_sentence(text: str) -> str:
     return sentences[0].strip() if sentences else text[:120]
 
 
-def read_multiline(prompt="Enter content (end with empty line):"):
-    print(prompt)
-    lines = []
-    while True:
-        line = input()
-        if line.strip() == "":
-            break
-        lines.append(line)
-    return "\n".join(lines)
+def open_editor() -> str:
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".txt", delete=False, encoding="utf-8"
+    ) as tmp:
+        tmp.write("<!-- Paste your post content here, then save and close -->\n")
+        tmp_path = tmp.name
+
+    if sys.platform == "win32":
+        os.startfile(tmp_path)
+        input("\nEditor opened. Press Enter when you're done editing and have saved the file...")
+    else:
+        editor = os.environ.get("EDITOR", "nano")
+        subprocess.call([editor, tmp_path])
+
+    with open(tmp_path, encoding="utf-8") as f:
+        content = f.read()
+
+    # Strip the placeholder comment line
+    content = "\n".join(
+        line for line in content.splitlines()
+        if not line.strip().startswith("<!--")
+    )
+
+    os.unlink(tmp_path)
+    return content.strip()
 
 
 # ----------------------------
@@ -242,8 +261,8 @@ def main():
 
     check_duplicates(slug, title)
 
-    print("\nPaste content:")
-    content = read_multiline()
+    print("\nOpening editor for content...")
+    content = open_editor()
 
     final_content = content + "\n\n" + extra_html
 
