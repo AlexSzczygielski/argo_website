@@ -181,6 +181,64 @@ html {
   color: #2c5f88; /* Hover color */
 }
 
+.argo-latest-teaser {
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: #cfd9e3;
+  margin-top: 2rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+.argo-teaser-label {
+  font-weight: 600;
+  color: #9fb4cc;
+  margin-right: 6px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+a.argo-latest-teaser {
+  display: block;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  margin-top: 1.5rem; /* was 0 or inherited */
+}
+
+a.argo-latest-teaser:hover {
+  color: #fff;
+}
+
+a.argo-latest-teaser:hover .argo-teaser-label {
+  color: #cfd9e3;
+}
+
+/* Mobile jumbotron button layout */
+@media (max-width: 767px) {
+  .argo-jumbotron .btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .argo-jumbotron .btn-join,
+  .argo-jumbotron .btn-partner {
+    width: 47%;
+  }
+
+  .argo-jumbotron .btn-events {
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .argo-latest-teaser {
+    font-size: 0.75rem;
+    margin-top: 1rem;
+  }
+}
+
 /* --- SECTIONS --- */
 /* Anchor for offsetting scroll position */
 .section-anchor {
@@ -347,6 +405,74 @@ html {
   width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.blog-section-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.blog-heading-rule-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.blog-heading-rule {
+  height: 1px;
+  width: 60px;
+  background-color: #1e3f66;
+  opacity: 0.3;
+}
+
+.blog-heading-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.blog-heading-icon {
+  color: #1e3f66;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.blog-heading-title {
+  font-family: "Cinzel", serif;
+  font-size: 1.9rem;
+  color: #1e3f66;
+  margin: 0;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.blog-heading-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  color: #2c5f88;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0.6rem 0 0;
+}
+
+.blog-heading-icon {
+  height: 60px;
+  width: auto;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .blog-heading-rule {
+    width: 30px;
+  }
+
+  .blog-heading-title {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
 }
 
 /* Show more button, index */

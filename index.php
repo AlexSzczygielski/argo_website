@@ -17,74 +17,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 <body>
   <?php require 'layout/navbar.php' ?>
 
-  <!-- Jumbotron Welcome Page-->
-  <div class="argo-jumbotron" id="home">
-    <div class="container text-center">
-      <h1 class="argo-title">Argo</h1>
-      <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
-      <p class="argo-tagline">Zwyciężać mogą ci, którzy wierzą, że mogą.</p>
-      <p class="argo-author-credit">Wergiliusz</p>
-      <a href="dolacz.php" class="btn btn-outline-light btn-lg mt-3">Zostań Argonautą</a><br>
-      <a href="partnerzy_oferta.php" class="btn btn-outline-light btn-lg mt-3">Współpraca</a>
-    </div>
-
-    <!-- Social Icons below navbar -->
-    <div class="social-icons">
-      <a href="https://facebook.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Facebook">
-        <i class="fab fa-facebook-f fs-4"></i>
-      </a>
-      <a href="https://instagram.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Instagram">
-        <i class="fab fa-instagram fs-4"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- O Nas Section -->
-  <div id="about-anchor" class="section-anchor"></div>
-  <div id="about" class="container py-5">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
-        <h2 class="display-4">O nas</h2>
-        <p class="lead">Argo to studencki klub regatowy skupiający ludzi z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
-        <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
-        <a href="about.php" class="btn btn-primary btn-lg">Więcej informacji</a>
-      </div>
-      <div class="col-md-6 text-center">
-        <img src="storage/images/argologo.svg" alt="Argo Logo" class="img-fluid rounded-circle">
-      </div>
-    </div>
-  </div>
-
-  <!-- Wspolpraca/partnerzy Section -->
-  <div id="partners-anchor" class="section-anchor"></div>
-  <div id="partners" class="container py-5">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
-        <!-- Heading -->
-        <h2 class="display-4">Zostań naszym partnerem</h2>
-        <!-- Description -->
-        <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji podczas różnorodnych zawodów akademickich, 
-          odbywających się na poziomie ogólnokrajowym. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i wiele ważnych organizacji, a to w połączeniu z naszym wyjątkowym motywem przewodnim, legitymacją AGH oraz częstymi sukcesami na podium, zapewni możliwość zaprezentowania Państwa wizerunku, unikatowym i niszowym klientom.</p>
-        <p>Jeśli chcą Państwo wspierać młodych sportowców i zostać częścią naszej regatowej społeczności, dołączcie do nas i pomóżcie tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
-        <a href="partnerzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
-      </div>
-      <div class="col-md-6 text-center">
-        <div class="logos">
-          <!-- University 1 Logo -->
-          <img src="storage/images/agh_logo.svg" alt="University 1 Logo" class="partner-logo">
-          <!-- University 2 Logo -->
-          <img src="storage/images/azs_logo.webp" alt="University 2 Logo" class="partner-logo">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Wydarzenia Section -->
-  <div id="blog-anchor" class="section-anchor"></div>
-  <div id="blog" class="bg-light py-5">
-    <div class="container">
-      <h2 class="text-center display-4">Wydarzenia</h2>
-
-      <!-- Get cards -->
+  <!-- Get cards -->
       <?php
       require 'blog/posts_data.php';
 
@@ -141,6 +74,96 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
           $latest3
       ]);
       ?>
+
+  <!-- Jumbotron Welcome Page-->
+  <div class="argo-jumbotron" id="home">
+    <div class="container text-center">
+      <h1 class="argo-title">Argo</h1>
+      <p class="argo-subtitle">Studencki Klub Regatowy AGH</p>
+      <p class="argo-tagline">Zwyciężać mogą ci, którzy wierzą, że mogą.</p>
+      <p class="argo-author-credit">Wergiliusz</p>
+
+      <?php if ($latest1): ?>
+        <a href="blog_post.php?page=<?= urlencode($latest1['id']) ?>" class="argo-latest-teaser">
+          <span class="argo-teaser-label">Ostatnio:</span>
+          <?= htmlspecialchars($latest1['title']) ?>
+        </a>
+      <?php endif; ?>
+
+      <a href="dolacz.php" class="btn btn-outline-light btn-lg mt-3 btn-join">Zostań Argonautą</a>
+      <a href="partnerzy_oferta.php" class="btn btn-outline-light btn-lg mt-3 btn-partner">Współpraca</a>
+      <a href="#blog-anchor" class="btn btn-outline-light btn-lg mt-3 btn-events">Najnowsze wydarzenia ↓</a>
+    </div>
+
+    <!-- Social Icons below navbar -->
+    <div class="social-icons">
+      <a href="https://facebook.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Facebook">
+        <i class="fab fa-facebook-f fs-4"></i>
+      </a>
+      <a href="https://instagram.com/" target="_blank" class="btn btn-outline-light btn-lg mt-3" aria-label="Instagram">
+        <i class="fab fa-instagram fs-4"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- O Nas Section -->
+  <div id="about-anchor" class="section-anchor"></div>
+  <div id="about" class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+        <h2 class="display-4">O nas</h2>
+        <p class="lead">Argo to studencki klub regatowy skupiający ludzi z pasją do szybkiego żeglarstwa, współpracujący z AZS AGH. Naszym celem jest promowanie żeglarstwa regatowego wśród studentów i miłośników sportów wodnych.</p>
+        <p>Organizujemy szkolenia, treningi i bierzemy udział w regatach na różnych poziomach zaawansowania. Dołącz do nas, aby rozwijać swoje umiejętności i poznać najpiękniejszy z wymiarów żeglarstwa.</p>
+        <a href="about.php" class="btn btn-primary btn-lg">Więcej informacji</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="storage/images/argologo.svg" alt="Argo Logo" class="img-fluid rounded-circle">
+      </div>
+    </div>
+  </div>
+
+  <!-- Wspolpraca/partnerzy Section -->
+  <div id="partners-anchor" class="section-anchor"></div>
+  <div id="partners" class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+        <!-- Heading -->
+        <h2 class="display-4">Zostań naszym partnerem</h2>
+        <!-- Description -->
+        <p class="lead">Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji podczas różnorodnych zawodów akademickich, 
+          odbywających się na poziomie ogólnokrajowym. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i wiele ważnych organizacji, a to w połączeniu z naszym wyjątkowym motywem przewodnim, legitymacją AGH oraz częstymi sukcesami na podium, zapewni możliwość zaprezentowania Państwa wizerunku, unikatowym i niszowym klientom.</p>
+        <p>Jeśli chcą Państwo wspierać młodych sportowców i zostać częścią naszej regatowej społeczności, dołączcie do nas i pomóżcie tworzyć niezapomniane regaty, treningi i wydarzenia.</p>
+        <a href="partnerzy_oferta.php" class="btn btn-primary btn-lg">Więcej informacji</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="logos">
+          <!-- University 1 Logo -->
+          <img src="storage/images/agh_logo.svg" alt="University 1 Logo" class="partner-logo">
+          <!-- University 2 Logo -->
+          <img src="storage/images/azs_logo.webp" alt="University 2 Logo" class="partner-logo">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Wydarzenia Section -->
+  <div id="blog-anchor" class="section-anchor"></div>
+  <div id="blog" class="bg-light py-5">
+    <div class="container">
+      <div class="blog-section-heading">
+        <div class="blog-heading-rule-wrap">
+          <div class="blog-heading-rule"></div>
+          <div class="blog-heading-center">
+            <div class="blog-heading-center">
+              <img src="storage/images/sail.png" alt="" aria-hidden="true" class="blog-heading-icon">
+              <h2 class="blog-heading-title">Wydarzenia</h2>
+            </div>
+          </div>
+          <div class="blog-heading-rule"></div>
+        </div>
+        <p class="blog-heading-subtitle">Aktualności z regatowego życia</p>
+      </div>
+
+      
 
       <!-- Carousel for Desktop (screens md and up) -->
       <div id="eventsCarouselDesktop" class="carousel slide carousel-dark d-none d-md-block" data-bs-ride="carousel">
