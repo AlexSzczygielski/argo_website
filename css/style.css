@@ -409,6 +409,195 @@ html {
   object-fit: contain;
 }
 
+/* --- REGATTA RESULTS TABLE --- */
+
+.argo-results-wrap {
+  padding: 2rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.argo-results-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.argo-sail-icon {
+  height: 2rem;
+  width: auto;
+  opacity: 0.92;
+}
+
+.argo-results-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e3f66;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.argo-results-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #2c5f88;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem 0;
+  padding-left: 2px;
+}
+
+.argo-table-wrap {
+  border: 1px solid #c8d8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.argo-class-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #1e3f66;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+table.argo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+table.argo-table thead tr {
+  background: #2c5f88;
+}
+
+table.argo-table thead th {
+  color: #e8f0f8;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  text-align: left;
+  border: none;
+}
+
+table.argo-table thead th:first-child {
+  text-align: center;
+  width: 52px;
+}
+
+table.argo-table thead th:last-child {
+  text-align: right;
+}
+
+table.argo-table tbody tr {
+  border-bottom: 0.5px solid #dce8f2;
+  transition: background 0.15s;
+}
+
+table.argo-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+table.argo-table tbody tr:hover {
+  background: #f0f6fb;
+}
+
+table.argo-table td {
+  padding: 9px 12px;
+  color: #1e3f66;
+  vertical-align: middle;
+}
+
+table.argo-table td:first-child {
+  text-align: center;
+  font-weight: 600;
+}
+
+table.argo-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: #2c5f88;
+}
+
+.place-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.place-1 { background: #f5e6b3; color: #7a5800; }
+.place-2 { background: #e0e5ea; color: #3a4a58; }
+.place-3 { background: #f0ddd0; color: #7a3e1a; }
+.place-other { background: #e8f0f8; color: #1e3f66; }
+
+.sail-no {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  background: #eaf2fb;
+  color: #1e3f66;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.argo-results-section-gap {
+  height: 1.5rem;
+}
+
+/* Loading / empty / error states */
+.argo-table tbody tr.loading-row td,
+.argo-table tbody tr.empty-row td {
+  text-align: center;
+  color: #6a90b0;
+  padding: 1.5rem;
+  font-style: italic;
+}
+
+.argo-table tbody tr.error-row td {
+  text-align: center;
+  color: #b03030;
+  padding: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .argo-results-title {
+    font-size: 1.1rem;
+  }
+
+  table.argo-table {
+    font-size: 0.8rem;
+  }
+
+  table.argo-table td,
+  table.argo-table th {
+    padding: 7px 8px;
+  }
+
+  /* Hide club column on mobile */
+  table.argo-table thead th:nth-child(5),
+  table.argo-table tbody td:nth-child(5) {
+    display: none;
+  }
+}
+
+
 /* --- FOOTER --- */
 /* Footer base style: light bg, subtle border, main font */
 footer {
