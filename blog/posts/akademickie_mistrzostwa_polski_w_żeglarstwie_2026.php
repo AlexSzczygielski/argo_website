@@ -16,7 +16,6 @@ $gallery = [
 ?>
 
 <div class="blog-post-content">
-
     <p>
         Tegoroczne Akademickie Mistrzostwa Polski upłynęły pod znakiem wymagających, niemal bezwietrznych warunków. Słaby wiatr sprawiał, że każdy błąd kosztował podwójnie, a o końcowym wyniku decydowały precyzja, cierpliwość i pełne skupienie na trasie.
     </p>
@@ -49,7 +48,7 @@ $gallery = [
       <tr>
         <th>#</th>
         <th>Nr żagla</th>
-        <th>Sternik</th>
+        <th>Załoga</th>
         <th>Klub</th>
       </tr>
     </thead>
@@ -138,11 +137,6 @@ $gallery = [
     }
 })();
 </script>
-<strong>
-    <a href="https://www.upwind24.pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026" target="_blank">
-        Pełne wyniki na stronie Upwind
-    </a>
-</strong>
 <h3 class='mt-4'>Omega Standard (Srebrna)</h3>
 
 <div class="argo-table-wrap">
@@ -152,7 +146,7 @@ $gallery = [
       <tr>
         <th>#</th>
         <th>Nr żagla</th>
-        <th>Sternik</th>
+        <th>Załoga</th>
         <th>Klub</th>
       </tr>
     </thead>
@@ -241,13 +235,11 @@ $gallery = [
     }
 })();
 </script>
-<strong>
-    <a href="https://www.upwind24.pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026" target="_blank">
-        Pełne wyniki na stronie Upwind
-    </a>
-</strong>
 
-
+        <a href="https://www.upwind24.pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026" target="_blank" class="btn btn-outline-secondary mt-3 d-inline-block">
+            Pełne wyniki na stronie Upwind24 ↗
+        </a>
+        
 </div>
 
 <!-- GALERIA -->
@@ -258,9 +250,8 @@ $gallery = [
             <div class="col-6">
                 <a
                     href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#galleryModal<?= $index ?>"
                     class="gallery-item"
+                    onclick="openGallery(<?= $index ?>); return false;"
                 >
                     <img
                         src="storage/images/2026/amp/<?= $image ?>"
@@ -275,23 +266,73 @@ $gallery = [
     </div>
 </div>
 
-<!-- MODALE -->
-<?php foreach ($gallery as $index => $image): ?>
-    <div class="modal fade" id="galleryModal<?= $index ?>" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-body text-center p-0">
-                    <img
-                        src="storage/images/2026/amp/<?= $image ?>"
-                        class="img-fluid rounded shadow"
-                        alt="Studencki Klub Regatowy ARGO AGH Kraków - zdjęcie z regat"
-                    >
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
 
 <div class="mt-5 text-muted" style="font-style: italic; font-size: 0.9rem;">
     Zdjęcia dzięki uprzejmości organizatora.
 </div>
+
+<!-- SINGLE GALLERY MODAL -->
+<div class="modal fade" id="galleryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0">
+
+            <div class="modal-header border-0 justify-content-end">
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center p-0 position-relative d-flex justify-content-center align-items-center">
+
+                <!-- LEFT BUTTON -->
+                <button type="button"
+                        class="btn btn-dark modal-nav-btn modal-prev"
+                        onclick="prevImage()">
+                    ‹
+                </button>
+
+                <img id="galleryModalImage"
+                    src=""
+                    class="img-fluid rounded shadow"
+                    alt="gallery image">
+
+                <!-- RIGHT BUTTON -->
+                <button type="button"
+                        class="btn btn-dark modal-nav-btn modal-next"
+                        onclick="nextImage()">
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const galleryImages = [
+<?php foreach ($gallery as $image): ?>
+    "<?= "storage/images/2026/amp" . '/' . $image ?>",
+<?php endforeach; ?>
+];
+
+let currentIndex = 0;
+
+function openGallery(index) {
+    currentIndex = index;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+
+    const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+    modal.show();
+}
+
+function nextImage() {
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+}
+
+function prevImage() {
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+}
+</script>
