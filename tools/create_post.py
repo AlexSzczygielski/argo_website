@@ -145,9 +145,8 @@ $gallery = [
             <div class="col-6">
                 <a
                     href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#galleryModal<?= $index ?>"
                     class="gallery-item"
+                    onclick="openGallery(<?= $index ?>); return false;"
                 >
                     <img
                         src="{gallery_dir}/<?= $image ?>"
@@ -162,22 +161,71 @@ $gallery = [
     </div>
 </div>
 
-<!-- MODALE -->
-<?php foreach ($gallery as $index => $image): ?>
-    <div class="modal fade" id="galleryModal<?= $index ?>" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-transparent border-0">
-                <div class="modal-body text-center p-0">
-                    <img
-                        src="{gallery_dir}/<?= $image ?>"
-                        class="img-fluid rounded shadow"
-                        alt="Studencki Klub Regatowy ARGO AGH Kraków - zdjęcie z regat"
-                    >
-                </div>
+<!-- SINGLE GALLERY MODAL -->
+<div class="modal fade" id="galleryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0">
+
+            <div class="modal-header border-0 justify-content-end">
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
             </div>
+
+            <div class="modal-body text-center p-0 position-relative d-flex justify-content-center align-items-center">
+
+                <!-- LEFT BUTTON -->
+                <button type="button"
+                        class="btn btn-dark modal-nav-btn modal-prev"
+                        onclick="prevImage()">
+                    ‹
+                </button>
+
+                <img id="galleryModalImage"
+                    src=""
+                    class="img-fluid rounded shadow"
+                    alt="gallery image">
+
+                <!-- RIGHT BUTTON -->
+                <button type="button"
+                        class="btn btn-dark modal-nav-btn modal-next"
+                        onclick="nextImage()">
+                    ›
+                </button>
+
+            </div>
+
         </div>
     </div>
+</div>
+
+<script>
+const galleryImages = [
+<?php foreach ($gallery as $image): ?>
+    "<?= "{gallery_dir}" . '/' . $image ?>",
 <?php endforeach; ?>
+];
+
+let currentIndex = 0;
+
+function openGallery(index) {{
+    currentIndex = index;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+
+    const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+    modal.show();
+}}
+
+function nextImage() {{
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+}}
+
+function prevImage() {{
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+}}
+</script>
 """
     return php
 
@@ -272,7 +320,7 @@ def resolve_upwind24(regatta_url: str):
 
     return build_leaderboard_urls(slug, leaderboards)
 
-def build_upwind_html(api_url: str, keyword: str = "agh", post_number: int = 0, class_label: str = "", full_url: str = "https://www.upwind24.pl"):
+def build_upwind_html(api_url: str, keyword: str = "agh", post_number: int = 0, class_label: str = ""):
     """
     Build a styled HTML+JS block for an Upwind24 regatta leaderboard.
     """
@@ -289,7 +337,7 @@ def build_upwind_html(api_url: str, keyword: str = "agh", post_number: int = 0, 
       <tr>
         <th>#</th>
         <th>Nr żagla</th>
-        <th>Sternik</th>
+        <th>Załoga</th>
         <th>Klub</th>
       </tr>
     </thead>
@@ -378,11 +426,6 @@ def build_upwind_html(api_url: str, keyword: str = "agh", post_number: int = 0, 
     }}
 }})();
 </script>
-<strong>
-    <a href="{full_url}" target="_blank">
-        Pełne wyniki na stronie Upwind
-    </a>
-</strong>
 """
     return php
 
@@ -469,8 +512,14 @@ def main():
                 api_url,
                 keyword="agh",
                 post_number=i,
-                full_url=regatta_url
             )
+
+        # 5 Add Pelne wyniki after the last table
+        results_html+=f"""
+        <a href="{regatta_url}" target="_blank" class="btn btn-outline-secondary mt-3 d-inline-block">
+            Pełne wyniki na stronie Upwind24 ↗
+        </a>
+        """
         
 
     # --- AUTHOR LINE ---

@@ -105,6 +105,15 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 <div class="modal fade" id="titleImageModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content bg-transparent border-0">
+            <div class="modal-header border-0 justify-content-end">
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            
             <div class="modal-body text-center p-0">
                 <img
                     src="<?= htmlspecialchars($post['image']) ?>"

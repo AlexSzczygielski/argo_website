@@ -409,6 +409,37 @@ html {
   object-fit: contain;
 }
 
+.modal-body {
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-nav-btn {
+  position: fixed; /* instead of absolute */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  background-color: rgba(30, 63, 102, 0.75);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-nav-btn:hover {
+  background-color: rgba(44, 95, 136, 0.9);
+}
+
+.modal-prev { left: 10px; }
+.modal-next { right: 10px; }
+
 /* --- REGATTA RESULTS TABLE --- */
 
 .argo-results-wrap {
