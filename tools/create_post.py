@@ -6,6 +6,7 @@ import sys
 from datetime import date
 import tkinter as tk
 from tkinter import filedialog
+import requests
 
 POSTS_DATA_PATH = "blog/posts_data.php"
 POSTS_DIR = "blog/posts"
@@ -234,170 +235,156 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
+import requests
 
-class UpwindResultsFetcher:
-    def __init__(self, club_filter="AGH"):
-        self.club_filter = club_filter
-        self.headers = {
-            "User-Agent": "Mozilla/5.0"
+
+def extract_slug(url: str) -> str:
+    return url.rstrip("/").split("/regatta/")[-1]
+
+
+def get_leaderboards(slug: str) -> list:
+    url = f"https://api.upwind24.pl/v1/regattas/{slug}/leaderboards"
+    r = requests.get(url)
+    r.raise_for_status()
+    return r.json().get("data", [])
+
+
+def build_leaderboard_urls(slug: str, leaderboards: list):
+    base = f"https://api.upwind24.pl/v1/regattas/{slug}/leaderboards"
+
+    return [
+        {
+            "name": lb.get("name"),
+            "url": f"{base}/{lb.get('id')}"
         }
+        for lb in leaderboards
+    ]
 
-    # -------------------------
-    # HTTP + parsing helpers
-    # -------------------------
-    def get_soup(self, url):
-        r = requests.get(url, headers=self.headers)
-        r.raise_for_status()
-        return BeautifulSoup(r.text, "lxml")
 
-    # -------------------------
-    # Find results page
-    # -------------------------
-    def find_results_table_url(self, regatta_url):
-        soup = self.get_soup(regatta_url)
+def resolve_upwind24(regatta_url: str):
+    slug = extract_slug(regatta_url)
 
-        print("Scanning results links from:", regatta_url)
+    print(f"[+] slug: {slug}")
 
-        results_links = []
+    leaderboards = get_leaderboards(slug)
 
-        for a in soup.find_all("a", href=True):
-            href = a["href"]
+    print(f"[+] found leaderboards: {len(leaderboards)}")
 
-            if "results" in href:
-                full_url = urljoin(regatta_url, href)
-                results_links.append(full_url)
+    return build_leaderboard_urls(slug, leaderboards)
 
-        if not results_links:
-            raise Exception("Results link not found")
-
-        # -----------------------------
-        # PRIORITY 1: table-based results
-        # -----------------------------
-        for url in results_links:
-            if "table=" in url:
-                print("Selected table-based results:", url)
-                return url
-
-        # -----------------------------
-        # PRIORITY 2: normal results page
-        # -----------------------------
-        for url in results_links:
-            if "/results" in url:
-                print("Selected fallback results:", url)
-                return url
-
-        # fallback (shouldn't happen)
-        return results_links[0]
-
-    # -------------------------
-    # Parse results table
-    # -------------------------
-    def parse_results(self, results_url):
-        soup = self.get_soup(results_url)
-
-        rows = []
-
-        # STEP 1: find ALL cells
-        cells = soup.select('div[role="cell"]')
-
-        current_row = []
-        
-        for cell in cells:
-            text_blocks = cell.get_text(" ", strip=True)
-
-            if not text_blocks:
-                continue
-
-            # filter obvious UI junk
-            if text_blocks.startswith("Klasyfikacja") or "Szukaj" in text_blocks:
-                continue
-
-            current_row.append(text_blocks)
-
-            # heuristic: row boundary (Upwind groups cells in fixed chunks)
-            if len(current_row) >= 8:
-                row_str = " | ".join(current_row)
-
-                if self.club_filter.lower() in row_str.lower():
-
-                    # extract position = first number in row
-                    position = next(
-                        (t for t in current_row if t.strip().isdigit()),
-                        None
-                    )
-
-                    if position:
-                        crew = " ".join(
-                            t for t in current_row
-                            if self.club_filter.lower() not in t.lower()
-                            and not t.strip().isdigit()
-                        )
-
-                        rows.append((position, crew, self.club_filter))
-
-                current_row = []
-
-        return rows
-
-    # -------------------------
-    # HTML generator
-    # -------------------------
-    def build_html(self, rows, results_url):
-        print(rows)
-        if not rows:
-            return f"""
-    <h4 class="mt-5">Wyniki ({self.club_filter})</h4>
-    <p>Brak wyników dla {self.club_filter}</p>
-    <strong><a href="{results_url}" target="_blank">Pełne wyniki na stronie Upwind</a></strong>
+def build_upwind_html(api_url: str, keyword: str = "agh", post_number: int = 0, class_label: str = "", full_url: str = "https://www.upwind24.pl"):
+    """
+    Build a styled HTML+JS block for an Upwind24 regatta leaderboard.
     """
 
-        html = f"""
-    <h4 class="mt-5">Wyniki ({self.club_filter})</h4>
-    <ul class="list-unstyled">
-    """
+    label_html = ""
+    if class_label:
+        label_html = f'<div class="argo-class-label"><i class="ti ti-sailboat" aria-hidden="true"></i> {class_label}</div>'
 
-        for position, raw_text, club in rows:
+    php = f"""
+<div class="argo-table-wrap">
+  {label_html}
+  <table class="argo-table" id="argo-tbl-{post_number}">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nr żagla</th>
+        <th>Sternik</th>
+        <th>Klub</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="loading-row"><td colspan="4">Ładowanie wyników…</td></tr>
+    </tbody>
+  </table>
+</div>
 
-            parts = raw_text.split()
+<script>
+(() => {{
+    const tableId = "argo-tbl-{post_number}";
+    const url     = "{api_url}";
+    const KEYWORD = "{keyword}".toLowerCase();
 
-            # remove leading "-" garbage
-            while parts and parts[0] == "-":
-                parts.pop(0)
+    function placeBadge(n) {{
+        const cls = n === 1 ? "place-1" : n === 2 ? "place-2" : n === 3 ? "place-3" : "place-other";
+        return `<span class="place-badge ${{cls}}">${{n}}</span>`;
+    }}
 
-            # remove numeric scoring junk (6, (6.00), etc.)
-            cleaned_parts = []
-            for p in parts:
-                
-                if "(" in p or ")" in p or "-" in p:
-                    continue
-                cleaned_parts.append(p)
+    function renderTable(data) {{
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
 
-            cleaned = " ".join(cleaned_parts)
+        tbody.innerHTML = data.map(item => {{
 
-            html += f"    <li><strong>{position}.</strong> {cleaned}</li>\n"
+            const boat = item.boat || {{}};
+            const helm = boat.helmsman || {{}};
+            const crew = boat.crew || [];
+            const place = item.overallPlace ?? "";
 
-        html += f"""
-    </ul>
+            const helmName = `${{helm.firstName ?? ""}} ${{helm.lastName ?? ""}}`.trim();
 
-    <strong>
-        <a href="{results_url}" target="_blank">
-            Pełne wyniki na stronie Upwind
-        </a>
-    </strong>
-    """
+            const crewNames = crew
+                .map(c => `${{c.firstName ?? ""}} ${{c.lastName ?? ""}}`.trim())
+                .filter(Boolean);
 
-        return html
+            const allPeople = [helmName, ...crewNames].filter(Boolean).join(", ");
 
-    # -------------------------
-    # PUBLIC API (what you use)
-    # -------------------------
-    def fetch(self, regatta_url):
-        results_url = self.find_results_table_url(regatta_url)
-        print(regatta_url)
-        print(results_url)
-        rows = self.parse_results(results_url)
-        return self.build_html(rows, results_url)
+            return `<tr>
+                <td>${{place}}</td>
+                <td><span class="sail-no">${{boat.sailNumber ?? ""}}</span></td>
+                <td>${{allPeople}}</td>
+                <td>${{helm.sailingClub?.fullName ?? ""}}</td>
+            </tr>`;
+        }}).join("");
+    }}
 
+    function renderEmpty() {{
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="4">Brak wyników dla: <strong>{keyword}</strong></td></tr>`;
+    }}
+
+    function renderError() {{
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (tbody) tbody.innerHTML = `<tr class="error-row"><td colspan="4">Błąd ładowania wyników.</td></tr>`;
+    }}
+
+    function load() {{
+        fetch(url)
+            .then(res => res.json())
+            .then(json => {{
+                const results  = json?.data?.results ?? [];
+                const filtered = results.filter(item => {{
+                    const boat = item.boat || {{}};
+                    const helm = boat.helmsman || {{}};
+                    const club = helm.sailingClub || {{}};
+
+                    return [boat.name, boat.sailNumber, helm.firstName, helm.lastName, club.fullName]
+                        .some(v => (v || "").toLowerCase().includes(KEYWORD));
+                }});
+
+                filtered.length === 0 ? renderEmpty() : renderTable(filtered);
+            }})
+            .catch(err => {{
+                console.error("API error:", err);
+                renderError();
+            }});
+    }}
+
+    if (document.readyState === "loading") {{
+        document.addEventListener("DOMContentLoaded", load);
+    }} else {{
+        load();
+    }}
+}})();
+</script>
+<strong>
+    <a href="{full_url}" target="_blank">
+        Pełne wyniki na stronie Upwind
+    </a>
+</strong>
+"""
+    return php
 
 # ----------------------------
 # MAIN
@@ -447,18 +434,44 @@ def main():
     if input("\nAdd results section? (y/n): ").lower() == "y":
         print("Fetching Upwind results...")
 
-        regatta_url = input("Regatta URL: ")
+        regatta_url = input("Regatta URL (Upwind24): ").strip()
 
-        fetcher = UpwindResultsFetcher(club_filter="AGH")
+        # 1. slug_upwind
+        slug_upwind = extract_slug(regatta_url)
+        print(f"[+] Extracted slug_upwind: {slug_upwind}")
 
-        try:
-            results_html = fetcher.fetch(regatta_url)
+        # 2. leaderboards
+        leaderboards = get_leaderboards(slug_upwind)
+        print(f"[+] Found {len(leaderboards)} leaderboards")
 
-            print("Opening editor for results (you can use plain HTML here)...")
-            results_html = open_editor(results_html)
+        # 3. build API URLs
+        leaderboard_urls = build_leaderboard_urls(slug_upwind, leaderboards)
 
-        except Exception as e:
-            print(f"Error: {e}")
+        print("\n--- AVAILABLE LEADERBOARDS ---")
+        for i, lb in enumerate(leaderboard_urls):
+            print(f"[{i}] {lb['name']} → {lb['url']}")
+
+        results_html = ""
+
+        print("\n--- USING LEADERBOARDS ---")
+
+        # 4. loop through ALL leaderboards
+        for i, lb in enumerate(leaderboard_urls):
+
+            print(f"[+] Using leaderboard: {lb['name']}")
+            print(f"    URL: {lb['url']}")
+
+            api_url = lb["url"]
+
+            results_html += f"<h3 class='mt-4'>{lb['name']}</h3>\n"
+
+            results_html += build_upwind_html(
+                api_url,
+                keyword="agh",
+                post_number=i,
+                full_url=regatta_url
+            )
+        
 
     # --- AUTHOR LINE ---
     author_line = """    <div class="mt-5 text-muted" style="font-style: italic; font-size: 0.9rem;">
