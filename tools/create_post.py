@@ -229,6 +229,175 @@ def check_duplicates(slug, title):
     if f'"title" => "{title}"' in data:
         print("[WARN] Duplicate title")
 
+# ------ UPWIND FETCHING ----
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+
+class UpwindResultsFetcher:
+    def __init__(self, club_filter="AGH"):
+        self.club_filter = club_filter
+        self.headers = {
+            "User-Agent": "Mozilla/5.0"
+        }
+
+    # -------------------------
+    # HTTP + parsing helpers
+    # -------------------------
+    def get_soup(self, url):
+        r = requests.get(url, headers=self.headers)
+        r.raise_for_status()
+        return BeautifulSoup(r.text, "lxml")
+
+    # -------------------------
+    # Find results page
+    # -------------------------
+    def find_results_table_url(self, regatta_url):
+        soup = self.get_soup(regatta_url)
+
+        print("Scanning results links from:", regatta_url)
+
+        results_links = []
+
+        for a in soup.find_all("a", href=True):
+            href = a["href"]
+
+            if "results" in href:
+                full_url = urljoin(regatta_url, href)
+                results_links.append(full_url)
+
+        if not results_links:
+            raise Exception("Results link not found")
+
+        # -----------------------------
+        # PRIORITY 1: table-based results
+        # -----------------------------
+        for url in results_links:
+            if "table=" in url:
+                print("Selected table-based results:", url)
+                return url
+
+        # -----------------------------
+        # PRIORITY 2: normal results page
+        # -----------------------------
+        for url in results_links:
+            if "/results" in url:
+                print("Selected fallback results:", url)
+                return url
+
+        # fallback (shouldn't happen)
+        return results_links[0]
+
+    # -------------------------
+    # Parse results table
+    # -------------------------
+    def parse_results(self, results_url):
+        soup = self.get_soup(results_url)
+
+        rows = []
+
+        # STEP 1: find ALL cells
+        cells = soup.select('div[role="cell"]')
+
+        current_row = []
+        
+        for cell in cells:
+            text_blocks = cell.get_text(" ", strip=True)
+
+            if not text_blocks:
+                continue
+
+            # filter obvious UI junk
+            if text_blocks.startswith("Klasyfikacja") or "Szukaj" in text_blocks:
+                continue
+
+            current_row.append(text_blocks)
+
+            # heuristic: row boundary (Upwind groups cells in fixed chunks)
+            if len(current_row) >= 8:
+                row_str = " | ".join(current_row)
+
+                if self.club_filter.lower() in row_str.lower():
+
+                    # extract position = first number in row
+                    position = next(
+                        (t for t in current_row if t.strip().isdigit()),
+                        None
+                    )
+
+                    if position:
+                        crew = " ".join(
+                            t for t in current_row
+                            if self.club_filter.lower() not in t.lower()
+                            and not t.strip().isdigit()
+                        )
+
+                        rows.append((position, crew, self.club_filter))
+
+                current_row = []
+
+        return rows
+
+    # -------------------------
+    # HTML generator
+    # -------------------------
+    def build_html(self, rows, results_url):
+        print(rows)
+        if not rows:
+            return f"""
+    <h4 class="mt-5">Wyniki ({self.club_filter})</h4>
+    <p>Brak wyników dla {self.club_filter}</p>
+    <strong><a href="{results_url}" target="_blank">Pełne wyniki na stronie Upwind</a></strong>
+    """
+
+        html = f"""
+    <h4 class="mt-5">Wyniki ({self.club_filter})</h4>
+    <ul class="list-unstyled">
+    """
+
+        for position, raw_text, club in rows:
+
+            parts = raw_text.split()
+
+            # remove leading "-" garbage
+            while parts and parts[0] == "-":
+                parts.pop(0)
+
+            # remove numeric scoring junk (6, (6.00), etc.)
+            cleaned_parts = []
+            for p in parts:
+                
+                if "(" in p or ")" in p or "-" in p:
+                    continue
+                cleaned_parts.append(p)
+
+            cleaned = " ".join(cleaned_parts)
+
+            html += f"    <li><strong>{position}.</strong> {cleaned}</li>\n"
+
+        html += f"""
+    </ul>
+
+    <strong>
+        <a href="{results_url}" target="_blank">
+            Pełne wyniki na stronie Upwind
+        </a>
+    </strong>
+    """
+
+        return html
+
+    # -------------------------
+    # PUBLIC API (what you use)
+    # -------------------------
+    def fetch(self, regatta_url):
+        results_url = self.find_results_table_url(regatta_url)
+        print(regatta_url)
+        print(results_url)
+        rows = self.parse_results(results_url)
+        return self.build_html(rows, results_url)
+
 
 # ----------------------------
 # MAIN
@@ -274,9 +443,22 @@ def main():
 
     # --- RESULTS ---
     results_html = ""
+
     if input("\nAdd results section? (y/n): ").lower() == "y":
-        print("Opening editor for results (you can use plain HTML here)...")
-        results_html = open_editor('<h4 class="mt-5">Wyniki (kategoria Open):</h4>\n<ul class="list-unstyled">\n    <li><strong>1.</strong> Imię Nazwisko</li>\n</ul>\n<strong><a href="" target="_blank">Pełne wyniki na stronie Upwind</a></strong>\n')
+        print("Fetching Upwind results...")
+
+        regatta_url = input("Regatta URL: ")
+
+        fetcher = UpwindResultsFetcher(club_filter="AGH")
+
+        try:
+            results_html = fetcher.fetch(regatta_url)
+
+            print("Opening editor for results (you can use plain HTML here)...")
+            results_html = open_editor(results_html)
+
+        except Exception as e:
+            print(f"Error: {e}")
 
     # --- AUTHOR LINE ---
     author_line = """    <div class="mt-5 text-muted" style="font-style: italic; font-size: 0.9rem;">
