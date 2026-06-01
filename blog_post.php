@@ -68,6 +68,9 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                             src="<?= htmlspecialchars($post['image']) ?>"
                             alt="<?= htmlspecialchars($post['title']) ?>"
                             class="img-fluid rounded shadow-sm"
+                            style="cursor:pointer;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#titleImageModal"
                         >
                     </div>
 
@@ -84,6 +87,9 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         src="<?= htmlspecialchars($post['image']) ?>"
                         alt="<?= htmlspecialchars($post['title']) ?>"
                         class="img-fluid rounded shadow-sm"
+                        style="cursor:pointer;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#titleImageModal"
                     >
 
                 </div>
@@ -92,6 +98,21 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
     </div>
 
+    </div>
+</div>
+
+<!-- TITLE IMAGE MODAL -->
+<div class="modal fade" id="titleImageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img
+                    src="<?= htmlspecialchars($post['image']) ?>"
+                    class="img-fluid rounded shadow"
+                    alt="<?= htmlspecialchars($post['title']) ?>"
+                >
+            </div>
+        </div>
     </div>
 </div>
 
