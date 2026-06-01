@@ -40,19 +40,214 @@ $gallery = [
     <div class="mt-5 text-muted" style="font-style: italic; font-size: 0.9rem;">
         AUTOR: <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
     </div>
-<h4 class="mt-5">Wyniki</h4>
-    <ul class="list-unstyled">
-    <li><strong>6.</strong> Leon Gniadek, Jan Pacheco-Śledź, Tymoteusz Mika</li>
-    <li><strong>28.</strong> Wiktor Leśkiewicz, Hubert Kraj, Kacper Ćwiokowski</li>
-    <li><strong>34.</strong> Aleksander Szczygielski, Jan Gorgoń, Gabriela Cielecka</li>
+<h3 class='mt-4'>Omega Standard (Złota)</h3>
 
-    </ul>
+<div class="argo-table-wrap">
+  
+  <table class="argo-table" id="argo-tbl-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nr żagla</th>
+        <th>Sternik</th>
+        <th>Klub</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="loading-row"><td colspan="4">Ładowanie wyników…</td></tr>
+    </tbody>
+  </table>
+</div>
 
-    <strong>
-        <a href="https://www.upwind24.pl/pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026/results" target="_blank">
-            Pełne wyniki na stronie Upwind
-        </a>
-    </strong>
+<script>
+(() => {
+    const tableId = "argo-tbl-0";
+    const url     = "https://api.upwind24.pl/v1/regattas/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026/leaderboards/6a0af7cd929ab78db406d01e-6a0b0494f5b29a27dd0cb4bc";
+    const KEYWORD = "agh".toLowerCase();
+
+    function placeBadge(n) {
+        const cls = n === 1 ? "place-1" : n === 2 ? "place-2" : n === 3 ? "place-3" : "place-other";
+        return `<span class="place-badge ${cls}">${n}</span>`;
+    }
+
+    function renderTable(data) {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
+
+        tbody.innerHTML = data.map(item => {
+
+            const boat = item.boat || {};
+            const helm = boat.helmsman || {};
+            const crew = boat.crew || [];
+            const place = item.overallPlace ?? "";
+
+            const helmName = `${helm.firstName ?? ""} ${helm.lastName ?? ""}`.trim();
+
+            const crewNames = crew
+                .map(c => `${c.firstName ?? ""} ${c.lastName ?? ""}`.trim())
+                .filter(Boolean);
+
+            const allPeople = [helmName, ...crewNames].filter(Boolean).join(", ");
+
+            return `<tr>
+                <td>${place}</td>
+                <td><span class="sail-no">${boat.sailNumber ?? ""}</span></td>
+                <td>${allPeople}</td>
+                <td>${helm.sailingClub?.fullName ?? ""}</td>
+            </tr>`;
+        }).join("");
+    }
+
+    function renderEmpty() {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="4">Brak wyników dla: <strong>agh</strong></td></tr>`;
+    }
+
+    function renderError() {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (tbody) tbody.innerHTML = `<tr class="error-row"><td colspan="4">Błąd ładowania wyników.</td></tr>`;
+    }
+
+    function load() {
+        fetch(url)
+            .then(res => res.json())
+            .then(json => {
+                const results  = json?.data?.results ?? [];
+                const filtered = results.filter(item => {
+                    const boat = item.boat || {};
+                    const helm = boat.helmsman || {};
+                    const club = helm.sailingClub || {};
+
+                    return [boat.name, boat.sailNumber, helm.firstName, helm.lastName, club.fullName]
+                        .some(v => (v || "").toLowerCase().includes(KEYWORD));
+                });
+
+                filtered.length === 0 ? renderEmpty() : renderTable(filtered);
+            })
+            .catch(err => {
+                console.error("API error:", err);
+                renderError();
+            });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", load);
+    } else {
+        load();
+    }
+})();
+</script>
+<strong>
+    <a href="https://www.upwind24.pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026" target="_blank">
+        Pełne wyniki na stronie Upwind
+    </a>
+</strong>
+<h3 class='mt-4'>Omega Standard (Srebrna)</h3>
+
+<div class="argo-table-wrap">
+  
+  <table class="argo-table" id="argo-tbl-1">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nr żagla</th>
+        <th>Sternik</th>
+        <th>Klub</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="loading-row"><td colspan="4">Ładowanie wyników…</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+(() => {
+    const tableId = "argo-tbl-1";
+    const url     = "https://api.upwind24.pl/v1/regattas/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026/leaderboards/6a0af7cd929ab78db406d01e-6a0b04b835c7baba450eddda";
+    const KEYWORD = "agh".toLowerCase();
+
+    function placeBadge(n) {
+        const cls = n === 1 ? "place-1" : n === 2 ? "place-2" : n === 3 ? "place-3" : "place-other";
+        return `<span class="place-badge ${cls}">${n}</span>`;
+    }
+
+    function renderTable(data) {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
+
+        tbody.innerHTML = data.map(item => {
+
+            const boat = item.boat || {};
+            const helm = boat.helmsman || {};
+            const crew = boat.crew || [];
+            const place = item.overallPlace ?? "";
+
+            const helmName = `${helm.firstName ?? ""} ${helm.lastName ?? ""}`.trim();
+
+            const crewNames = crew
+                .map(c => `${c.firstName ?? ""} ${c.lastName ?? ""}`.trim())
+                .filter(Boolean);
+
+            const allPeople = [helmName, ...crewNames].filter(Boolean).join(", ");
+
+            return `<tr>
+                <td>${place}</td>
+                <td><span class="sail-no">${boat.sailNumber ?? ""}</span></td>
+                <td>${allPeople}</td>
+                <td>${helm.sailingClub?.fullName ?? ""}</td>
+            </tr>`;
+        }).join("");
+    }
+
+    function renderEmpty() {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (!tbody) return;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="4">Brak wyników dla: <strong>agh</strong></td></tr>`;
+    }
+
+    function renderError() {
+        const tbody = document.querySelector("#" + tableId + " tbody");
+        if (tbody) tbody.innerHTML = `<tr class="error-row"><td colspan="4">Błąd ładowania wyników.</td></tr>`;
+    }
+
+    function load() {
+        fetch(url)
+            .then(res => res.json())
+            .then(json => {
+                const results  = json?.data?.results ?? [];
+                const filtered = results.filter(item => {
+                    const boat = item.boat || {};
+                    const helm = boat.helmsman || {};
+                    const club = helm.sailingClub || {};
+
+                    return [boat.name, boat.sailNumber, helm.firstName, helm.lastName, club.fullName]
+                        .some(v => (v || "").toLowerCase().includes(KEYWORD));
+                });
+
+                filtered.length === 0 ? renderEmpty() : renderTable(filtered);
+            })
+            .catch(err => {
+                console.error("API error:", err);
+                renderError();
+            });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", load);
+    } else {
+        load();
+    }
+})();
+</script>
+<strong>
+    <a href="https://www.upwind24.pl/regatta/akademickie-mistrzostwa-polski-w-zeglarstwie-2026-2026" target="_blank">
+        Pełne wyniki na stronie Upwind
+    </a>
+</strong>
+
+
 </div>
 
 <!-- GALERIA -->
