@@ -962,3 +962,414 @@ footer .creator-credit {
   padding-top: 80px; /* Push content below the fixed navbar */
   background-color: #f6f6f6; /* Light gray background */
 }
+
+
+/* --- DOLACZ PAGE --- */
+
+.dolacz-hero {
+  height: 52vh;
+  min-height: 320px;
+  margin-top: -80px;       /* cancel content-wrap padding so image butts against navbar */
+  padding-top: 80px;       /* keep text content below navbar */
+  background: linear-gradient(rgba(20, 45, 80, 0.70), rgba(20, 45, 80, 0.70)),
+    url("../storage/images/2024/Amp2.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.dolacz-hero-inner {
+  max-width: 700px;
+}
+
+.dolacz-hero-eyebrow {
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #9fb4cc;
+  margin-bottom: 0.75rem;
+}
+
+.dolacz-hero-title {
+  font-family: "Cinzel", serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+/* Lead section */
+.dolacz-lead-section {
+  padding: 4.5rem 0 3.5rem;
+  background: #fff;
+}
+
+.dolacz-lead-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #3a4a5a;
+  text-align: center;
+  margin: 0;
+}
+
+/* Requirements section */
+.dolacz-req-section {
+  padding: 4rem 0 5rem;
+  background: #f4f7fb;
+}
+
+.dolacz-section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.dolacz-section-title {
+  font-family: "Cinzel", serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1e3f66;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dolacz-req-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  height: 100%;
+  border: 1px solid #dce8f2;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dolacz-req-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(30, 63, 102, 0.1);
+}
+
+.dolacz-req-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #e8f0f8;
+  color: #1e3f66;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin: 0 auto 1.25rem;
+}
+
+.dolacz-req-text {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: #3a4a5a;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Note section */
+.dolacz-note-section {
+  padding: 3rem 0;
+  background: #fff;
+}
+
+.dolacz-note-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background: #f0f6fb;
+  border-left: 4px solid #1e3f66;
+  border-radius: 0 10px 10px 0;
+  padding: 1.5rem 1.75rem;
+}
+
+.dolacz-note-icon {
+  color: #1e3f66;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.dolacz-note-text {
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  color: #3a4a5a;
+  line-height: 1.7;
+  margin: 0;
+  font-style: italic;
+}
+
+.dolacz-note-text a {
+  color: #1e3f66;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dolacz-note-text a:hover {
+  color: #2c5f88;
+}
+
+/* Images strip */
+.dolacz-images-strip {
+  display: flex;
+  height: 560px;
+}
+
+.dolacz-strip-img {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  transition: flex 0.4s ease;
+  overflow: hidden;
+}
+
+.dolacz-strip-img:hover {
+  flex: 1.8;
+}
+
+/* CTA section */
+.dolacz-cta-section {
+  padding: 6rem 0 7rem;
+  background: #0d2240;
+  color: #fff;
+}
+
+.dolacz-cta-title {
+  font-family: "Cinzel", serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.dolacz-cta-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  color: #9fb4cc;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* partnerzy final CTA block */
+.partnerzy-cta-final {
+  padding: 8rem 0 9rem;
+  background: #0d2240;
+  position: relative;
+  overflow: hidden;
+}
+
+.partnerzy-cta-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("../storage/images/2026/amp/IMG_9756.JPG") center/cover no-repeat;
+  opacity: 0.07;
+}
+
+.partnerzy-cta-final .container {
+  position: relative;
+}
+
+.partnerzy-cta-eyebrow {
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #6a90b0;
+  margin-bottom: 1.5rem;
+}
+
+.partnerzy-cta-headline {
+  font-family: "Cinzel", serif;
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.partnerzy-cta-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #9fb4cc;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.partnerzy-cta-email-link {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: #4a7090;
+  text-decoration: none;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(74, 112, 144, 0.4);
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.partnerzy-cta-email-link:hover {
+  color: #9fb4cc;
+  border-bottom-color: rgba(159, 180, 204, 0.6);
+}
+
+@media (max-width: 767px) {
+  .partnerzy-cta-headline {
+    font-size: 2.8rem;
+  }
+
+  .dolacz-cta-title {
+    font-size: 1.8rem;
+  }
+}
+
+.dolacz-btn-primary {
+  font-family: "Inter", sans-serif;
+  padding: 1rem 3rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none !important;
+  color: #1e3f66 !important;
+  background: #fff !important;
+  border-radius: 4px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.dolacz-btn-primary:hover {
+  background: #e8f0f8 !important;
+  color: #1e3f66 !important;
+  transform: translateY(-2px);
+}
+
+/* partnerzy_oferta hero background override */
+.partnerzy-hero {
+  background-image: linear-gradient(rgba(20, 45, 80, 0.70), rgba(20, 45, 80, 0.70)),
+    url("../storage/images/2024/Amp1.jpg");
+}
+
+/* Benefits cards section */
+.partnerzy-benefits-section {
+  padding: 4rem 0 5rem;
+  background: #f4f7fb;
+}
+
+.partnerzy-benefit-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  height: 100%;
+  border: 1px solid #dce8f2;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.partnerzy-benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(30, 63, 102, 0.1);
+}
+
+.partnerzy-benefit-heading {
+  font-family: "Cinzel", serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e3f66;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.partnerzy-benefit-text {
+  font-family: "Inter", sans-serif;
+  font-size: 0.88rem;
+  color: #3a4a5a;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Highlight bar */
+.partnerzy-highlights {
+  background: #1e3f66;
+  padding: 3rem 0;
+}
+
+.partnerzy-highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.partnerzy-highlight-item:last-child {
+  border-right: none;
+}
+
+.partnerzy-highlight-number {
+  font-family: "Cinzel", serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+
+.partnerzy-highlight-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9fb4cc;
+}
+
+@media (max-width: 767px) {
+  .partnerzy-highlight-number {
+    font-size: 1.6rem;
+  }
+
+  .partnerzy-highlight-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* Responsive dolacz */
+@media (max-width: 767px) {
+  .dolacz-hero {
+    height: 42vh;
+  }
+
+  .dolacz-hero-title {
+    font-size: 2.2rem;
+  }
+
+  .dolacz-images-strip {
+    height: 240px;
+  }
+
+  .dolacz-cta-title {
+    font-size: 1.5rem;
+  }
+}

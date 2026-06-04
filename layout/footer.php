@@ -42,6 +42,6 @@
 
     <!-- Creator credit -->
     <div class="creator-credit">
-         © 2025 Aleksander Szczygielski
+         © 2025 - 2026 Aleksander Szczygielski
     </div>
 </footer>

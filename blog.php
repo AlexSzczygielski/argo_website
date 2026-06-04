@@ -43,12 +43,19 @@ $visiblePosts = array_slice($posts, $offset, $perPage);
 $featuredPost = $posts[0] ?? null;
 ?>
 
+<!-- Hero -->
+<div id="blog" class="bg-light py-5">
+<div class="dolacz-hero">
+    <div class="dolacz-hero-inner">
+        <p class="dolacz-hero-eyebrow">Studenckie Koło Regatowe AGH</p>
+        <h1 class="dolacz-hero-title">Aktualności Klubowe</h1>
+    </div>
+</div>
+<br>
 <div id="blog-anchor" class="section-anchor"></div>
 
-<div id="blog" class="bg-light py-5">
-  <div class="container">
 
-    <h2 class="text-center display-4 mb-5">Wydarzenia</h2>
+  <div class="container">
 
     <!-- FEATURED POST -->
      

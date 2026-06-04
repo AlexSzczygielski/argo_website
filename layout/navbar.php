@@ -24,7 +24,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
       <!--Navbar Content-->
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#about-anchor'; ?>">O nas</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#partners-anchor' : $base_url . '/#partners-anchor'; ?>">Współpraca</a></li>
+        <li class="nav-item"><a class="nav-link" href="partnerzy_oferta.php">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.php">Wydarzenia</a></li>
         <li class="nav-item"><a class="nav-link" href="dolacz.php">Dołącz</a></li>
         <li class="nav-item"><a class="nav-link" href="dla_czlonkow.php">Dla Członków</a></li>
