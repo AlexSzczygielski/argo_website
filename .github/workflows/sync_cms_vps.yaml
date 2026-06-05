@@ -10,7 +10,7 @@ jobs:
             permissions:
               contents: write
               pull-requests: write
-              
+
             steps:
                 - name: Checkout repo
                   uses: actions/checkout@v4
@@ -50,9 +50,6 @@ jobs:
                     --exclude="*.md" \
                     -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
                     argo@web.agh.edu.pl:public_html/ ./
-                    echo "Current dir: "
-                    pwd
-                    ls -la
                 
                 - name: Check if anything changed
                   id: check
