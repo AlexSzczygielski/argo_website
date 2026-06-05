@@ -25,7 +25,7 @@ jobs:
 
       - name: Connect to VPN
         run: |
-          sudo openvpn --config vpn.ovpn --daemon
+          sudo openvpn --config /tmp/vpn.ovpn --daemon
           for i in {1..30}; do # wait for connection
             echo "Attempt $i (elapsed: $((i-1))s)"
             if ping -c 1 web.agh.edu.pl; then
