@@ -23,7 +23,7 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     <div class="collapse navbar-collapse" id="myNavbar">
       <!--Navbar Content-->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="<?php echo ($active_site === 'index') ? '#about-anchor' : $base_url . '/#about-anchor'; ?>">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.php">O nas</a></li>
         <li class="nav-item"><a class="nav-link" href="partnerzy_oferta.php">Współpraca</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.php">Wydarzenia</a></li>
         <li class="nav-item"><a class="nav-link" href="dolacz.php">Dołącz</a></li>

@@ -1271,6 +1271,96 @@ footer .creator-credit {
     url("../storage/images/2024/Amp1.jpg");
 }
 
+.about-hero {
+  background-image: linear-gradient(rgba(20, 45, 80, 0.70), rgba(20, 45, 80, 0.70)),
+  url("../storage/images/2026/amwim/zaloga_4.jpg");
+}
+
+.about-intro-section {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.about-intro-eyebrow {
+  font-family: 'Cinzel', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: #1e3f66;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.about-intro-eyebrow::before,
+.about-intro-eyebrow::after {
+  content: '';
+  width: 5.5rem;
+  height: 1px;
+  background: #1e3f66;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.about-intro-logo {
+  width: 100%;
+  width: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.about-goals-section {
+  padding: 4rem 0 5rem;
+  background: #071525;
+}
+
+.about-goals-section .dolacz-section-title {
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 3px;
+}
+
+.about-goals-section .partnerzy-benefit-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.about-goals-section .partnerzy-benefit-card:hover {
+  background: rgba(255,255,255,0.09);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.13);
+  transform: translateY(-6px);
+}
+
+.about-goals-section .dolacz-req-icon {
+  background: rgba(90,150,215,0.14);
+  color: rgba(175,210,255,0.88);
+}
+
+.about-goals-section .partnerzy-benefit-heading {
+  color: rgba(255,255,255,0.88);
+}
+
+.about-goals-section .partnerzy-benefit-text {
+  color: rgba(255,255,255,0.5);
+}
+
+.about-intro-section .row {
+  align-items: center;
+}
+
+.about-intro-section p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #3a4a5a;
+}
+
+.about-intro-section img {
+  border-radius: 8px;
+}
+
 /* Benefits cards section */
 .partnerzy-benefits-section {
   padding: 4rem 0 5rem;
