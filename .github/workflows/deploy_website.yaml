@@ -21,7 +21,7 @@ jobs:
 
       - name: Setup VPN config
         run: |
-          echo "${{ secrets.OVPN_CONFIG }}" > vpn.ovpn
+          echo "${{ secrets.OVPN_CONFIG }}" > /tmp/vpn.ovpn 
 
       - name: Connect to VPN
         run: |
@@ -49,6 +49,8 @@ jobs:
             --exclude=".git" \
             --exclude=".github" \
             --exclude="tools" \
+            --exclude="*.ovpn" \
+            --exclude="*.md" \
             -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
             ./ \
             argo@web.agh.edu.pl:public_html/
