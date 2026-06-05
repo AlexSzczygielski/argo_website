@@ -52,12 +52,10 @@ jobs:
                 - name: Check if anything changed
                   id: check
                   run: |
-                    git status
-                    git diff
-                    if git diff --quiet && git diff --cached --quiet; then
-                      echo "changed=false" >> $GITHUB_OUTPUT
-                    else
+                    if git status --porcelain | grep -q .; then
                       echo "changed=true" >> $GITHUB_OUTPUT
+                    else
+                      echo "changed=false" >> $GITHUB_OUTPUT
                     fi
                 
                 - name: Commit and push to the new branch (if changed)
