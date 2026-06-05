@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "${{ secrets.OVPN_CONFIG }}" > /tmp/vpn.ovpn 
 
-      - name: Connect to VPN
+      - name: Connect to AGH servers using VPN
         run: |
           sudo openvpn --config /tmp/vpn.ovpn --daemon
           for i in {1..30}; do # wait for connection
@@ -39,18 +39,22 @@ jobs:
           exit 1
 
       - name: Install deployment dependencies
-        run: sudo apt-get install -y rsync sshpass
+        run: sudo apt-get install -y rsync
 
-      - name: Deploy via rsync (password auth) # Exclude post generation python automation script (tools/)
-        env:
-          SSHPASS: ${{ secrets.VPS_PASSWORD }}
+      - name: Load ssh deploy key
         run: |
-          sshpass -e rsync -avz --delete \
+          mkdir -p ~/.ssh
+          printf '%s' "${{ secrets.ARGO_DEPLOY_KEY_PRIVATE }}" > ~/.ssh/argo_deploy
+          chmod 600 ~/.ssh/argo_deploy
+
+      - name: Deploy via rsync (ssh auth) # Exclude post generation python automation script (tools/)
+        run: |
+          rsync -avz --delete \
             --exclude=".git" \
             --exclude=".github" \
             --exclude="tools" \
             --exclude="*.ovpn" \
             --exclude="*.md" \
-            -e "ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
+            -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
             ./ \
             argo@web.agh.edu.pl:public_html/
