@@ -49,6 +49,8 @@ jobs:
                 - name: Check if anything changed
                   id: check
                   run: |
+                    git status
+                    git diff
                     if git diff --quiet && git diff --cached --quiet; then
                       echo "changed=false" >> $GITHUB_OUTPUT
                     else
