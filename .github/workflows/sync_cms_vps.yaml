@@ -45,3 +45,36 @@ jobs:
                     --exclude="*.md" \
                     -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
                     argo@web.agh.edu.pl:public_html/ ./
+                
+                - name: Check if anything changed
+                  id: check
+                  run: |
+                    if git diff --quiet && git diff --cached --quiet; then
+                      echo "changed=false" >> $GITHUB_OUTPUT
+                    else
+                      echo "changed=true" >> $GITHUB_OUTPUT
+                    fi
+                
+                - name: Commit and push to the new branch (if changed)
+                  id: commit
+                  if: steps.check.outputs.changed == 'true'
+                  run: |
+                    BRANCH="cms/sync-$(date +%Y-%m-%d--%H-%M-%S)"
+                    git config user.name "Argo CMS Bot"
+                    git config user.email "argo@agh.edu.pl"
+                    git checkout -b "$BRANCH"
+                    git add -A
+                    git commit -m "cms: web panel post generation - sync from VPS $(date +%Y-%m-%d)"
+                    git push origin "$BRANCH"
+                    echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
+                  
+                - name: Open PR
+                  if: steps.check.outputs.changed == 'true'
+                  env:
+                    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  run: |
+                    gh pr create \
+                      --title "[CMS Post Generator] VPS sync $(date +%Y-%m-%d)" \
+                      --body "Full sync from VPS public_html/. Review all changes before merging." \
+                      --head "${{ steps.commit.outputs.BRANCH }}" \
+                      --base main
