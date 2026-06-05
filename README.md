@@ -32,19 +32,16 @@ A responsive, PHP-based website for **Studencki Klub Regatowy AGH (Argo)** — a
 
 ## 🔧 CI/CD
 Website deployment is automated with Github Actions [deploy_website.yaml](.github/workflows/deploy_website.yaml).
-
 The workflow:
 - connects to the AGH internal network via VPN
-- securely uploads files using rsync over SSH
+- securely uploads files using rsync over SSH key authentication
 - deploys content to the `public_html` directory
 
-### CI/CD Maintanance
+### CI/CD Maintenance
+1. **VPN Certificate — stored as `OVPN_CONFIG` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). Must be renewed annually by obtaining a new certificate from [panel.agh.edu.pl](https://panel.agh.edu.pl) and pasting its contents into the secret (`cat certificate_name.ovpn`).**
+2. **SSH Deploy Key — stored as `ARGO_DEPLOY_KEY_PRIVATE` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). The corresponding public key is installed in `~/.ssh/authorized_keys` on the VPS. If deployment fails with an auth error, regenerate the key pair and reinstall following the steps in [🛠 Setup and Deployment](#-setup-and-deployment).**
 
-1. **As `web.agh.edu.pl` server, which hosts our website requires VPN access, we have to allow the GH Actions access to it. The VPN certificate is safely stored inside [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions) as `OVPN_CONFIG`. This certifacte has to be updated each year. It is done by obtaining new certificate from [panel.agh.edu.pl](panel.agh.edu.pl) and copying all of it's contents (e.g. `cat certificate_name.ovpn`) into GH secrets OVPN_CONFIG**
-
-2. **Another thing that GH Actions require is VPS password. It is stored under `VPS_PASSWORD` in [Github Secrets](https://github.com/AlexSzczygielski/argo_website/settings/secrets/actions). This should'nt change without explicit user intervetion, however if for some reason it does not work, you have to contact [Pomoc IT AGH](https://cri.agh.edu.pl/pomoc-it) to reset it and update accordingly.**
 ### CI/CD Workflow Overview
-
 ```mermaid
 graph TD
     A[Push to main / Manual trigger]:::github --> B[GitHub Actions Workflow]:::pipeline
@@ -56,17 +53,17 @@ graph TD
     
     F --> G{VPN connected?}:::decision
     G -- No --> X[Fail job]:::error
-    G -- Yes --> H[Install rsync + sshpass]:::pipeline
+    G -- Yes --> H[Install rsync]:::pipeline
     
-    H --> I[Run rsync deploy]:::deploy
-    I --> J[/Upload files to server/]:::deploy
+    H --> I[Load SSH deploy key]:::deploy
+    I --> J[Run rsync deploy]:::deploy
+    J --> K[/Upload files to server/]:::deploy
     
-    J --> K{{web.agh.edu.pl}}:::server
-    K --> L[/public_html/]:::server
+    K --> L{{web.agh.edu.pl}}:::server
+    L --> M[/public_html/]:::server
     
-    L --> M[Website updated 🎉]:::success
+    M --> N[Website updated 🎉]:::success
 
-    %% Classes
     classDef github fill:#24292e,color:#fff;
     classDef pipeline fill:#2ea44f,color:#fff;
     classDef vpn fill:#6f42c1,color:#fff;
@@ -84,16 +81,15 @@ graph LR
     
     B --> C[Secrets]:::secret
     C --> D1[OVPN_CONFIG]:::secret
-    C --> D2[VPS_PASSWORD]:::secret
+    C --> D2[ARGO_DEPLOY_KEY_PRIVATE]:::secret
     
     B --> E[OpenVPN Connection]:::vpn
     E --> F[AGH Internal Network]:::network
     
-    F --> G[SSH + rsync]:::deploy
+    F --> G[SSH key + rsync]:::deploy
     G --> H{{web.agh.edu.pl}}:::server
     H --> I[/public_html/]:::server
 
-    %% Classes
     classDef github fill:#24292e,color:#fff;
     classDef pipeline fill:#2ea44f,color:#fff;
     classDef vpn fill:#6f42c1,color:#fff;
@@ -102,6 +98,8 @@ graph LR
     classDef secret fill:#f66a0a,color:#fff;
     classDef network fill:#1b1f23,color:#fff;
 ```
+
+---
 
 ## 🛠 Setup and Deployment
 0. Currently website is auto deployed using CI/CD - please refer to [🔧 CI/CD](#-cicd) section.
