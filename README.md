@@ -104,25 +104,33 @@ graph LR
 ```
 
 ## 🛠 Setup and Deployment
-
 0. Currently website is auto deployed using CI/CD - please refer to [🔧 CI/CD](#-cicd) section.
-
 1. Open [VPN connection with AGH servers](https://cri.agh.edu.pl/pomoc-it/instrukcje/konfiguracja-polaczenia-vpn).
-2. Log into Argo AGH server through SSH protocol 
-   ```bash
-   ssh argo@web.agh.edu.pl
-   ```
-   You will be prompted for password - contact [administrator](https://cri.agh.edu.pl/pomoc-it) to reset it or one of founders - Aleksander Szczygielski to access it.
+2. Log into Argo AGH server through SFTP:
+```bash
+   sftp argo@web.agh.edu.pl
+```
+   Contact [administrator](https://cri.agh.edu.pl/pomoc-it) or one of the founders (Aleksander Szczygielski) for password access.
 
-   Alternative would be to set public/private `rsa key` pair.
-  
-3. Currently web.agh.edu.pl does not grant access to shell commands, so the only possibility is to upload files using `scp` or other `sftp` tools.
+   **To set up SSH key authentication** (recommended):
+```bash
+   # 1. Generate a key pair locally
+   ssh-keygen -t ed25519 -C "your-description" -f ~/.ssh/argo_deploy
 
+   # 2. Upload the public key to the server
+   cp ~/.ssh/argo_deploy.pub /tmp/authorized_keys
+   sftp argo@web.agh.edu.pl
+   sftp> put /tmp/authorized_keys .ssh/authorized_keys
+   sftp> chmod 600 .ssh/authorized_keys
+
+   # 3. Test the connection (VPN required)
+   ssh -i ~/.ssh/argo_deploy argo@web.agh.edu.pl
+```
+
+3. Currently web.agh.edu.pl does not grant shell access, so files must be uploaded using `sftp` or `rsync`.
 7. *AGH servers automatically redirect to public_html/index.php so be sure that landing page is contained in this path*.
-8. Verify Boot strap, jQuery, and FontAwesome dependencies are accessible in `plugins/` folder or update links accordingly.
-11. ‼️ *If styling does not work, give it some time before trying to make fixes, usually it starts to work on it's own after few hours*
-
----
+8. Verify Bootstrap, jQuery, and FontAwesome dependencies are accessible in `plugins/` folder or update links accordingly.
+11. ‼️ *If styling does not work, give it some time before trying to make fixes, usually it starts to work on its own after a few hours*
 
 ## 🚀 Technologies Used
 
