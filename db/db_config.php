@@ -9,5 +9,10 @@
 define('DB_HOST', 'mysql.agh.edu.pl');
 define('DB_NAME', 'argo');
 define('DB_USER', 'argo'); //Login
-require_once(__DIR__ . '/db_psswd.php'); //Secret
+$passwd_file = __DIR__ . '/db_passwd.php';
+if (file_exists($passwd_file)) {
+    require_once($passwd_file);
+} else {
+    define('DB_PASS', '');
+}
 ?>
