@@ -47,9 +47,9 @@ jobs:
           printf '%s' "${{ secrets.ARGO_DEPLOY_KEY_PRIVATE }}" > ~/.ssh/argo_deploy
           chmod 600 ~/.ssh/argo_deploy
 
-      - name: Write db_passwd.php
+      - name: Write db_psswd.php
         run: |
-          echo "<?php define('DB_PASS', '${{ secrets.DB_PASS }}'); ?>" > db/db_passwd.php
+          echo "<?php define('DB_PASS', '${{ secrets.DB_PASS }}'); ?>" > db/db_psswd.php
 
       - name: Deploy via rsync (ssh auth) # Exclude post generation python automation script (tools/)
         run: |

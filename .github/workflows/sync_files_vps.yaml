@@ -49,7 +49,7 @@ jobs:
                     --exclude=".github" \
                     --exclude="tools/" \
                     --exclude="*.md" \
-                    --exclude="db/db_passwd.php" \
+                    --exclude="db/db_psswd.php" \
                     -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
                     argo@web.agh.edu.pl:public_html/ ./
                 
