@@ -1,0 +1,86 @@
+name: Argo - CMS automated post generation file synchronization
+
+on:
+    workflow_dispatch:
+    workflow_call:
+
+jobs:
+    synchronize:
+            runs-on: ubuntu-latest
+
+            permissions:
+              contents: write
+              pull-requests: write
+
+            steps:
+                - name: Checkout repo
+                  uses: actions/checkout@v4
+                
+                - name: Install dependencies
+                  run: sudo apt-get update && sudo apt-get install -y openvpn rsync
+
+                - name: Setup VPN config
+                  run: echo "${{ secrets.OVPN_CONFIG }}" > /tmp/vpn.ovpn
+
+                - name: Connect to VPN
+                  run: |
+                    sudo openvpn --config /tmp/vpn.ovpn --daemon
+                    for i in {1..30}; do
+                        echo "Attempt $i"
+                        if ping -c 1 web.agh.edu.pl; then
+                        echo "Connected"
+                        exit 0
+                        fi
+                        sleep 1
+                    done
+                    echo "VPN connection failed"
+                    exit 1
+
+                - name: Load ssh key
+                  run: |
+                    mkdir -p ~/.ssh
+                    printf '%s' "${{ secrets.ARGO_DEPLOY_KEY_PRIVATE }}" > ~/.ssh/argo_deploy
+                    chmod 600 ~/.ssh/argo_deploy
+                
+                - name: Get files from AGH VPS - rsync
+                  run: |
+                    rsync -avz --delete \
+                    --exclude=".git" \
+                    --exclude=".github" \
+                    --exclude="tools/" \
+                    --exclude="*.md" \
+                    -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
+                    argo@web.agh.edu.pl:public_html/ ./
+                
+                - name: Check if anything changed
+                  id: check
+                  run: |
+                    if git status --porcelain | grep -q .; then
+                      echo "changed=true" >> $GITHUB_OUTPUT
+                    else
+                      echo "changed=false" >> $GITHUB_OUTPUT
+                    fi
+                
+                - name: Commit and push to the new branch (if changed)
+                  id: commit
+                  if: steps.check.outputs.changed == 'true'
+                  run: |
+                    BRANCH="cms/sync-$(date +%Y-%m-%d--%H-%M-%S)"
+                    git config user.name "Argo CMS Bot"
+                    git config user.email "argo@agh.edu.pl"
+                    git checkout -b "$BRANCH"
+                    git add -A
+                    git commit -m "cms: web panel post generation - sync from VPS $(date +%Y-%m-%d)"
+                    git push origin "$BRANCH"
+                    echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
+                  
+                - name: Open PR
+                  if: steps.check.outputs.changed == 'true'
+                  env:
+                    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  run: |
+                    gh pr create \
+                      --title "[CMS Post Generator] VPS sync $(date +%Y-%m-%d)" \
+                      --body "Full sync from VPS public_html/. Review all changes before merging." \
+                      --head "${{ steps.commit.outputs.BRANCH }}" \
+                      --base main

@@ -1,0 +1,15 @@
+name: Argo - Full sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 0'  # every Sunday at 2am
+
+jobs:
+  trigger-file-sync:
+    uses: ./.github/workflows/sync_files_vps.yaml
+    secrets: inherit
+
+  trigger-db-dump:
+    uses: ./.github/workflows/dump_db.yaml
+    secrets: inherit
