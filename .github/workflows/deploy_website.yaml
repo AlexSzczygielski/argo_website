@@ -56,6 +56,7 @@ jobs:
 
       - name: Write db_psswd.php
         run: |
+          mkdir -p db
           echo "<?php define('DB_PASS', '${{ secrets.DB_PASS }}'); ?>" > db/db_psswd.php
 
       - name: Deploy via rsync (ssh auth) # Exclude post generation python automation script (tools/)
