@@ -1,6 +1,41 @@
 <?php
-$page_title = "Blog - SKR Argo AGH";
-$page_description = "Wydarzenia";
+try{
+    require_once('db/db.php');
+    /* Fetch post */
+    $post_id = $_GET['id'] ?? null;
+    $pdo = get_pdo();
+    $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = :id");
+    $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $post = $stmt->fetch();
+} catch (Exception $e) {
+    error_log("DB error on blog: " . $e->getMessage());
+    $post = [
+        'title'       => 'Błąd połączenia',
+        'excerpt'     => 'Nie można załadować wpisu. Spróbuj ponownie później.',
+        'date'        => date('Y-m-d'),
+        'author'      => null,
+        'cover_image' => 'storage/images/argologo.png',
+        'content'     => null,
+        'id'          => null,
+    ];
+}
+
+
+if (!$post) {
+    $post = [
+        'title'       => 'Nie znaleziono wpisu',
+        'excerpt'     => 'Wpis o podanym adresie nie istnieje.',
+        'date'        => date('Y-m-d'),
+        'author'      => null,
+        'cover_image' => 'storage/images/argologo.png',
+        'content'     => null,
+        'id'          => null,
+    ];
+}
+
+$page_title = "SKR Argo AGH " . $post['title'];
+$page_description = $post['excerpt'];
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 ?>
 <!DOCTYPE html>
@@ -21,27 +56,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
 <div class="page-container">
     <div class="content-wrap">
-
-        <?php
-        require 'blog/posts_data.php';
-
-        $page = $_GET['page'] ?? null;
-
-        $post = null;
-
-        foreach ($posts as $p) {
-            if ($p['id'] === $page) {
-                $post = $p;
-                break;
-            }
-        }
-
-        if (!$post) {
-            echo "<div class='container p-4'>Post not found</div>";
-            exit;
-        }
-        ?>
-
         <!-- POST CONTENT -->
         <div class="container p-4">
 
@@ -65,7 +79,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <!-- MOBILE IMAGE -->
                     <div class="d-block d-md-none mb-4 text-center">
                         <img
-                            src="<?= htmlspecialchars($post['image']) ?>"
+                            src="<?= htmlspecialchars($post['cover_image']) ?>"
                             alt="<?= htmlspecialchars($post['title']) ?>"
                             class="img-fluid rounded shadow-sm"
                             style="cursor:pointer;"
@@ -75,7 +89,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     </div>
 
                     <article class="mb-4">
-                        <?php require $post['content']; ?>
+                        <?php $post['content']; ?>
                     </article>
 
                 </div>
@@ -84,7 +98,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 <div class="col-md-5 text-center text-md-end d-none d-md-block">
 
                     <img
-                        src="<?= htmlspecialchars($post['image']) ?>"
+                        src="<?= htmlspecialchars($post['cover_image']) ?>"
                         alt="<?= htmlspecialchars($post['title']) ?>"
                         class="img-fluid rounded shadow-sm"
                         style="cursor:pointer;"
@@ -116,7 +130,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
             
             <div class="modal-body text-center p-0">
                 <img
-                    src="<?= htmlspecialchars($post['image']) ?>"
+                    src="<?= htmlspecialchars($post['cover_image']) ?>"
                     class="img-fluid rounded shadow"
                     alt="<?= htmlspecialchars($post['title']) ?>"
                 >

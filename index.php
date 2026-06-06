@@ -5,7 +5,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 ?>
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
   <?php require 'layout/header.php' ?>
   <title>SKR Argo AGH</title>
@@ -13,66 +12,39 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="SKR ARGO AGH">
 </head>
-
 <body>
   <?php require 'layout/navbar.php' ?>
 
   <!-- Get cards -->
       <?php
-      require 'blog/posts_data.php';
+      // -- Setup --
+      $carousel_posts_count = 6; //counter that limits the posts fetched after fixed
+      $fixed_posts_ids = [4, 3]; // Fixed posts that always stay in the carousel
+      // --- ---
 
-      /* SORT newest first */
-      usort($posts, function($a, $b) {
-          return strtotime($b['date']) - strtotime($a['date']);
-      });
+      /* Open connection and get posts*/
+      try{
+        require_once('db/db.php');
+        $pdo = get_pdo();
 
-      /* helper: find post by id */
-      function findPostById($posts, $id) {
-          foreach ($posts as $post) {
-              if ($post['id'] === $id) {
-                  return $post;
-              }
-          }
-          return null;
+        // Fetch fixed posts
+        $placeholders = implode(',', array_fill(0, count($fixed_posts_ids), '?'));
+        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id IN ($placeholders)");
+        $stmt->execute($fixed_posts_ids);
+        $fixed_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Fetch latest posts excluding fixed
+        $limit = $carousel_posts_count - count($fixed_posts_ids);
+        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id NOT IN ($placeholders) ORDER BY date DESC LIMIT $limit");
+        $stmt->execute($fixed_posts_ids);
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $carouselPosts = array_merge($posts, $fixed_posts);
+      } catch (Exception $e){
+        error_log("DB error on index: " . $e->getMessage());
+        $carouselPosts = [];
       }
-
-      /* 1. LATEST POST */
-      $latest1 = $posts[0] ?? null;
-
-      /* 2. FIXED POSTS */
-      $argoHistory   = findPostById($posts, 'argo_history');
-      $dbamySprzet   = findPostById($posts, 'dbamy_sprzet');
-      $treningi      = findPostById($posts, 'treningi');
-
-      /* 3. NEXT LATEST (skip already used) */
-      $usedIds = [
-          $latest1['id'] ?? null,
-          'argo_history',
-          'dbamy_sprzet',
-          'treningi'
-      ];
-
-      $remaining = [];
-
-      foreach ($posts as $post) {
-          if (!in_array($post['id'], $usedIds)) {
-              $remaining[] = $post;
-          }
-      }
-
-      /* 4. TAKE 2nd and 3rd latest */
-      $latest2 = $remaining[0] ?? null;
-      $latest3 = $remaining[1] ?? null;
-
-      /* 5. FINAL ORDER */
-      $carouselPosts = array_filter([
-          $latest1,
-          $argoHistory,
-          $dbamySprzet,
-          $treningi,
-          $latest2,
-          $latest3
-      ]);
+      
       ?>
 
   <!-- Jumbotron Welcome Page-->
@@ -83,12 +55,14 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       <p class="argo-tagline">Zwyciężać mogą ci, którzy wierzą, że mogą.</p>
       <p class="argo-author-credit">Wergiliusz</p>
 
-      <?php if ($latest1): ?>
-        <a href="blog_post.php?page=<?= urlencode($latest1['id']) ?>" class="argo-latest-teaser">
+
+      <?php if (!empty($carouselPosts)): ?>
+        <a href="blog_post.php?id=<?= urlencode($carouselPosts[0]['id']) ?>" class="argo-latest-teaser">
           <span class="argo-teaser-label">Ostatnio:</span>
-          <?= htmlspecialchars($latest1['title']) ?>
+          <?= htmlspecialchars($carouselPosts[0]['title']) ?>
         </a>
       <?php endif; ?>
+
 
       <a href="dolacz.php" class="btn btn-outline-light btn-lg mt-3 btn-join">Zostań Argonautą</a>
       <a href="partnerzy_oferta.php" class="btn btn-outline-light btn-lg mt-3 btn-partner">Współpraca</a>
@@ -179,11 +153,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 <?php foreach ($chunk as $post): ?>
                   <div class="col-md-4">
                     <div class="card h-100">
-                      <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
+                      <img src="<?= htmlspecialchars($post['cover_image']) ?>" class="card-img-top" alt="">
                       <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
                         <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
-                        <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+                        <a href="blog_post.php?id=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
                           Czytaj więcej
                         </a>
                       </div>
@@ -217,11 +191,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
           <?php foreach ($carouselPosts as $index => $post): ?>
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
               <div class="card">
-                <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
+                <img src="<?= htmlspecialchars($post['cover_image']) ?>" class="card-img-top" alt="">
                 <div class="card-body">
                   <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
                   <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
-                  <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+                  <a href="blog_post.php?id=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
                     Czytaj więcej
                   </a>
                 </div>
