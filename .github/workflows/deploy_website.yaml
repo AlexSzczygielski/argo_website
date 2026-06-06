@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or commit SHA to deploy'
+        required: false
+        default: 'main'
 
 jobs:
   deploy:
