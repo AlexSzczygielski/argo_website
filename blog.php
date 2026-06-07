@@ -19,37 +19,28 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 <?php require 'layout/navbar.php' ?>
 
 <?php
-$posts = [];
-$totalPosts = 0;
-$totalPages = 0;
-$featuredPost = null;
-try{
-  require_once('db/db.php');
-  /* Open connection and get total posts count */
-  $pdo = get_pdo();
-  $totalPosts = (int)$pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+require 'blog/posts_data.php';
 
-  /* PAGE NUMBER */
-  $pageNum = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
+/* PAGE NUMBER */
+$pageNum = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
 
-  /* PAGINATION SETTINGS */
-  $perPage = 6;
-  $totalPages = ceil($totalPosts / $perPage);
+/* SORT POSTS (newest first) */
+usort($posts, function($a, $b) {
+    return strtotime($b['date']) - strtotime($a['date']);
+});
 
-  $offset = ($pageNum - 1) * $perPage; //number of posts offset
+/* PAGINATION SETTINGS */
+$perPage = 6;
+$totalPosts = count($posts);
+$totalPages = ceil($totalPosts / $perPage);
 
-  /* CURRENT PAGE POSTS */
-  $stmt = $pdo->prepare("SELECT * FROM posts ORDER BY date DESC LIMIT :limit OFFSET :offset");
-  $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-  $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-  $stmt->execute();
-  $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$offset = ($pageNum - 1) * $perPage;
 
-  /* FEATURED POST */
-  $featuredPost = $pdo->query("SELECT * FROM posts ORDER BY date DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
-} catch (Exception $e) {
-    error_log("DB error on blog: " . $e->getMessage());
-}
+/* CURRENT PAGE POSTS */
+$visiblePosts = array_slice($posts, $offset, $perPage);
+
+/* FEATURED POST */
+$featuredPost = $posts[0] ?? null;
 ?>
 
 <!-- Hero -->
@@ -71,12 +62,12 @@ try{
     <?php if ($featuredPost): ?>
     <div class="row mb-5 d-none d-md-flex">
       <div class="col-md-8">
-        <img src="<?= htmlspecialchars($featuredPost['cover_image']) ?>" class="img-fluid rounded mb-3" alt="" style="max-height: 850px; object-fit: cover; width: 100%;">
+        <img src="<?= htmlspecialchars($featuredPost['image']) ?>" class="img-fluid rounded mb-3" alt="" style="max-height: 850px; object-fit: cover; width: 100%;">
       </div>
       <div class="col-md-4 d-flex flex-column justify-content-center">
         <h3 class="fw-bold"><?= htmlspecialchars($featuredPost['title']) ?></h3>
         <p><?= htmlspecialchars($featuredPost['excerpt']) ?></p>
-        <a href="blog_post.php?id=<?= urlencode($featuredPost['id']) ?>" class="btn btn-sm btn-outline-secondary mt-2">
+        <a href="blog_post.php?page=<?= urlencode($featuredPost['id']) ?>" class="btn btn-sm btn-outline-secondary mt-2">
           Czytaj więcej
         </a>
       </div>
@@ -86,14 +77,14 @@ try{
     <!-- POSTS GRID (PAGINATED) -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-      <?php foreach ($posts as $post): ?>
+      <?php foreach ($visiblePosts as $post): ?>
         <div class="col">
           <div class="card h-100">
-            <img src="<?= htmlspecialchars($post['cover_image']) ?>" class="card-img-top" alt="">
+            <img src="<?= htmlspecialchars($post['image']) ?>" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
               <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
-              <a href="blog_post.php?id=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
+              <a href="blog_post.php?page=<?= urlencode($post['id']) ?>" class="btn btn-sm btn-outline-secondary">
                 Czytaj więcej
               </a>
             </div>
