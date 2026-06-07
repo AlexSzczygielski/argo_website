@@ -60,7 +60,7 @@ jobs:
                   id: commit
                   if: steps.check.outputs.changed == 'true'
                   run: |
-                    BRANCH="cms/sync-$(date +%Y-%m-%d--%H-%M-%S)"
+                    BRANCH="cms/db-sync-$(date +%Y-%m-%d--%H-%M-%S)"
                     git config user.name "Argo CMS Bot"
                     git config user.email "argo@agh.edu.pl"
                     git checkout -b "$BRANCH"
@@ -75,7 +75,7 @@ jobs:
                     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   run: |
                     gh pr create \
-                      --title "[Database sync - CMS Post Generator] VPS sync $(date +%Y-%m-%d)" \
-                      --body "Full DB sync from VPS public_html/db. Review all changes before merging." \
+                      --title "[Database sync - CMS Post Generator] VPS DB sync $(date +%Y-%m-%d)" \
+                      --body "Full Database sync from VPS public_html/db. Review all changes before merging." \
                       --head "${{ steps.commit.outputs.BRANCH }}" \
                       --base main

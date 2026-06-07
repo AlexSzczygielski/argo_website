@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS posts(
     excerpt varchar(255),
     cover_image varchar(255),
     results_url varchar(255),
-    content LONGTEXT
-    
+    content LONGTEXT,
+    photo_credits TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS post_gallery(
