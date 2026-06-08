@@ -38,6 +38,15 @@ erDiagram
         int sort_order
     }
 
+    users {
+        int id PK
+        varchar name
+        varchar email
+        varchar surname
+        varchar password
+        tinyint admin
+    }
+
     posts ||--o{ post_gallery : "has"
 ```
 
@@ -71,6 +80,19 @@ erDiagram
 
 Full image path is constructed as `directory/filename` at render time.
 
+### `users`
+
+| Column | Type | Nullable | Default | Description |
+|--------|------|----------|---------|-------------|
+| `id` | INT AUTO_INCREMENT | No | — | Primary key, auto-assigned |
+| `name` | VARCHAR(255) | Yes | NULL | First name |
+| `email` | VARCHAR(255) | No | — | Login identifier. Must be unique |
+| `surname` | VARCHAR(255) | Yes | NULL | Last name |
+| `password` | VARCHAR(255) | No | — | bcrypt hash via PHP `password_hash()`. Never plain text |
+| `admin` | TINYINT(1) | Yes | 0 | `1` = admin access, `0` = no access |
+
+**`users` table is excluded from automated DB dumps for security. Manage users manually via phpMyAdmin**
+
 ---
 
 ## Files
@@ -95,6 +117,7 @@ Full image path is constructed as `directory/filename` at render time.
 | 2026-06 | `ALTER TABLE posts CHANGE image cover_image VARCHAR(255)` |
 | 2026-06 | `ALTER TABLE posts MODIFY COLUMN author VARCHAR(255) NULL` |
 | 2026-06 | `ALTER TABLE posts ADD COLUMN photo_credits TINYINT(1) DEFAULT 0` |
+| 2026-06 | Added `users` table for admin authentication |
 
 ---
 

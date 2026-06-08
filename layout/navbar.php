@@ -9,13 +9,18 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
 } else {
   $active_site = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_FILENAME);
 }
+
+// session for logowanie button
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top <?php echo ($active_site === 'index') ? 'navbar-transparent' : ''; ?>">
   <div class="container-fluid">
     <!-- Logo/Text Logo -->
-    <a class="navbar-brand" href="<?php echo ($active_site === 'index') ? '#home' : $base_url . '/#home'; ?>">Argo</a>
+    <a class="navbar-brand" href="<?php echo ($active_site === 'index') ? '#home' : '/#home'; ?>">Argo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,12 +28,18 @@ if (pathinfo($request_uri, PATHINFO_EXTENSION) != 'php') {
     <div class="collapse navbar-collapse" id="myNavbar">
       <!--Navbar Content-->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="about.php">O nas</a></li>
-        <li class="nav-item"><a class="nav-link" href="partnerzy_oferta.php">Współpraca</a></li>
-        <li class="nav-item"><a class="nav-link" href="blog.php">Wydarzenia</a></li>
-        <li class="nav-item"><a class="nav-link" href="dolacz.php">Dołącz</a></li>
-        <li class="nav-item"><a class="nav-link" href="dla_czlonkow.php">Dla Członków</a></li>
-        <li class="nav-item"><a class="nav-link" href="kontakt.php">Kontakt</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about.php">O nas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/partnerzy_oferta.php">Współpraca</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog.php">Wydarzenia</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dolacz.php">Dołącz</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dla_czlonkow.php">Dla Członków</a></li>
+        <li class="nav-item"><a class="nav-link" href="/kontakt.php">Kontakt</a></li>
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/panel.php">Panel</a></li>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/logout.php">Wyloguj</a></li>
+        <?php else: ?>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/login.php">Logowanie</a></li>
+        <?php endif; ?>
       </ul>
       <!---->
     </div>

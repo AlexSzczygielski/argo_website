@@ -1,4 +1,3 @@
-<?php require 'layout/header.php' ?>
 <style>
     /* The sail-as-letter icon */
 .footer-logo-icon {
@@ -12,7 +11,7 @@
     <div class="container">
         <!-- Left: Bootstrap logo + text -->
         <div class="logo-text">
-            <img src="storage/images/sail.png" alt="A sail logo" class="footer-logo-icon">
+            <img src="/storage/images/sail.png" alt="SKR ARGO AGH - Sail logo" class="footer-logo-icon">
             <span>Argo</span>
         </div>
 

@@ -17,4 +17,13 @@ CREATE TABLE IF NOT EXISTS post_gallery(
     directory varchar(255) NOT NULL,
     sort_order int NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS users(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    email varchar(255) NOT NULL UNIQUE,
+    surname varchar(255),
+    password varchar(255) NOT NULL,
+    admin TINYINT(1) DEFAULT 0
 )

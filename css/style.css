@@ -1463,3 +1463,42 @@ footer .creator-credit {
     font-size: 1.5rem;
   }
 }
+
+/* --- DASHBOARD --- */
+/* --- Login page --- */
+.login-bg {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                      url('/storage/images/2024/Amp2.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.login-card h4,
+.login-card h5,
+.login-card .form-label {
+    color: white;
+}
+
+.login-card .form-control {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+}
+
+.login-card .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login-logo {
+    height: 150px;
+}

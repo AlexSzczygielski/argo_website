@@ -45,7 +45,7 @@ jobs:
                 - name: Dump database
                   run: |
                     mkdir -p db_backups
-                    MYSQL_PWD=${{ secrets.DB_PASS }} mysqldump -h mysql.agh.edu.pl -u argo argo > db_backups/data.sql
+                    MYSQL_PWD=${{ secrets.DB_PASS }} mysqldump --ignore-table=argo.users -h mysql.agh.edu.pl -u argo argo > db_backups/data.sql
                 
                 - name: Check if anything changed
                   id: check
