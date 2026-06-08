@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS posts(
     cover_image varchar(255),
     results_url varchar(255),
     content LONGTEXT,
-    photo_credits TINYINT(1) DEFAULT 0
+    photo_credits TINYINT(1) DEFAULT 0,
+    status ENUM('draft', 'pending', 'published') DEFAULT 'draft'
 );
 
 CREATE TABLE IF NOT EXISTS post_gallery(

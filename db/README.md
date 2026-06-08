@@ -28,6 +28,7 @@ erDiagram
         longtext content
         varchar results_url
         tinyint photo_credits
+        enum status
     }
 
     post_gallery {
@@ -67,6 +68,7 @@ erDiagram
 | `content` | LONGTEXT | Yes | NULL | Full post body as HTML. Rendered raw in `blog_post.php` |
 | `results_url` | VARCHAR(255) | Yes | NULL | Public Upwind24 regatta URL. If set, triggers JS results table via `upwind_api.js` |
 | `photo_credits` | TINYINT(1) | Yes | 0 | `1` = show "Zdjęcia dzięki uprzejmości organizatora." footer. `0` = hide |
+| `status` | ENUM | Yes | `draft` | Post visibility: `draft` = private, `pending` = awaiting admin approval, `published` = public |
 
 ### `post_gallery`
 
@@ -91,7 +93,7 @@ Full image path is constructed as `directory/filename` at render time.
 | `password` | VARCHAR(255) | No | — | bcrypt hash via PHP `password_hash()`. Never plain text |
 | `admin` | TINYINT(1) | Yes | 0 | `1` = admin access, `0` = no access |
 
-**`users` table is excluded from automated DB dumps for security. Manage users manually via phpMyAdmin**
+**`users` table is excluded from automated DB dumps for security. Manage users manually via phpMyAdmin.**
 
 ---
 
@@ -118,6 +120,8 @@ Full image path is constructed as `directory/filename` at render time.
 | 2026-06 | `ALTER TABLE posts MODIFY COLUMN author VARCHAR(255) NULL` |
 | 2026-06 | `ALTER TABLE posts ADD COLUMN photo_credits TINYINT(1) DEFAULT 0` |
 | 2026-06 | Added `users` table for admin authentication |
+| 2026-06 | `ALTER TABLE posts ADD COLUMN status ENUM('draft','pending','published') DEFAULT 'draft'` |
+| 2026-06 | `UPDATE posts SET status = 'published'` — migrated existing posts |
 
 ---
 

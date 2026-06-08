@@ -29,13 +29,13 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
         // Fetch fixed posts
         $placeholders = implode(',', array_fill(0, count($fixed_posts_ids), '?'));
-        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id IN ($placeholders)");
+        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id IN ($placeholders) AND status = 'published'");
         $stmt->execute($fixed_posts_ids);
         $fixed_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Fetch latest posts excluding fixed
         $limit = $carousel_posts_count - count($fixed_posts_ids);
-        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id NOT IN ($placeholders) ORDER BY date DESC LIMIT $limit");
+        $stmt = $pdo->prepare("SELECT * FROM posts WHERE id NOT IN ($placeholders) AND status = 'published' ORDER BY date DESC LIMIT $limit");
         $stmt->execute($fixed_posts_ids);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

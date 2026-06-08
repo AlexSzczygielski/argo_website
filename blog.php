@@ -27,7 +27,7 @@ try{
   require_once('db/db.php');
   /* Open connection and get total posts count */
   $pdo = get_pdo();
-  $totalPosts = (int)$pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+  $totalPosts = (int)$pdo->query("SELECT COUNT(*) FROM posts WHERE status = 'published'")->fetchColumn();
 
   /* PAGE NUMBER */
   $pageNum = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
@@ -39,14 +39,14 @@ try{
   $offset = ($pageNum - 1) * $perPage; //number of posts offset
 
   /* CURRENT PAGE POSTS */
-  $stmt = $pdo->prepare("SELECT * FROM posts ORDER BY date DESC LIMIT :limit OFFSET :offset");
+  $stmt = $pdo->prepare("SELECT * FROM posts WHERE status = 'published' ORDER BY date DESC LIMIT :limit OFFSET :offset");
   $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
   $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
   $stmt->execute();
   $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   /* FEATURED POST */
-  $featuredPost = $pdo->query("SELECT * FROM posts ORDER BY date DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+  $featuredPost = $pdo->query("SELECT * FROM posts WHERE status = 'published' ORDER BY date DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     error_log("DB error on blog: " . $e->getMessage());
 }

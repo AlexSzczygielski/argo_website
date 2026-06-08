@@ -28,7 +28,8 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
                 //success - redirect
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] = $db_credentials['id'];
-                $_SESSION['user_name'] = $db_credentials['name'];
+                $_SESSION['user_name'] = $db_credentials['name'] . " " . $db_credentials['surname'];
+                $_SESSION['admin'] = $db_credentials['admin'];
                 header('Location: /dashboard/panel.php');
                 exit;
             } else{
@@ -49,30 +50,30 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
 </head>
 <body>
 
-            <!-- Page content starts here -->
-            <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center login-bg">
-                <div class="card p-4 login-card">
-                    <div class="text-center mb-4">
-                        <img src="/storage/images/argologo.svg" alt="Argo" class="login-logo">
-                        <h4 class="mt-3">SKR ARGO AGH</h4>
-                        <h5 class="mt-3">Logowanie do panelu klubowicza</h5>
-                    </div>
+<!-- Page content starts here -->
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center login-bg">
+    <div class="card p-4 login-card">
+        <div class="text-center mb-4">
+            <img src="/storage/images/argologo.svg" alt="Argo" class="login-logo">
+            <h4 class="mt-3">SKR ARGO AGH</h4>
+            <h5 class="mt-3">Logowanie do panelu klubowicza</h5>
+        </div>
 
-                    <form method="POST">
-                        <div class="mb-3">
-                            <label class="form-label">E-mail</label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Hasło</label>
-                            <input type="password" name="psswd" class="form-control" required>
-                        </div>
-                        <?php if (!empty($error)): ?>
-                            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-                        <?php endif; ?>
-                        <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
-                    </form>
-                </div>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" name="email" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Hasło</label>
+                <input type="password" name="psswd" class="form-control" required>
+            </div>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

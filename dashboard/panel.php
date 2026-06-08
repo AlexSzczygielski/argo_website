@@ -3,6 +3,7 @@ require_once(__DIR__ . '/auth_check.php');
 $page_title = "SKR Argo AGH - Panel";
 $page_description = "CMS Panel";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
+$filter = $_GET['status'] ?? 'all';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -16,35 +17,62 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
             <!-- Page content starts here -->
             <div class="container p-4">
                 <h1 class="md-6">Content Management System</h1>
+
+                <hr class="mb-4">
+
                 <h3 class="md-6">Działania:</h3>
                 <div class="mb-4"></div>
                 <!-- Adding new posts / more actions -->
-                <a href="/dashboard/add_post.php" class="btn btn-sm btn-outline-primary mb-4">+ Dodaj nowy post</a>
-
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="/dashboard/post_form.php" class="btn btn-sm btn-outline-primary">+ Dodaj nowy post</a>
+                </div>
                 <hr class="mb-4">
                 
                 <!-- Existing posts -->
                 <h2 class="md-6">Edytuj istniejącą bazę postów:</h2>
                 <div class="mb-4"></div>
+                <h6>Filtruj</h6>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="?status=all" class="btn btn-sm <?= $filter === 'all' ? 'btn-secondary' : 'btn-outline-secondary' ?>">Wszystkie</a>
+                    <a href="?status=draft" class="btn btn-sm <?= $filter === 'draft' ? 'btn-secondary' : 'btn-outline-secondary' ?>">Szkice</a>
+                    <a href="?status=pending" class="btn btn-sm <?= $filter === 'pending' ? 'btn-warning' : 'btn-outline-warning' ?>">Oczekujące</a>
+                    <a href="?status=published" class="btn btn-sm <?= $filter === 'published' ? 'btn-success' : 'btn-outline-success' ?>">Opublikowane</a>
+                </div>
                 <?php
                 $posts = [];
                 $totalPosts = 0;
                 $totalPages = 0;
+
+                $allowed_statuses = ['draft', 'pending', 'published'];
+                $filter = in_array($_GET['status'] ?? '', $allowed_statuses) ? $_GET['status'] : 'all';
+
                 try {
                     require_once(__DIR__ . '/../db/db.php');
                     $pdo = get_pdo();
-                    $totalPosts = (int)$pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+
+                    if ($filter !== 'all') {
+                        $countStmt = $pdo->prepare("SELECT COUNT(*) FROM posts WHERE status = :status");
+                        $countStmt->bindValue(':status', $filter);
+                        $countStmt->execute();
+                        $totalPosts = (int)$countStmt->fetchColumn();
+
+                        $stmt = $pdo->prepare("SELECT * FROM posts WHERE status = :status ORDER BY date DESC LIMIT :limit OFFSET :offset");
+                        $stmt->bindValue(':status', $filter);
+                    } else {
+                        $totalPosts = (int)$pdo->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+                        $stmt = $pdo->prepare("SELECT * FROM posts ORDER BY date DESC LIMIT :limit OFFSET :offset");
+                    }
 
                     $pageNum = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
                     $perPage = 6;
                     $totalPages = ceil($totalPosts / $perPage);
                     $offset = ($pageNum - 1) * $perPage;
 
-                    $stmt = $pdo->prepare("SELECT * FROM posts ORDER BY date DESC LIMIT :limit OFFSET :offset");
                     $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
                     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
                     $stmt->execute();
                     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
                 } catch (Exception $e) {
                     error_log("DB error on panel: " . $e->getMessage());
                 }
@@ -54,11 +82,23 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <?php foreach ($posts as $post): ?>
                         <div class="col">
                             <div class="card h-100">
+                                <?php
+                                $statusBadge = match($post['status']) {
+                                    'published' => '<span class="badge bg-success">Opublikowany</span>',
+                                    'pending'   => '<span class="badge bg-warning text-dark">Oczekuje</span>',
+                                    'draft'     => '<span class="badge bg-secondary">Szkic</span>',
+                                    default     => ''
+                                };
+                                ?>
                                 <img src="/<?= htmlspecialchars($post['cover_image']) ?>"
                                      class="card-img-top"
                                      style="height: 200px; object-fit: cover;"
                                      alt="">
                                 <div class="card-body">
+                                    <p class="card-text text-muted" style="font-size:0.85rem">
+                                        <?= htmlspecialchars($post['date']) ?> &middot; <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
+                                        <?= $statusBadge ?>
+                                    </p>
                                     <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
                                     <p class="card-text text-muted" style="font-size:0.85rem">
                                         <?= htmlspecialchars($post['date']) ?> &middot; <?= htmlspecialchars($post['author'] ?? 'ARGO') ?>
@@ -66,9 +106,14 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                     <p class="card-text"><?= htmlspecialchars($post['excerpt']) ?></p>
                                 </div>
                                 <div class="card-footer d-flex gap-2">
-                                    <a href="/dashboard/edit_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                                    <a href="/dashboard/post_form.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-primary">Edytuj</a>
                                     <a href="/blog_post.php?id=<?= $post['id'] ?>" target="_blank" class="btn btn-sm btn-outline-secondary">Podgląd</a>
-                                    <a href="/dashboard/delete_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-danger">Usuń</a>
+                                    <?php if($_SESSION['admin']): ?>
+                                        <?php if($post['status'] === 'pending'): ?>
+                                            <a href="/dashboard/approve_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-success">Zatwierdź</a>
+                                        <?php endif; ?>
+                                        <a href="/dashboard/delete_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-danger">Usuń</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
