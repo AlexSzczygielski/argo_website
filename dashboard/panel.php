@@ -83,12 +83,13 @@ $filter = $_GET['status'] ?? 'all';
                         <div class="col">
                             <div class="card h-100">
                                 <?php
-                                $statusBadge = match($post['status']) {
-                                    'published' => '<span class="badge bg-success">Opublikowany</span>',
-                                    'pending'   => '<span class="badge bg-warning text-dark">Oczekuje</span>',
-                                    'draft'     => '<span class="badge bg-secondary">Szkic</span>',
-                                    default     => ''
-                                };
+                                if ($post['status'] === 'published') {
+                                    $statusBadge = '<span class="badge bg-success">Opublikowany</span>';
+                                } elseif ($post['status'] === 'pending') {
+                                    $statusBadge = '<span class="badge bg-warning text-dark">Oczekuje</span>';
+                                } else {
+                                    $statusBadge = '<span class="badge bg-secondary">Szkic</span>';
+                                }
                                 ?>
                                 <img src="/<?= htmlspecialchars($post['cover_image']) ?>"
                                      class="card-img-top"
