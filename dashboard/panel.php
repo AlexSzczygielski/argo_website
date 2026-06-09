@@ -126,7 +126,7 @@ $filter = $_GET['status'] ?? 'all';
                                     <a href="/dashboard/post_form.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-primary">Edytuj</a>
                                     <a href="/blog_post.php?id=<?= $post['id'] ?>" target="_blank" class="btn btn-sm btn-outline-secondary">Podgląd</a>
                                     <?php if($_SESSION['admin']): ?>
-                                        <?php if($post['status'] === 'pending'): ?>
+                                        <?php if(in_array($post['status'], ['pending', 'draft'])): ?>
                                             <a href="/dashboard/approve_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-success">Zatwierdź</a>
                                         <?php endif; ?>
                                         <a href="/dashboard/delete_post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-danger">Usuń</a>

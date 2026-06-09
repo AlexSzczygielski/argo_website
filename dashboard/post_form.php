@@ -23,7 +23,7 @@ if($is_edit){
         $stmt->execute();
         $post = $stmt->fetch();
     } catch (Exception $e) {
-        error_log("DB error on blog: " . $e->getMessage());
+        error_log("DB error: " . $e->getMessage());
         $post = [
             'title'       => 'Błąd połączenia',
             'excerpt'     => 'Nie można załadować wpisu. Spróbuj ponownie później.',
@@ -34,6 +34,20 @@ if($is_edit){
             'results_url'          => 'Błąd połączenia',
             'photo_credits' => '0',
         ];
+    }
+
+    //Load gallery
+    $gallery = [];
+    if ($post) {
+        try{
+            require_once(__DIR__ . '/../db/db.php');
+            $gallery_stmt = $pdo->prepare("SELECT * FROM post_gallery WHERE post_id = :id ORDER BY sort_order");
+            $gallery_stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
+            $gallery_stmt->execute();
+            $gallery = $gallery_stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(Exception $e){
+            error_log("DB error: " . $e->getMessage());
+        }
     }
 
 // Not post handling
@@ -69,6 +83,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     try{
         //Determine correct sql query - INSERT/UPDATE
         require_once(__DIR__ . '/../db/db.php');
+        require_once(__DIR__ . '/messages.php');
         if($is_edit){
             //Editing (UPDATE)
             $pdo = get_pdo();
@@ -93,7 +108,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':status', $status);
             $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
             $stmt->execute();
-            header('Location: /dashboard/panel.php');
+            $msg = ($status === 'published') ? MSG_PUBLISHED : MSG_SAVED;
+            header('Location: /dashboard/post_form.php?id=' . $post_id . '&message=' . $msg);
             exit;
 
         }else{
@@ -112,7 +128,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':photo_credits', isset($_POST['photo_credits']) ? 1 : 0, PDO::PARAM_INT);
             $stmt->bindValue(':status', $status);
             $stmt->execute();
-            header('Location: /dashboard/panel.php');
+            /**
+             * Gallery can be uploaded only after post has an ID
+             * After INSERT - redirect to the same page, so that photos can be added
+             */
+            $new_id = $pdo->lastInsertId();
+            $msg = ($status === 'published') ? MSG_PUBLISHED : MSG_SAVED;
+            header('Location: /dashboard/post_form.php?id=' . $new_id . "&message=" . $msg);
             exit;
         }
     } catch(Exception $e){
@@ -136,11 +158,67 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <a href="/dashboard/panel.php" class="btn btn-sm btn-outline-secondary">← Wróć do panelu</a>
                 </div>
 
+                <!--Show return message -->
+                    <?php if (isset($_GET['message'])): ?>
+                        <?php $messages = [
+                                    'published' => ['text' => 'Post został opublikowany.',          'class' => 'success'],
+                                    'deleted'   => ['text' => 'Post został usunięty.',              'class' => 'danger'],
+                                    'saved'     => ['text' => 'Post został zapisany.',              'class' => 'success'],
+                                    'error'     => ['text' => 'Błąd podczas przesyłania zdjęć.',   'class' => 'danger'],
+                                    'partial'   => ['text' => 'Część zdjęć nie została przesłana.','class' => 'warning'],
+                                    'no_file'   => ['text' => 'Nie wybrano żadnego pliku.',         'class' => 'warning'],
+                                ]; 
+                        ?>
+                        <?php $msg = $messages[$_GET['message']] ?? null; ?>
+                        <?php if ($msg): ?>
+                            <div class="alert alert-<?= $msg['class'] ?> alert-dismissible fade show" role="alert">
+                                <?= $msg['text'] ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
 
                 <div class="row g-4">
                     <!-- LEFT: Form -->
                     <div class="col-md-6">
-                        <form method="POST">
+                        <!-- Gallery -->
+                         <?php if (!$is_edit && !$post): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Aby dodać zdjęcia, <strong>najpierw zapisz post (szkic)</strong>.</label>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($is_edit && $post): ?>
+                        <div class="mt-4">
+                            <div class="mb-3">
+                                <label class="form-label">Cover Image (zdjęcie tytułowe)</label>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Galeria</label>
+                                <!-- Existing images -->
+                                <div class="row g-2 mb-3">
+                                    <?php foreach ($gallery as $image): ?>
+                                        <div class="col-3">
+                                            <img src="/<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>"
+                                                class="img-fluid rounded"
+                                                style="height: 100px; object-fit: cover; width: 100%;">
+                                            <a href="/dashboard/delete_gallery_image.php?id=<?= $image['id'] ?>&post_id=<?= $post_id ?>"
+                                            class="btn btn-sm btn-outline-danger mt-1 w-100">Usuń</a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <!-- Upload form -->
+                                <form method="POST" id="photos-upload-form" enctype="multipart/form-data" action="/dashboard/upload_gallery.php?post_id=<?= $post_id ?>">
+                                    <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp,image/gif" class="form-control mb-2">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm">Dodaj zdjęcia (potwierdź)</button>
+                                </form>
+                            </div>
+                            <!-- existing images + upload form here -->
+                        </div>
+                        <?php endif; ?>
+
+                        <form method="POST" id="post-upload-form">
                             <div class="mb-3">
                                 <label class="form-label">Tytuł</label>
                                 <input type="text" id="title" name="title" class="form-control"
@@ -178,6 +256,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 <div id="quill-editor" style="height: 300px;"><?= $post ? $post['content'] : '' ?></div>
                                 <input type="hidden" id="content" name="content">
                             </div>
+
                             <button type="submit" name="action" value="draft" class="btn btn-outline-secondary">Zapisz szkic</button>
                             <button type="submit" name="action" value="pending" class="btn btn-primary">Wyślij do zatwierdzenia</button>
                             <?php if ($_SESSION['admin']): ?>
@@ -206,6 +285,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!-- Include the Quill library -->
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 <script>
+    /** -- Quill text editor -- */
     /**@abstract
      * Quill setup
      */
@@ -213,8 +293,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         theme: 'snow'
     });
 
-    document.querySelector('form').addEventListener('submit', function() {
+    document.getElementById('post-upload-form').addEventListener('submit', function() {
         document.getElementById('content').value = quill.root.innerHTML;
+        isDirty = false;
     });
 
     /**@abstract
@@ -241,7 +322,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         });
     }
 
-    //Render
+    //Render edits
     let previewTimeout;
     function schedulePreview() {
         clearTimeout(previewTimeout);
@@ -254,6 +335,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     quill.on('text-change', schedulePreview);
 
     updatePreview();
+
+    /** --- */
+    /** -- Save changes before photos upload -- */
+    let isDirty = false;
+    // Listen to any changes
+    ['title', 'author', 'date', 'excerpt', 'results_url'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {isDirty = true;})
+    });
+    quill.on('text-change', ()=> {isDirty = true;}); // content changes
+
+    //Clear on save
+    document.getElementById('post-upload-form').addEventListener('submit', function() {
+        document.getElementById('content').value = quill.root.innerHTML;
+        isDirty = false;
+    });  // ← this closing was missing
+
+    //Stop user upon uploading
+    document.getElementById('photos-upload-form').addEventListener('submit', function(e){
+        if(isDirty){
+            e.preventDefault();
+            alert('Masz niezapisane zmiany! Najpierw zapisz post (szkic).');
+        }
+    });
 </script>
 </body>
 </html>
