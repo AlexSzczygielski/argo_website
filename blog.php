@@ -8,10 +8,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
 <head>
   <?php require 'layout/header.php' ?>
-  <title>SKR Argo AGH - Blog</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="SKR ARGO AGH Wydarzenia">
 </head>
 
 <body>

@@ -7,6 +7,9 @@ MySQL database hosted on AGH server (`mysql.agh.edu.pl`). Access requires AGH ne
 ## Setup
 
 1. Log into [phpMyAdmin](https://mysql.agh.edu.pl/phpmyadmin)
+    1. Uzytkownik: `argo` (production DB) || `argo1` (Development DB)
+    2. Hasło: Password can be accessed through *[panel.agh.edu.pl](https://panel.agh.edu.pl)*
+        > **Do not reset the password** - this will crash production!
 2. Select the `argo` database
 3. Go to the **SQL** tab
 4. Paste the contents of `schema.sql` and execute
@@ -133,7 +136,9 @@ Full image path is constructed as `directory/filename` at render time.
 <?php define('DB_PASS', 'your_password'); ?>
 ```
 
-The AGH MySQL server is only reachable from the AGH network. To work remotely either connect via AGH VPN, or run a local MySQL instance and update `db_config.php` accordingly.
+The AGH MySQL server is only reachable from the AGH network. To work remotely connect via AGH VPN.
+
+A separate `argo1` database exists on `mysql.agh.edu.pl` for local testing. `db_config.php` automatically selects it when `APP_ENV` is not set to `production`. Schema and data can be restored from `schema.sql` and `db_backups/data.sql` — disable foreign key checks during import.
 
 ---
 

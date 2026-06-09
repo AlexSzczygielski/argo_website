@@ -18,6 +18,22 @@ $filter = $_GET['status'] ?? 'all';
             <div class="container p-4">
                 <h1 class="md-6">Content Management System</h1>
 
+                <!--Show return message -->
+                <?php if (isset($_GET['message'])): ?>
+                    <?php $messages = [
+                        'published' => ['text' => 'Post został opublikowany.', 'class' => 'success'],
+                        'deleted'   => ['text' => 'Post został usunięty.', 'class' => 'danger'],
+                        'saved'     => ['text' => 'Post został zapisany.', 'class' => 'success'],
+                    ]; ?>
+                    <?php $msg = $messages[$_GET['message']] ?? null; ?>
+                    <?php if ($msg): ?>
+                        <div class="alert alert-<?= $msg['class'] ?> alert-dismissible fade show" role="alert">
+                            <?= $msg['text'] ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 <hr class="mb-4">
 
                 <h3 class="md-6">Działania:</h3>

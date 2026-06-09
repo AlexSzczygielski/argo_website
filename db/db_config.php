@@ -8,7 +8,7 @@
  */
 define('DB_HOST', 'mysql.agh.edu.pl');
 define('DB_NAME', getenv('APP_ENV') === 'production' ? 'argo' : 'argo1');
-define('DB_USER', 'argo'); //Login
+define('DB_USER', getenv('APP_ENV') === 'production' ? 'argo' : 'argo1'); //Login
 $passwd_file = __DIR__ . '/db_psswd.php';
 if (file_exists($passwd_file)) {
     require_once($passwd_file);

@@ -12,6 +12,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
 $post = null;
 if($is_edit){
+    // Handle post loading
     try{
         require_once(__DIR__ . '/../db/db.php');
         /* Fetch post */
@@ -35,7 +36,7 @@ if($is_edit){
         ];
     }
 
-
+// Not post handling
     if (!$post) {
         $post = [
             'title'       => 'Brak wpisu',
@@ -48,6 +49,74 @@ if($is_edit){
             'results_url' => 'Brak wpisu',
             'photo_credits' => '0',
         ];
+    }
+}
+
+/**
+ * Handle form POST methods - updating SQL DB
+ */
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    //whitelist actions
+    $allowed_actions = ['draft', 'pending', 'published'];
+    $status = in_array($_POST['action'], $allowed_actions) ? $_POST['action'] : 'draft';
+    
+    // published only allowed for admins additional check
+    if ($status === 'published' && !$_SESSION['admin']) {
+        $status = 'pending';
+    }
+
+    //Update DB
+    try{
+        //Determine correct sql query - INSERT/UPDATE
+        require_once(__DIR__ . '/../db/db.php');
+        if($is_edit){
+            //Editing (UPDATE)
+            $pdo = get_pdo();
+            $stmt = $pdo->prepare("UPDATE posts SET
+                        title = :title,
+                        excerpt = :excerpt,
+                        date = :date,
+                        author = :author,
+                        content = :content,
+                        results_url = :results_url,
+                        photo_credits = :photo_credits,
+                        status = :status
+                        WHERE id = :id"); 
+            
+            $stmt-> bindValue(':title', $_POST['title']);
+            $stmt->bindValue(':excerpt', $_POST['excerpt'] ?? null);
+            $stmt->bindValue(':date', $_POST['date']);
+            $stmt->bindValue(':author', $_POST['author'] ?? null);
+            $stmt->bindValue(':content', $_POST['content'] ?? null);
+            $stmt->bindValue(':results_url', $_POST['results_url'] ?? null);
+            $stmt->bindValue(':photo_credits', isset($_POST['photo_credits']) ? 1 : 0, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status);
+            $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
+            $stmt->execute();
+            header('Location: /dashboard/panel.php');
+            exit;
+
+        }else{
+            //new post (INSERT)
+            $pdo = get_pdo();
+            $stmt = $pdo->prepare("INSERT INTO posts 
+            (title, excerpt, date, author, content, results_url, photo_credits, status)
+            VALUES (:title, :excerpt, :date, :author, :content, :results_url, :photo_credits, :status)"); 
+            
+            $stmt-> bindValue(':title', $_POST['title']);
+            $stmt->bindValue(':excerpt', $_POST['excerpt'] ?? null);
+            $stmt->bindValue(':date', $_POST['date']);
+            $stmt->bindValue(':author', $_POST['author'] ?? null);
+            $stmt->bindValue(':content', $_POST['content'] ?? null);
+            $stmt->bindValue(':results_url', $_POST['results_url'] ?? null);
+            $stmt->bindValue(':photo_credits', isset($_POST['photo_credits']) ? 1 : 0, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status);
+            $stmt->execute();
+            header('Location: /dashboard/panel.php');
+            exit;
+        }
+    } catch(Exception $e){
+        error_log("DB error: " . $e->getMessage());
     }
 }
 ?>
@@ -111,6 +180,9 @@ if($is_edit){
                             </div>
                             <button type="submit" name="action" value="draft" class="btn btn-outline-secondary">Zapisz szkic</button>
                             <button type="submit" name="action" value="pending" class="btn btn-primary">Wyślij do zatwierdzenia</button>
+                            <?php if ($_SESSION['admin']): ?>
+                                <button type="submit" name="action" value="published" class="btn btn-success">Opublikuj</button>
+                            <?php endif; ?>
                         </form>
                     </div>
 
