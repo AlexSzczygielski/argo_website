@@ -14,7 +14,9 @@ $post = [
     'photo_credits'=> $_POST['photo_credits'] ?? 0,
     'id'           => null,
 ];
-$gallery = [];
+
+$gallery = json_decode($_POST['gallery'] ?? '[]', true); //true to return associative array
+
 $page_title = "Podgląd - " . ($_POST['title'] ?? 'Nowy Post');
 $page_description = '';
 $page_image = '';

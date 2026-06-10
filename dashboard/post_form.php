@@ -190,8 +190,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <?php endif; ?>
                         <?php if ($is_edit && $post): ?>
                         <div class="mt-4">
-                            <div class="mb-3">
+                            <!-- Cover IMG -->
+                             <div class="mb-3">
                                 <label class="form-label">Cover Image (zdjęcie tytułowe)</label>
+                                <?php if (!empty($post['cover_image'])): ?>
+                                    <div>
+                                        <img src="/<?= htmlspecialchars($post['cover_image']) ?>"
+                                            class="img-fluid rounded"
+                                            style="max-height: 150px; object-fit: cover;">
+                                    </div>
+                                <?php else: ?>
+                                    <p class="text-muted small">Nie wybrano okładki — kliknij "Ustaw okładkę" przy zdjęciu z galerii.</p>
+                                <?php endif; ?>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Galeria</label>
@@ -202,8 +212,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                             <img src="/<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>"
                                                 class="img-fluid rounded"
                                                 style="height: 100px; object-fit: cover; width: 100%;">
-                                            <a href="/dashboard/delete_gallery_image.php?id=<?= $image['id'] ?>&post_id=<?= $post_id ?>"
-                                            class="btn btn-sm btn-outline-danger mt-1 w-100">Usuń</a>
+                                            <form method="POST" action="/dashboard/set_cover.php">
+                                                <input type="hidden" name="post_id" value="<?= (int)$post_id ?>">
+                                                <input type="hidden" name="image_path" value="<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-success mt-1 w-100">Ustaw okładkę</button>
+                                            </form>
+                                            <form method="POST" action="/dashboard/delete_gallery_image.php">
+                                                <input type="hidden" name="image_id" value="<?= (int)$image['id'] ?>">
+                                                <input type="hidden" name="post_id" value="<?= (int)$post_id ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger mt-1 w-100">Usuń</button>
+                                            </form>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
@@ -310,6 +328,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         formData.append('content', quill.root.innerHTML);
         formData.append('results_url', document.getElementById('results_url').value);
         formData.append('photo_credits', document.getElementById('photo_credits').checked ? '1' : '0');
+        formData.append('gallery', '<?= isset($gallery) ? json_encode($gallery) : json_encode([]) ?>');
+        formData.append('cover_image', '<?= isset($post["cover_image"]) ? htmlspecialchars($post["cover_image"]) : "" ?>');
 
         fetch('/dashboard/preview.php', {
             method: 'POST',

@@ -35,7 +35,7 @@ $gallery = $gallery ?? [];
             <!-- MOBILE IMAGE -->
             <div class="d-block d-md-none mb-4 text-center">
                 <img
-                    src="<?= htmlspecialchars($post['cover_image']) ?>"
+                    src="/<?= htmlspecialchars($post['cover_image']) ?>"
                     alt="<?= htmlspecialchars($post['title']) ?>"
                     class="img-fluid rounded shadow-sm"
                     style="cursor:pointer;"
@@ -68,7 +68,7 @@ $gallery = $gallery ?? [];
                                     onclick="openGallery(<?= $index ?>); return false;"
                                 >
                                     <img
-                                        src="<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>"
+                                        src="/<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>"
                                         alt="Studencki Klub Regatowy ARGO AGH Kraków - zdjęcie z regat"
                                         class="img-fluid rounded shadow-sm gallery-image"
                                         loading="lazy"
@@ -117,7 +117,7 @@ $gallery = $gallery ?? [];
         <!-- DESKTOP IMAGE -->
         <div class="col-md-5 text-center text-md-end d-none d-md-block">
             <img
-                src="<?= htmlspecialchars($post['cover_image']) ?>"
+                src="/<?= htmlspecialchars($post['cover_image']) ?>"
                 alt="<?= htmlspecialchars($post['title']) ?>"
                 class="img-fluid rounded shadow-sm"
                 style="cursor:pointer;"
@@ -142,7 +142,7 @@ $gallery = $gallery ?? [];
             </div>
             <div class="modal-body text-center p-0">
                 <img
-                    src="<?= htmlspecialchars($post['cover_image']) ?>"
+                    src="/<?= htmlspecialchars($post['cover_image']) ?>"
                     class="img-fluid rounded shadow"
                     alt="<?= htmlspecialchars($post['title']) ?>"
                 >
@@ -155,7 +155,7 @@ $gallery = $gallery ?? [];
 <script>
 const galleryImages = [
     <?php foreach ($gallery as $image): ?>
-        "<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>",
+        "/<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>",
     <?php endforeach; ?>
 ];
 
@@ -163,18 +163,18 @@ let currentIndex = 0;
 
 function openGallery(index) {
     currentIndex = index;
-    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex]; // relative path already in the element
     const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
     modal.show();
 }
 
 function nextImage() {
     currentIndex = (currentIndex + 1) % galleryImages.length;
-    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex]; // relative path already in the element
 }
 
 function prevImage() {
     currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    document.getElementById('galleryModalImage').src = galleryImages[currentIndex];
+    document.getElementById('galleryModalImage').src = galleryImages[currentIndex]; // relative path already in the element
 }
 </script>
