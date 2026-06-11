@@ -352,7 +352,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                     <span class="badge bg-success">Opublikowany</span>
                                 </p>
                                 <h5 class="card-title">Regaty o Złote Runo - Ogólnopolski Puchar Żeglarski AGH</h5>
-                                <p class="card-text">Załoga SKR ARGO AGH Kraków sięga po Złote Runo na Jeziorze Rożnowskim!</p>
+                                <p class="card-text">Załoga SKR ARGO AGH Kraków sięga po Złote Runo na Morzu Egejskim!</p>
                             </div>
                             <div class="card-footer d-flex gap-2">
                                 <a href="#" class="btn btn-sm btn-outline-primary">Edytuj</a>
