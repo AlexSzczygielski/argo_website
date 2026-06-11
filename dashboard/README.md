@@ -24,6 +24,9 @@ Password-protected CMS panel for managing blog posts. Accessible at `/dashboard/
 | `preview.php` | Preview endpoint — renders post via `layout/post_content.php` |
 | `approve_post.php` | Sets post status to `published` (admin only) |
 | `delete_post.php` | Deletes post and cascades gallery rows (admin only) |
+| `upload_gallery.php` | Handles gallery image uploads — validates, resizes, stores to `storage/images/YYYY/slug/` |
+| `delete_gallery_image.php` | Deletes a gallery image from disk and DB — post owner or admin only |
+| `set_cover.php` | Sets `cover_image` on a post by selecting from existing gallery images |
 
 ---
 
@@ -31,8 +34,8 @@ Password-protected CMS panel for managing blog posts. Accessible at `/dashboard/
 
 | Role | `admin` column | Can do |
 |------|---------------|--------|
-| Member | `0` | Create drafts, submit for review, edit own posts |
-| Admin | `1` | All of the above + approve/reject pending posts, delete posts |
+| Member | `0` | Create drafts, submit for review, edit own posts, upload/delete own gallery images |
+| Admin | `1` | All of the above + approve/reject pending posts, delete any post or gallery image |
 
 Manage users manually via phpMyAdmin — user table is excluded from automated DB dumps.
 
@@ -55,12 +58,25 @@ Draft → Pending → Published
 
 ---
 
+## Gallery & Cover Image Workflow
+
+1. Post must be saved (has an ID) before images can be uploaded
+2. Upload images via the gallery form in `post_form.php` — accepts jpg, jpeg, png, webp, gif
+3. Images are resized to max 1920px and converted to JPEG on upload
+4. Files are stored at `storage/images/YYYY/post-title-slug/`
+5. Select a cover image by clicking "Ustaw okładkę" on any gallery thumbnail
+6. Gallery images can be deleted individually — owner or admin only
+7. Deleting a post cascades and removes all gallery DB rows (files remain on disk)
+
+---
+
 ## Gallery Uploads
 
-- Images upload immediately to `storage/images/` regardless of post status
-- Gallery rows are cascade-deleted when a post is deleted
-- ~~Orphaned image files must be cleaned up manually if a post is rejected~~
-- ~~Limits: 10MB per file, image types only (jpg, jpeg, png, webp, gif)~~
+- 5MB per file limit (server allows up to 30MB — limit is intentional)
+- Accepted formats: jpg, jpeg, png, webp, gif — validated by MIME type, not just extension
+- All formats converted to JPEG on save, resized to max 1920px
+- Uploaded immediately regardless of post status — orphaned files cleaned up manually if post rejected
+- Upload directory: `storage/images/YYYY/slug/`
 
 ---
 
@@ -69,5 +85,8 @@ Draft → Pending → Published
 - Passwords hashed with bcrypt via `password_hash()`
 - All DB queries use PDO prepared statements
 - Status filter uses whitelist validation — no direct interpolation
-- ~~Upload directory has PHP execution disabled via `.htaccess`~~
+- Upload MIME type validated via `finfo` — browser-supplied `Content-Type` ignored
+- Path traversal protection on `delete_gallery_image.php` via `realpath()` + base path check
+- Path traversal protection on `set_cover.php` via `storage/images/` prefix check
+- Gallery delete checks post ownership — members can only delete their own images
 - Session guard on every protected page via `auth_check.php`

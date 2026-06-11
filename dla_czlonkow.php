@@ -58,6 +58,15 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
                     <section class="mb-4">
                         <h2>Porady</h2>
+                        <ul class="list">
+                            <li class="mb-2">
+                                <a href="cms_poradnik.php"
+                                   class="text-break">
+                                    Blog oraz zarządzanie postami[CMS] - poradnik
+                                </a>
+                            </li>
+                        </ul>
+                        
                         <h4>Start w regatach</h4>
 
                         <ul class="list">
