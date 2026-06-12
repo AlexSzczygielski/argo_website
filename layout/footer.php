@@ -41,6 +41,9 @@
 
     <!-- Creator credit -->
     <div class="creator-credit">
-         © 2025 - 2026 Aleksander Szczygielski
+        © 2025 - 2026 Aleksander Szczygielski
+        <a href="https://github.com/AlexSzczygielski/argo_website" target="_blank" aria-label="Source code on GitHub" class="text-dark ms-2">
+            <i class="fab fa-github"></i>
+        </a>
     </div>
 </footer>

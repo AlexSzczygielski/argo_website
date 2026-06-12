@@ -1,4 +1,9 @@
 <?php
+// Start session before any output — navbar.php's session_start() would
+// otherwise fire after headers are sent and print a warning mid-page.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $page_title = "Oferta sponsorska - SKR Argo AGH";
 $page_description = "Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek.";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
@@ -13,22 +18,60 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
     /* ============================================
-       PARTNERZY COPY – SCROLL ANIMATIONS
+       PARTNERZY – HERO
        ============================================ */
-
-    /* Hero entrance */
     @keyframes fadeSlideUp {
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .dolacz-hero .dolacz-hero-eyebrow {
+    .partnerzy-hero {
+      position: relative;
+    }
+    .partnerzy-hero .dolacz-hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .partnerzy-hero .dolacz-hero-eyebrow {
       animation: fadeSlideUp 1s cubic-bezier(0.16,1,0.3,1) 0.25s both;
     }
-    .dolacz-hero .dolacz-hero-title {
+    .partnerzy-hero .dolacz-hero-title {
       animation: fadeSlideUp 1.1s cubic-bezier(0.16,1,0.3,1) 0.45s both;
     }
+    /* Seamless fade into the night scene below */
+    .partnerzy-hero::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 30%;
+      background: linear-gradient(to bottom, transparent, #020c17);
+      pointer-events: none;
+    }
+    /* Scroll cue */
+    .partnerzy-scroll-cue {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: fadeSlideUp 1s ease 1.4s both;
+    }
+    .partnerzy-scroll-cue span {
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid rgba(255,255,255,0.55);
+      border-bottom: 2px solid rgba(255,255,255,0.55);
+      transform: rotate(45deg);
+      animation: cueBounce 2s ease-in-out infinite;
+    }
+    @keyframes cueBounce {
+      0%, 100% { transform: rotate(45deg) translate(0,0); opacity: 0.55; }
+      50%      { transform: rotate(45deg) translate(5px,5px); opacity: 1; }
+    }
 
-    /* Generic scroll reveal */
+    /* ============================================
+       GENERIC SCROLL REVEAL
+       ============================================ */
     .anim-reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -39,8 +82,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       opacity: 1;
       transform: none;
     }
-
-    /* Staggered children */
     .anim-stagger > * {
       opacity: 0;
       transform: translateY(36px);
@@ -51,6 +92,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     .anim-stagger.is-visible > *:nth-child(2) { transition-delay: 0.18s; }
     .anim-stagger.is-visible > *:nth-child(3) { transition-delay: 0.31s; }
     .anim-stagger.is-visible > *:nth-child(4) { transition-delay: 0.44s; }
+    .anim-stagger.is-visible > *:nth-child(5) { transition-delay: 0.57s; }
     .anim-stagger.is-visible > * {
       opacity: 1;
       transform: none;
@@ -60,7 +102,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
        SAILING INTERLUDE
        ============================================ */
     .partnerzy-boat-section {
-      height: 360vh;
+      height: 280vh;
       position: relative;
     }
     .partnerzy-boat-sticky {
@@ -128,6 +170,40 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       from { opacity: 0.8; } to { opacity: 0.3; }
     }
 
+    /* Shooting stars */
+    .partnerzy-shooting-star {
+      position: absolute;
+      width: 90px;
+      height: 1.5px;
+      background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+      border-radius: 2px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .partnerzy-shooting-star.star-a {
+      top: 10%;
+      left: 68%;
+      animation: shootA 9s ease-out 3s infinite;
+    }
+    .partnerzy-shooting-star.star-b {
+      top: 18%;
+      left: 22%;
+      width: 70px;
+      animation: shootB 13s ease-out 7.5s infinite;
+    }
+    @keyframes shootA {
+      0%   { opacity: 0; transform: translate(0,0) rotate(-28deg); }
+      2%   { opacity: 0.9; }
+      9%   { opacity: 0; transform: translate(-230px,120px) rotate(-28deg); }
+      100% { opacity: 0; transform: translate(-230px,120px) rotate(-28deg); }
+    }
+    @keyframes shootB {
+      0%   { opacity: 0; transform: translate(0,0) rotate(-18deg); }
+      2%   { opacity: 0.7; }
+      8%   { opacity: 0; transform: translate(-180px,60px) rotate(-18deg); }
+      100% { opacity: 0; transform: translate(-180px,60px) rotate(-18deg); }
+    }
+
     /* Moon */
     .partnerzy-boat-moon {
       position: absolute;
@@ -138,6 +214,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       border-radius: 50%;
       background: radial-gradient(circle at 40% 40%, #f0e8c8, #c8b878);
       box-shadow: 0 0 30px 8px rgba(240,220,140,0.2), 0 0 80px 20px rgba(240,220,140,0.08);
+      will-change: transform;
     }
 
     /* Ocean — covers bottom 36% of the scene */
@@ -195,6 +272,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       position: absolute;
       left: 0;
       width: 200%;
+      will-change: transform;
     }
     .partnerzy-wave-track svg { display: block; width: 100%; }
 
@@ -214,11 +292,44 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       position: absolute;
       width: 12rem;
       bottom: calc(32% - 0.5rem);
+      left: 0;
       will-change: transform;
       filter: brightness(0) invert(1);
       opacity: 0.88;
       z-index: 10;
       transform: translateX(-250px);
+    }
+
+    /* Boat reflection — mirrored, blurred, fading */
+    .partnerzy-sail-boat-reflection {
+      position: absolute;
+      width: 12rem;
+      top: calc(68% + 0.4rem);
+      left: 0;
+      will-change: transform;
+      filter: brightness(0) invert(1) blur(2px);
+      opacity: 0.1;
+      z-index: 9;
+      transform: translateX(-250px) scaleY(-1);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9) 55%, transparent 100%);
+              mask-image: linear-gradient(to top, rgba(0,0,0,0.9) 55%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Wake trail behind the boat */
+    .partnerzy-boat-wake {
+      position: absolute;
+      bottom: calc(32% - 0.35rem);
+      left: 0;
+      width: 170px;
+      height: 3px;
+      background: linear-gradient(to right, rgba(220,240,255,0.55), rgba(180,215,250,0.18) 55%, transparent);
+      border-radius: 3px;
+      filter: blur(1px);
+      will-change: transform;
+      opacity: 0;
+      z-index: 8;
+      pointer-events: none;
     }
 
     /* Center text overlay */
@@ -239,10 +350,27 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       letter-spacing: 0.18em;
       text-transform: uppercase;
       margin: 0;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 1s ease, transform 1s ease;
     }
+    /* Word-by-word reveal */
+    .partnerzy-boat-tagline .tag-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(4px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1),
+                  filter 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .partnerzy-boat-tagline.show .tag-word {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+    .partnerzy-boat-tagline.show .tag-word:nth-child(1) { transition-delay: 0.10s; }
+    .partnerzy-boat-tagline.show .tag-word:nth-child(2) { transition-delay: 0.28s; }
+    .partnerzy-boat-tagline.show .tag-word:nth-child(3) { transition-delay: 0.62s; }
+    .partnerzy-boat-tagline.show .tag-word:nth-child(4) { transition-delay: 0.80s; }
+    .partnerzy-boat-tagline.show .tag-word:nth-child(5) { transition-delay: 0.98s; }
     .partnerzy-boat-sub {
       font-family: 'Inter', sans-serif;
       font-size: 0.72rem;
@@ -252,27 +380,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       margin-top: 1rem;
       opacity: 0;
       transform: translateY(8px);
-      transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+      transition: opacity 0.9s ease 1.2s, transform 0.9s ease 1.2s;
     }
-    .partnerzy-boat-tagline.show,
     .partnerzy-boat-sub.show {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    /* ============================================
-       CTA WORD REVEAL
-       ============================================ */
-    .cta-word {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.65s cubic-bezier(0.16,1,0.3,1);
-    }
-    .cta-word.show {
-      opacity: 1;
-      transform: none;
     }
 
     /* End text — replaces tagline, fills the sky */
@@ -315,6 +427,21 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     .partnerzy-boat-text-end.show .partnerzy-boat-end-rule    { opacity: 1; width: 52px; }
     .partnerzy-boat-text-end.show .partnerzy-boat-endpara     { opacity: 1; transform: none; }
 
+    /* ============================================
+       CTA WORD REVEAL
+       ============================================ */
+    .cta-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.65s cubic-bezier(0.16,1,0.3,1);
+    }
+    .cta-word.show {
+      opacity: 1;
+      transform: none;
+    }
+
     /* Highlight number entrance */
     @keyframes numIn {
       from { opacity: 0; transform: scale(0.75) translateY(18px); }
@@ -342,27 +469,37 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
        DARK PAGE THEME – full-page cinematic
        ============================================ */
 
-    /* Lead section — dark, seamless from hero */
-    .dolacz-lead-section {
-      background: #020c17 !important;
-    }
-    .dolacz-lead-text {
-      color: rgba(255,255,255,0.68) !important;
-      font-size: 1.12rem;
-    }
-
     /* Benefits — deep navy with glass cards */
     .partnerzy-benefits-section {
       background: #071525 !important;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
     }
     .partnerzy-benefits-section .dolacz-section-title {
       color: rgba(255,255,255,0.9) !important;
       letter-spacing: 3px;
     }
     .partnerzy-benefit-card {
+      position: relative;
+      overflow: hidden;
       background: rgba(255,255,255,0.04) !important;
       border: 1px solid rgba(255,255,255,0.08) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
+    }
+    /* Accent line that grows on hover */
+    .partnerzy-benefit-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(150,200,255,0.7), transparent);
+      transition: width 0.45s cubic-bezier(0.16,1,0.3,1), left 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .partnerzy-benefit-card:hover::after {
+      width: 100%;
+      left: 0;
     }
     .partnerzy-benefit-card:hover {
       background: rgba(255,255,255,0.09) !important;
@@ -372,6 +509,12 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     .partnerzy-benefits-section .dolacz-req-icon {
       background: rgba(90,150,215,0.14) !important;
       color: rgba(175,210,255,0.88) !important;
+      box-shadow: 0 0 24px rgba(90,150,215,0.18);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .partnerzy-benefit-card:hover .dolacz-req-icon {
+      box-shadow: 0 0 34px rgba(110,170,235,0.4);
+      transform: scale(1.07);
     }
     .partnerzy-benefit-heading {
       color: rgba(255,255,255,0.88) !important;
@@ -380,7 +523,81 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       color: rgba(255,255,255,0.5) !important;
     }
 
-    /* Highlight bar — deeper, more dramatic */
+    /* ============================================
+       EXPOSURE / "CO ZYSKUJE PARTNER" SECTION
+       ============================================ */
+    .partnerzy-expo-section {
+      background: #050f1d;
+      padding: 5.5rem 0 6rem;
+    }
+    .partnerzy-expo-section .dolacz-section-title {
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 3px;
+    }
+    .partnerzy-expo-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(120,165,210,0.6);
+      text-align: center;
+      margin-bottom: 0.9rem;
+    }
+    .partnerzy-expo-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2.2rem;
+      padding: 1.9rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.35s ease, padding-left 0.35s ease;
+    }
+    .partnerzy-expo-row:last-of-type {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .partnerzy-expo-row:hover {
+      background: rgba(255,255,255,0.03);
+      padding-left: 1.8rem;
+    }
+    .partnerzy-expo-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: rgba(110,165,225,0.32);
+      min-width: 3.4rem;
+      transition: color 0.35s ease;
+    }
+    .partnerzy-expo-row:hover .partnerzy-expo-num {
+      color: rgba(160,205,255,0.75);
+    }
+    .partnerzy-expo-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.86);
+      margin: 0 0 0.45rem;
+    }
+    .partnerzy-expo-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.48);
+      margin: 0;
+      max-width: 640px;
+    }
+    .partnerzy-expo-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: rgba(140,180,220,0.55);
+      text-align: center;
+      margin: 2.6rem 0 0;
+      font-style: italic;
+    }
+
+    /* ============================================
+       HIGHLIGHT BAR
+       ============================================ */
     .partnerzy-highlights {
       background: #030e1e !important;
       border-top:    1px solid rgba(255,255,255,0.05);
@@ -396,6 +613,18 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     .partnerzy-highlight-label {
       color: rgba(135,178,220,0.62) !important;
       letter-spacing: 3px;
+    }
+    .partnerzy-highlight-footnote {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: rgba(120,160,200,0.45);
+      text-align: center;
+      margin: 2.4rem auto 0;
+      max-width: 560px;
+    }
+    .partnerzy-highlight-footnote sup {
+      font-size: 0.7em;
     }
 
     /* Image strip — keep full saturation but add depth at edges */
@@ -422,12 +651,84 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     }
 
     /* ============================================
+       CTA POLISH
+       ============================================ */
+    .partnerzy-cta-final::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 70vw;
+      height: 70vw;
+      max-width: 900px;
+      max-height: 900px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(70,125,190,0.14) 0%, transparent 60%);
+      animation: ctaGlow 7s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes ctaGlow {
+      from { opacity: 0.55; transform: translate(-50%, -50%) scale(0.92); }
+      to   { opacity: 1;    transform: translate(-50%, -50%) scale(1.06); }
+    }
+    .partnerzy-cta-final .container { z-index: 1; }
+
+    /* Button shine sweep */
+    .partnerzy-cta-final .dolacz-btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    .partnerzy-cta-final .dolacz-btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(30,63,102,0.14), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+    }
+    .partnerzy-cta-final .dolacz-btn-primary:hover::after {
+      left: 130%;
+    }
+
+    /* ============================================
+       REDUCED MOTION
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      .anim-reveal, .anim-stagger > *,
+      .partnerzy-boat-tagline .tag-word, .partnerzy-boat-sub,
+      .partnerzy-boat-end-eyebrow, .partnerzy-boat-end-rule, .partnerzy-boat-endpara,
+      .cta-word {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+      }
+      .partnerzy-boat-stars::before, .partnerzy-boat-stars::after,
+      .partnerzy-shooting-star, .partnerzy-boat-reflection,
+      .partnerzy-wave-track, .partnerzy-scroll-cue span,
+      .partnerzy-cta-final::after,
+      .partnerzy-hero .dolacz-hero-eyebrow, .partnerzy-hero .dolacz-hero-title {
+        animation: none !important;
+      }
+      .partnerzy-boat-section { height: 100vh; }
+      .partnerzy-sail-boat {
+        transform: translateX(calc(50vw - 6rem)) !important;
+      }
+      .partnerzy-sail-boat-reflection, .partnerzy-boat-wake { display: none; }
+      .partnerzy-boat-text { display: none; }
+      .partnerzy-boat-text.partnerzy-boat-text-end { display: block; }
+    }
+
+    /* ============================================
        MOBILE  (≤ 767px)
        ============================================ */
     @media (max-width: 767px) {
 
       /* Shorter scroll tunnel on mobile */
-      .partnerzy-boat-section { height: 240vh; }
+      .partnerzy-boat-section { height: 200vh; }
 
       /* Allow tagline to wrap instead of overflowing */
       .partnerzy-boat-text {
@@ -435,7 +736,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
         width: 88vw;
       }
       .partnerzy-boat-tagline {
-        font-size: 0.82rem;
+        font-size: 0.95rem;
         letter-spacing: 0.1em;
       }
       .partnerzy-boat-sub {
@@ -453,7 +754,9 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       .partnerzy-boat-reflection { right: 8%; }
 
       /* Smaller boat */
-      .partnerzy-sail-boat { width: 7rem; }
+      .partnerzy-sail-boat            { width: 7rem; }
+      .partnerzy-sail-boat-reflection { width: 7rem; }
+      .partnerzy-boat-wake            { width: 110px; }
 
       /* End text — full width, pushed below navbar */
       .partnerzy-boat-text-end {
@@ -474,8 +777,24 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
       .partnerzy-benefits-section { padding: 3rem 0 3.5rem; }
       .partnerzy-benefit-card     { padding: 1.5rem 1.25rem; }
 
+      /* Exposure rows */
+      .partnerzy-expo-section { padding: 3.5rem 0 4rem; }
+      .partnerzy-expo-row {
+        gap: 1.1rem;
+        padding: 1.4rem 0.25rem;
+      }
+      .partnerzy-expo-row:hover { padding-left: 0.6rem; }
+      .partnerzy-expo-num     { font-size: 1.5rem; min-width: 2.3rem; }
+      .partnerzy-expo-heading { font-size: 0.9rem; }
+      .partnerzy-expo-text    { font-size: 0.86rem; }
+
       /* Highlight bar numbers */
       .partnerzy-highlights { padding: 2.5rem 0 !important; }
+      .partnerzy-highlight-footnote {
+        font-size: 0.62rem;
+        margin-top: 1.6rem;
+        padding: 0 1rem;
+      }
 
       /* CTA */
       .partnerzy-cta-final  { padding: 5rem 1.5rem 6rem; }
@@ -495,6 +814,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <p class="dolacz-hero-eyebrow">SKR Argo AGH</p>
                     <h1 class="dolacz-hero-title">Współpraca</h1>
                 </div>
+                <div class="partnerzy-scroll-cue"><span></span></div>
             </div>
 
             <!-- ========= SAILING INTERLUDE ========= -->
@@ -503,13 +823,15 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
                     <div class="partnerzy-boat-sky"></div>
                     <div class="partnerzy-boat-stars"></div>
-                    <div class="partnerzy-boat-moon"></div>
+                    <div class="partnerzy-shooting-star star-a"></div>
+                    <div class="partnerzy-shooting-star star-b"></div>
+                    <div class="partnerzy-boat-moon" id="boatMoon"></div>
                     <div class="partnerzy-boat-ocean"></div>
                     <div class="partnerzy-boat-horizon"></div>
                     <div class="partnerzy-boat-reflection"></div>
 
                     <div class="partnerzy-boat-text">
-                        <p class="partnerzy-boat-tagline" id="boatTagline">Płyniemy tam, gdzie liczą się marki.</p>
+                        <p class="partnerzy-boat-tagline" id="boatTagline"><span class="tag-word">Twoja</span> <span class="tag-word">marka.</span> <span class="tag-word">Pod</span> <span class="tag-word">pełnymi</span> <span class="tag-word">żaglami.</span></p>
                         <p class="partnerzy-boat-sub"     id="boatSub">SKR Argo AGH &nbsp;·&nbsp; Akademickie Żeglarstwo Regatowe</p>
                     </div>
 
@@ -517,12 +839,14 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <p class="partnerzy-boat-end-eyebrow">Współpraca</p>
                         <div class="partnerzy-boat-end-rule"></div>
                         <p class="partnerzy-boat-endpara">
-                            Argo to także wyjątkowa okazja dla podmiotów chcących promować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję państwa organizacji podczas różnorodnych zawodów akademickich,
-                            odbywających się na poziomie ogólnokrajowym. Świat żeglarstwa regatowego skupia wokół siebie wielu wpływowych ludzi i wiele ważnych organizacji, a to w połączeniu z naszym wyjątkowym motywem przewodnim, legitymacją AGH oraz częstymi sukcesami na podium, zapewni możliwość zaprezentowania Państwa wizerunku, unikatowym i niszowym klientom.
+                            Argo to wyjątkowa okazja dla podmiotów chcących budować swój wizerunek. W przeciwieństwie do innych kół studenckich oferujemy ekspozycję Państwa organizacji podczas zawodów akademickich rangi ogólnopolskiej.
+                            Świat żeglarstwa regatowego skupia wokół siebie wpływowych ludzi i znaczące organizacje — a to, w połączeniu z naszym wyjątkowym motywem przewodnim, marką AGH oraz regularnymi sukcesami na podium, daje możliwość zaprezentowania Państwa wizerunku unikatowemu, niszowemu gronu odbiorców.
                         </p>
                     </div>
 
                     <img src="storage/images/sail_argo.svg" class="partnerzy-sail-boat" id="sailBoat" alt="">
+                    <img src="storage/images/sail_argo.svg" class="partnerzy-sail-boat-reflection" id="sailBoatReflection" alt="" aria-hidden="true">
+                    <div class="partnerzy-boat-wake" id="boatWake"></div>
 
                     <div class="partnerzy-waves">
                         <!-- wave 1: near horizon — gentle, faint -->
@@ -605,23 +929,67 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 </div>
             </section>
 
+            <!-- What the partner gets — exposure placements -->
+            <section class="partnerzy-expo-section anim-reveal">
+                <div class="container">
+                    <div class="dolacz-section-header">
+                        <p class="partnerzy-expo-eyebrow">Formy ekspozycji</p>
+                        <h2 class="dolacz-section-title">Co zyskuje Partner?</h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-9 anim-stagger">
+                            <div class="partnerzy-expo-row">
+                                <span class="partnerzy-expo-num">01</span>
+                                <div>
+                                    <h3 class="partnerzy-expo-heading">Żagiel i kadłub</h3>
+                                    <p class="partnerzy-expo-text">Logo Państwa marki na łodzi regatowej — w centrum kadru każdego zdjęcia, ceremonii medalowej i relacji z zawodów.</p>
+                                </div>
+                            </div>
+                            <div class="partnerzy-expo-row">
+                                <span class="partnerzy-expo-num">02</span>
+                                <div>
+                                    <h3 class="partnerzy-expo-heading">Odzież załogi</h3>
+                                    <p class="partnerzy-expo-text">Ekspozycja na koszulkach i odzieży regatowej członków koła — podczas zawodów ogólnopolskich oraz wydarzeń na AGH.</p>
+                                </div>
+                            </div>
+                            <div class="partnerzy-expo-row">
+                                <span class="partnerzy-expo-num">03</span>
+                                <div>
+                                    <h3 class="partnerzy-expo-heading">Media i relacje</h3>
+                                    <p class="partnerzy-expo-text">Obecność w naszych mediach społecznościowych — relacjach z regat, postach wynikowych i materiałach wideo.</p>
+                                </div>
+                            </div>
+                            <div class="partnerzy-expo-row">
+                                <span class="partnerzy-expo-num">04</span>
+                                <div>
+                                    <h3 class="partnerzy-expo-heading">Wydarzenia i materiały</h3>
+                                    <p class="partnerzy-expo-text">Logo w materiałach promocyjnych koła oraz podczas wydarzeń akademickich z udziałem społeczności AGH.</p>
+                                </div>
+                            </div>
+                            <p class="partnerzy-expo-note">Zakres współpracy dopasowujemy indywidualnie do potrzeb Partnera.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Highlight bar -->
             <section class="partnerzy-highlights anim-reveal" id="highlightsSection">
                 <div class="container">
                     <div class="row justify-content-center text-center g-0">
                         <div class="col-4 partnerzy-highlight-item">
-                            <span class="partnerzy-highlight-number" data-target="2" data-prefix="Top "> 2</span>
-                            <span class="partnerzy-highlight-label">w uczelniach technicznych w Polsce </span>
+                            <span class="partnerzy-highlight-number" data-target="2" data-prefix="Top ">Top 2</span>
+                            <span class="partnerzy-highlight-label">wśród uczelni technicznych<sup>*</sup></span>
                         </div>
                         <div class="col-4 partnerzy-highlight-item">
                             <span class="partnerzy-highlight-number" data-text="AGH">AGH</span>
                             <span class="partnerzy-highlight-label">legitymacja uczelni</span>
                         </div>
                         <div class="col-4 partnerzy-highlight-item">
-                            <span class="partnerzy-highlight-number" data-target="2024" data-prefix="">2024</span>
+                            <span class="partnerzy-highlight-number" data-text="2024">2024</span>
                             <span class="partnerzy-highlight-label">rok założenia</span>
                         </div>
                     </div>
+                    <p class="partnerzy-highlight-footnote"><sup>*</sup>Akademickie Mistrzostwa Polski w Żeglarstwie 2026 — 2. miejsce w klasyfikacji uczelni technicznych, 5. w klasyfikacji generalnej</p>
                 </div>
             </section>
 
@@ -658,8 +1026,9 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
     <script>
     /* ============================================
-       PARTNERZY COPY – ANIMATION ENGINE
+       PARTNERZY – ANIMATION ENGINE
        ============================================ */
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // 1. Scroll reveal (anim-reveal + anim-stagger)
     const revealObs = new IntersectionObserver(entries => {
@@ -674,12 +1043,15 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     document.querySelectorAll('.anim-reveal, .anim-stagger').forEach(el => revealObs.observe(el));
 
 
-    // 2. Scroll-driven sailing boat
-    const boatSection = document.getElementById('boatSection');
-    const sailBoat    = document.getElementById('sailBoat');
-    const navbar      = document.querySelector('.navbar');
-    const boatTagline = document.getElementById('boatTagline');
-    const boatSub     = document.getElementById('boatSub');
+    // 2. Scroll-driven sailing boat (rAF-throttled)
+    const boatSection  = document.getElementById('boatSection');
+    const sailBoat     = document.getElementById('sailBoat');
+    const sailRefl     = document.getElementById('sailBoatReflection');
+    const boatWake     = document.getElementById('boatWake');
+    const boatMoon     = document.getElementById('boatMoon');
+    const navbar       = document.querySelector('.navbar');
+    const boatTagline  = document.getElementById('boatTagline');
+    const boatSub      = document.getElementById('boatSub');
     const boatEndBlock = document.getElementById('boatEndBlock');
     let textVisible    = false;
     let endVisible     = false;
@@ -687,54 +1059,71 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
     function updateBoat() {
         if (!boatSection || !sailBoat) return;
 
-        const rect       = boatSection.getBoundingClientRect();
-        const sectionH   = boatSection.offsetHeight;
-        const viewH      = window.innerHeight/2;
-        const scrolled   = -rect.top;
-        const range      = sectionH - viewH;
-        const progress   = Math.max(0, Math.min(1, scrolled / range));
+        const rect     = boatSection.getBoundingClientRect();
+        const range    = boatSection.offsetHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, -rect.top / range));
 
-        // Horizontal travel: off-left → off-right
+        // Boat completes its crossing during the first 62% of the scroll,
+        // leaving the rest of the tunnel for the closing text.
+        const boatP = Math.min(1, progress / 0.62);
+
+        // Right → left, matching the sail direction in the logo
         const boatW  = sailBoat.offsetWidth;
-        const startX = -boatW - 60;
-        const endX   = window.innerWidth + 60;
-        const x      = startX + progress * (endX - startX);
+        const startX = window.innerWidth + 60;
+        const endX   = -boatW - 60;
+        const x      = startX + boatP * (endX - startX);
 
         // Organic bob + tilt
-        const bob  = Math.sin(progress * Math.PI * 5) * 6;
-        const tilt = Math.sin(progress * Math.PI * 3.5) * 2.8;
+        const bob  = Math.sin(boatP * Math.PI * 5) * 6;
+        const tilt = Math.sin(boatP * Math.PI * 3.5) * 2.8;
 
         sailBoat.style.transform = `translateX(${x}px) translateY(${bob}px) rotate(${tilt}deg)`;
+        if (sailRefl) {
+            sailRefl.style.transform = `translateX(${x}px) translateY(${-bob * 0.6}px) rotate(${-tilt}deg) scaleY(-1)`;
+        }
+        if (boatWake) {
+            boatWake.style.transform = `translateX(${x + boatW - 20}px)`;
+            boatWake.style.opacity = (boatP > 0.01 && boatP < 0.99) ? 0.8 : 0;
+        }
+        if (boatMoon) {
+            boatMoon.style.transform = `translateY(${progress * 26}px)`;
+        }
 
         // Navbar: transparent while sticky section is active
         const inSticky = rect.top <= 0 && rect.bottom >= window.innerHeight;
         navbar.classList.toggle('partnerzy-nav-clear', inSticky);
 
-        // Tagline: while boat is crossing (progress 0–0.4)
-        const inMiddle = progress > 0 && progress < 0.3;
-        if (inMiddle && !textVisible) {
-            boatTagline.classList.add('show');
-            boatSub.classList.add('show');
-            textVisible = true;
-        } else if (!inMiddle && textVisible) {
-            boatTagline.classList.remove('show');
-            boatSub.classList.remove('show');
-            textVisible = false;
+        // Tagline: while boat is crossing
+        const inMiddle = progress > 0.02 && progress < 0.42;
+        if (inMiddle !== textVisible) {
+            boatTagline.classList.toggle('show', inMiddle);
+            boatSub.classList.toggle('show', inMiddle);
+            textVisible = inMiddle;
         }
 
-        // End card: after boat has exited right
-        const inEnd = progress > 0.4;
-        if (inEnd && !endVisible) {
-            boatEndBlock.classList.add('show');
-            endVisible = true;
-        } else if (!inEnd && endVisible) {
-            boatEndBlock.classList.remove('show');
-            endVisible = false;
+        // End card: after the boat has sailed off
+        const inEnd = progress > 0.55;
+        if (inEnd !== endVisible) {
+            boatEndBlock.classList.toggle('show', inEnd);
+            endVisible = inEnd;
         }
     }
 
-    window.addEventListener('scroll', updateBoat, { passive: true });
-    updateBoat();
+    if (reducedMotion) {
+        // Static scene: boat centred, closing text always visible
+        if (boatEndBlock) boatEndBlock.classList.add('show');
+    } else {
+        let ticking = false;
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => { updateBoat(); ticking = false; });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        updateBoat();
+    }
 
 
     // 3. Highlight number count-up
@@ -742,16 +1131,13 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
         const target = parseInt(el.dataset.target, 10);
         const suffix = el.dataset.suffix || '';
         const prefix = el.dataset.prefix || '';
-        if (isNaN(target)) {
-            el.classList.add('anim-num');
-            return;
-        }
         el.classList.add('anim-num');
-        const duration  = 1600;
+        if (isNaN(target) || reducedMotion) return;
+        const duration  = 1400;
         const startTime = performance.now();
         (function tick(now) {
-            const t       = Math.min((now - startTime) / duration, 1);
-            const eased   = 1 - Math.pow(1 - t, 3); // ease-out cubic
+            const t     = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
             el.textContent = prefix + Math.round(eased * target) + suffix;
             if (t < 1) requestAnimationFrame(tick);
         })(performance.now());
@@ -761,7 +1147,6 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
         entries.forEach(e => {
             if (e.isIntersecting) {
                 e.target.querySelectorAll('[data-target]').forEach(countUp);
-                // Pulse non-numeric stat
                 e.target.querySelectorAll('[data-text]').forEach(el => el.classList.add('anim-num'));
                 counterObs.unobserve(e.target);
             }
