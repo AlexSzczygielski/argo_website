@@ -1,14 +1,12 @@
 # Defense-in-depth for the upload directory.
 # upload_gallery.php validates MIME and re-encodes to JPEG, so a malicious
 # .php disguised as an image shouldn't land here in the first place.
-# These rules guarantee that if one ever does, Apache won't execute it.
+# This rule guarantees that if one ever does, Apache won't execute it.
 
-# 1. Refuse to serve script-like extensions at all (Apache 2.4+ syntax).
+# Refuse to serve script-like extensions (Apache 2.4+ syntax).
+# Previous version also had `php_flag engine off` for belt-and-braces,
+# but AGH's AllowOverride doesn't permit it — the whole .htaccess gets
+# rejected and Apache returns 500 for every request under storage/.
 <FilesMatch "\.(php|phtml|phps|phar|pl|py|cgi|sh|lua|rb)$">
     Require all denied
 </FilesMatch>
-
-# 2. Disable the PHP handler for this tree entirely — if the FilesMatch
-# rule ever misses (new extension, typo), files are served as plain text
-# instead of executed.
-php_flag engine off
