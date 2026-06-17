@@ -90,3 +90,6 @@ Draft → Pending → Published
 - Path traversal protection on `set_cover.php` via `storage/images/` prefix check
 - Gallery delete checks post ownership — members can only delete their own images
 - Session guard on every protected page via `auth_check.php`
+- **CSRF tokens** on every state-changing form — helper in `csrf.php` (`csrf_field()` / `csrf_verify()`), one token per session, verified in every POST handler
+- **Session regenerated on login** (`session_regenerate_id(true)` + CSRF token rotation in `login.php`) — defeats session fixation
+- **Stored-XSS protection on post content** — Quill HTML runs through HTMLPurifier (`sanitiser.php`, library vendored at `plugins/htmlpurifier/`) on both save and preview. Strips `<script>`, event handlers, `javascript:`/`data:` URLs, iframes; preserves Quill's `ql-*` classes. Payload assertions in `tools/test_sanitiser.php`.

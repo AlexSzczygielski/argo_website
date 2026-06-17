@@ -71,10 +71,12 @@ if($is_edit){
  */
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     csrf_verify();
+    require_once(__DIR__ . '/sanitiser.php');
+    $clean_content = sanitise_post_html($_POST['content'] ?? '');
     //whitelist actions
     $allowed_actions = ['draft', 'pending', 'published'];
     $status = in_array($_POST['action'], $allowed_actions) ? $_POST['action'] : 'draft';
-    
+
     // published only allowed for admins additional check
     if ($status === 'published' && !$_SESSION['admin']) {
         $status = 'pending';
@@ -103,7 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':excerpt', $_POST['excerpt'] ?? null);
             $stmt->bindValue(':date', $_POST['date']);
             $stmt->bindValue(':author', $_POST['author'] ?? null);
-            $stmt->bindValue(':content', $_POST['content'] ?? null);
+            $stmt->bindValue(':content', $clean_content);
             $stmt->bindValue(':results_url', $_POST['results_url'] ?? null);
             $stmt->bindValue(':photo_credits', isset($_POST['photo_credits']) ? 1 : 0, PDO::PARAM_INT);
             $stmt->bindValue(':status', $status);
@@ -124,7 +126,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':excerpt', $_POST['excerpt'] ?? null);
             $stmt->bindValue(':date', $_POST['date']);
             $stmt->bindValue(':author', $_POST['author'] ?? null);
-            $stmt->bindValue(':content', $_POST['content'] ?? null);
+            $stmt->bindValue(':content', $clean_content);
             $stmt->bindValue(':results_url', $_POST['results_url'] ?? null);
             $stmt->bindValue(':photo_credits', isset($_POST['photo_credits']) ? 1 : 0, PDO::PARAM_INT);
             $stmt->bindValue(':status', $status);

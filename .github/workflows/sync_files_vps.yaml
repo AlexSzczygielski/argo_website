@@ -49,6 +49,7 @@ jobs:
                     --exclude=".github" \
                     --exclude="tools/" \
                     --exclude="db_backups/" \
+                    --exclude="storage/cache/" \
                     --exclude="*.md" \
                     --exclude="db/db_psswd.php" \
                     -e "ssh -i ~/.ssh/argo_deploy -o StrictHostKeyChecking=no" \
