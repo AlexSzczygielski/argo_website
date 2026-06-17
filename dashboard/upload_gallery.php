@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: panel.php');
     exit;
 }
+csrf_verify();
 
 $post_id = isset($_GET['post_id']) ? (int)$_GET['post_id'] : 0;
 if ($post_id <= 0) {

@@ -5,12 +5,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header('Location: /dashboard/panel.php');
     exit;
 }
+require_once(__DIR__ . '/csrf.php');
 $page_title = "SKR Argo AGH - Logowanie";
 $page_description = "Logowanie do panelu";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
 //Authorization logic
 if($_SERVER['REQUEST_METHOD']== 'POST'){
+    csrf_verify();
     try{
         $email = $_POST['email'];
         $psswd = $_POST['psswd'];
@@ -60,6 +62,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
         </div>
 
         <form method="POST">
+            <?= csrf_field() ?>
             <div class="mb-3">
                 <label class="form-label">E-mail</label>
                 <input type="email" name="email" class="form-control" required>

@@ -43,6 +43,7 @@ try{
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
         if ($_POST['action'] === 'delete') {
             // -- DB and file handling --
             try{
@@ -100,6 +101,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     style="max-height: 200px; object-fit: cover;">
                     <p>Czy na pewno chcesz usunąć zdjęcie: <strong><?= htmlspecialchars($image['filename']) ?></strong>?</p>
                     <form method="POST">
+                        <?= csrf_field() ?>
                         <input type="hidden" name="image_id" value="<?= $image_id ?>">
                         <input type="hidden" name="post_id" value="<?= $post_id ?>">
                         <div class="d-flex gap-2 mt-3">

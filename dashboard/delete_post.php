@@ -6,6 +6,7 @@ require_once(__DIR__ . '/auth_check.php');
 $post_id = $_GET['id'] ?? null;
 if($_SESSION['admin']){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
         if ($_POST['action'] === 'delete' && $_SESSION['admin']) {
             require_once(__DIR__ . '/../db/db.php');
             $pdo = get_pdo();
@@ -38,6 +39,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <h5>Czy na pewno chcesz usunąć wpis o ID: <strong><?= $post_id ?></strong>?</h5>
                     <h6>Tej opcji nie można cofnąć!</h6>
                     <form method="POST">
+                        <?= csrf_field() ?>
                         <div class="d-flex gap-2 mt-3">
                             <a href="/dashboard/panel.php" class="btn btn-outline-secondary">← Powrót</a>
                             <?php if ($_SESSION['admin']): ?>

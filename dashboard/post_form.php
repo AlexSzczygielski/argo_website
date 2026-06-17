@@ -70,6 +70,7 @@ if($is_edit){
  * Handle form POST methods - updating SQL DB
  */
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    csrf_verify();
     //whitelist actions
     $allowed_actions = ['draft', 'pending', 'published'];
     $status = in_array($_POST['action'], $allowed_actions) ? $_POST['action'] : 'draft';
@@ -213,11 +214,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 class="img-fluid rounded"
                                                 style="height: 100px; object-fit: cover; width: 100%;">
                                             <form method="POST" action="/dashboard/set_cover.php">
+                                                <?= csrf_field() ?>
                                                 <input type="hidden" name="post_id" value="<?= (int)$post_id ?>">
                                                 <input type="hidden" name="image_path" value="<?= htmlspecialchars($image['directory'] . '/' . $image['filename']) ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-success mt-1 w-100">Ustaw okładkę</button>
                                             </form>
                                             <form method="POST" action="/dashboard/delete_gallery_image.php">
+                                                <?= csrf_field() ?>
                                                 <input type="hidden" name="image_id" value="<?= (int)$image['id'] ?>">
                                                 <input type="hidden" name="post_id" value="<?= (int)$post_id ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger mt-1 w-100">Usuń</button>
@@ -228,6 +231,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                                 <!-- Upload form -->
                                 <form method="POST" id="photos-upload-form" enctype="multipart/form-data" action="/dashboard/upload_gallery.php?post_id=<?= $post_id ?>">
+                                    <?= csrf_field() ?>
                                     <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp,image/gif" class="form-control mb-2">
                                     <button type="submit" class="btn btn-outline-primary btn-sm">Dodaj zdjęcia (potwierdź)</button>
                                 </form>
@@ -237,6 +241,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <?php endif; ?>
 
                         <form method="POST" id="post-upload-form">
+                            <?= csrf_field() ?>
                             <div class="mb-3">
                                 <label class="form-label">Tytuł</label>
                                 <input type="text" id="title" name="title" class="form-control"

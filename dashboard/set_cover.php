@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: panel.php');
     exit;
 }
+csrf_verify();
 
 $post_id  = (int)($_POST['post_id']  ?? 0);
 $image_path = $_POST['image_path'] ?? "";
