@@ -27,7 +27,9 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
 
             //Check credentials
             if($db_credentials && password_verify($psswd, $db_credentials['password'])){
-                //success - redirect
+                // prevent session fixation: new ID, drop pre-auth session file, rotate CSRF token
+                session_regenerate_id(true);
+                unset($_SESSION['csrf']);
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] = $db_credentials['id'];
                 $_SESSION['user_name'] = $db_credentials['name'] . " " . $db_credentials['surname'];
