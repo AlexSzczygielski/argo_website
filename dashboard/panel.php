@@ -24,6 +24,7 @@ $filter = $_GET['status'] ?? 'all';
                         'published' => ['text' => 'Post został opublikowany.', 'class' => 'success'],
                         'deleted'   => ['text' => 'Post został usunięty.', 'class' => 'danger'],
                         'saved'     => ['text' => 'Post został zapisany.', 'class' => 'success'],
+                        'pending'   => ['text' => 'Post został wysłany do zatwierdzenia przez administratora.', 'class' => 'success'],
                     ]; ?>
                     <?php $msg = $messages[$_GET['message']] ?? null; ?>
                     <?php if ($msg): ?>

@@ -27,6 +27,8 @@ Password-protected CMS panel for managing blog posts. Accessible at `/dashboard/
 | `preview.php` | Preview endpoint — renders post via `layout/post_content.php` |
 | `approve_post.php` | Sets post status to `published` (admin only) |
 | `delete_post.php` | Deletes post and cascades gallery rows (admin only) |
+| `submit_post.php` | Confirmation page for "Wyślij do zatwierdzenia" — flips a draft to `pending` after the author confirms |
+| `revert_post.php` | Reverts a `pending` or `published` post back to `draft` so the author can edit it (POST-only) |
 | `upload_gallery.php` | Handles gallery image uploads — validates, resizes, stores to `storage/images/YYYY/slug/` |
 | `delete_gallery_image.php` | Deletes a gallery image from disk and DB — post owner or admin only |
 | `set_cover.php` | Sets `cover_image` on a post by selecting from existing gallery images |
@@ -76,17 +78,31 @@ The trade-off accepted: passwords live in members' inboxes indefinitely. If a me
 ## Post Workflow
 
 ```
-Draft → Pending → Published
-  ↑         ↓
-  └─ reject ─┘
+                  ┌───────── revert (member) ─────────┐
+                  │                                   │
+                  ▼                                   │
+Draft ── confirm ──► Pending ── admin approve ──► Published
+                                                      │
+                                                      └─ revert (member, takes off blog) ─► Draft
 ```
 
 1. Member writes post in `post_form.php`
-2. Clicks "Zapisz szkic" → saved as `draft`
-3. Clicks "Wyślij do zatwierdzenia" → status changes to `pending`
-4. Admin sees pending badge in `panel.php`
-5. Admin clicks "Zatwierdź" → status changes to `published`, post visible on blog
-6. Admin can delete at any time
+2. **Zapisz szkic** → saved as `draft`, stays on form
+3. **Wyślij do zatwierdzenia** → saves as draft, then redirects to `submit_post.php` for explicit confirmation → status `pending` on confirm
+4. Admin sees pending badge in `panel.php`, clicks **Zatwierdź** → `approve_post.php` sets status `published`
+5. Admin can delete at any time via `delete_post.php`
+
+### Member lockout (read-only view)
+
+When a member opens their own `pending` or `published` post in `post_form.php`, the editable form is replaced by a read-only lockout card. They can't silently re-submit a post under review or silently unpublish a live post. To edit, they must click **Cofnij do szkicu** (for pending) or **Wycofaj z bloga** (for published) — both route through `revert_post.php`, which flips the status back to `draft`. Admins keep full edit access in every state.
+
+This adds explicit transitions: edits to a non-draft post require a deliberate revert first, so the public/under-review state of a post can never change as a side-effect of clicking "Zapisz szkic".
+
+### Safety on the edit form
+
+- **Unsaved-changes guard** — `window.beforeunload` triggers the native "Leave site?" prompt if the form is dirty (title, author, date, excerpt, results_url, photo_credits, or Quill content changed).
+- **Photo upload blocked while dirty** — the gallery upload form alerts "save your post first" instead of submitting, so members don't try to attach photos to unsaved content.
+- **Double-click guard** — submitting any state-changing form (`post-upload-form`, `submit-confirm-form`, `revert-form`) sets a JS flag that ignores subsequent submits and visually disables the buttons.
 
 ---
 

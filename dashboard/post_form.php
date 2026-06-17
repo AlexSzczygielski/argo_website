@@ -66,6 +66,19 @@ if($is_edit){
     }
 }
 
+// Members can't edit a post that's awaiting admin review or already
+// published — both have consequences (silent re-submission / silent
+// unpublishing) that the member might not intend. They must explicitly
+// revert it first. Admins keep full edit access in every state.
+$user_is_admin = !empty($_SESSION['admin']);
+$post_status = $post['status'] ?? null;
+$post_is_in_review_or_live = in_array($post_status, ['pending', 'published'], true);
+
+$is_post_locked_for_member = $is_edit
+    && $post
+    && !$user_is_admin
+    && $post_is_in_review_or_live;
+
 /**
  * Handle form POST methods - updating SQL DB
  */
@@ -73,13 +86,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     csrf_verify();
     require_once(__DIR__ . '/sanitiser.php');
     $clean_content = sanitise_post_html($_POST['content'] ?? '');
-    //whitelist actions
-    $allowed_actions = ['draft', 'pending', 'published'];
-    $status = in_array($_POST['action'], $allowed_actions) ? $_POST['action'] : 'draft';
+
+    // whitelist actions. "submit_review" saves as draft, then redirects to
+    // submit_post.php for explicit confirmation before status becomes pending.
+    $allowed_actions = ['draft', 'published', 'submit_review'];
+    $action = in_array($_POST['action'] ?? '', $allowed_actions, true) ? $_POST['action'] : 'draft';
+    $status = ($action === 'submit_review') ? 'draft' : $action;
 
     // published only allowed for admins additional check
     if ($status === 'published' && !$_SESSION['admin']) {
-        $status = 'pending';
+        $status = 'draft';
     }
 
     //Update DB
@@ -111,6 +127,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':status', $status);
             $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
             $stmt->execute();
+            if ($action === 'submit_review') {
+                header('Location: /dashboard/submit_post.php?id=' . $post_id);
+                exit;
+            }
             $msg = ($status === 'published') ? MSG_PUBLISHED : MSG_SAVED;
             header('Location: /dashboard/post_form.php?id=' . $post_id . '&message=' . $msg);
             exit;
@@ -136,6 +156,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
              * After INSERT - redirect to the same page, so that photos can be added
              */
             $new_id = $pdo->lastInsertId();
+            if ($action === 'submit_review') {
+                header('Location: /dashboard/submit_post.php?id=' . $new_id);
+                exit;
+            }
             $msg = ($status === 'published') ? MSG_PUBLISHED : MSG_SAVED;
             header('Location: /dashboard/post_form.php?id=' . $new_id . "&message=" . $msg);
             exit;
@@ -170,7 +194,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     'error'     => ['text' => 'Błąd podczas przesyłania zdjęć.',   'class' => 'danger'],
                                     'partial'   => ['text' => 'Część zdjęć nie została przesłana.','class' => 'warning'],
                                     'no_file'   => ['text' => 'Nie wybrano żadnego pliku.',         'class' => 'warning'],
-                                ]; 
+                                    'reverted'  => ['text' => 'Post cofnięty do szkicu — możesz go edytować.', 'class' => 'success'],
+                                ];
                         ?>
                         <?php $msg = $messages[$_GET['message']] ?? null; ?>
                         <?php if ($msg): ?>
@@ -182,6 +207,59 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <?php endif; ?>
 
 
+                <?php if ($is_post_locked_for_member): ?>
+                    <!-- Read-only lockout for members on a pending or published post -->
+                    <?php $is_published_lock = $post['status'] === 'published'; ?>
+                    <div class="d-flex align-items-center justify-content-center" style="min-height: 400px;">
+                        <div class="card shadow p-4" style="max-width: 540px; width: 100%;">
+                            <?php if ($is_published_lock): ?>
+                                <h4 class="mb-3">Post jest opublikowany na blogu</h4>
+                                <p>
+                                    Post <strong><?= htmlspecialchars($post['title']) ?></strong>
+                                    jest publicznie widoczny na blogu. Aby wprowadzić zmiany,
+                                    musisz najpierw wycofać go z bloga do szkicu.
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    Po wycofaniu post zniknie z bloga do czasu ponownego
+                                    zatwierdzenia przez administratora.
+                                </p>
+                                <?php $revert_label = 'Wycofaj z bloga'; ?>
+                            <?php else: ?>
+                                <h4 class="mb-3">Post oczekuje na zatwierdzenie</h4>
+                                <p>
+                                    Post <strong><?= htmlspecialchars($post['title']) ?></strong>
+                                    oczekuje na zatwierdzenie przez administratora i nie może być
+                                    edytowany w trakcie weryfikacji.
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    Aby wprowadzić zmiany, cofnij post do szkicu — po zmianach
+                                    wyślesz go ponownie do zatwierdzenia.
+                                </p>
+                                <?php $revert_label = 'Cofnij do szkicu'; ?>
+                            <?php endif; ?>
+                            <form method="POST" action="/dashboard/revert_post.php" id="revert-form">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="post_id" value="<?= (int)$post_id ?>">
+                                <div class="d-flex gap-2 mt-3">
+                                    <a href="/dashboard/panel.php" class="btn btn-outline-secondary">← Wróć do panelu</a>
+                                    <button type="submit" class="btn btn-warning"><?= $revert_label ?></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <script>
+                        // Double-click guard for the revert button
+                        (function() {
+                            let submitting = false;
+                            const f = document.getElementById('revert-form');
+                            f.addEventListener('submit', function(e) {
+                                if (submitting) { e.preventDefault(); return; }
+                                submitting = true;
+                                f.querySelectorAll('button[type="submit"]').forEach(b => b.classList.add('disabled'));
+                            });
+                        })();
+                    </script>
+                <?php else: ?>
                 <div class="row g-4">
                     <!-- LEFT: Form -->
                     <div class="col-md-6">
@@ -283,7 +361,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             </div>
 
                             <button type="submit" name="action" value="draft" class="btn btn-outline-secondary">Zapisz szkic</button>
-                            <button type="submit" name="action" value="pending" class="btn btn-primary">Wyślij do zatwierdzenia</button>
+                            <button type="submit" name="action" value="submit_review" class="btn btn-primary">Wyślij do zatwierdzenia</button>
                             <?php if ($_SESSION['admin']): ?>
                                 <button type="submit" name="action" value="published" class="btn btn-success">Opublikuj</button>
                             <?php endif; ?>
@@ -297,13 +375,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                              <iframe id="preview-iframe" src="/dashboard/preview.php" style="width:100%; height:800px; border:1px solid #dee2e6; border-radius:8px;"></iframe>
                     </div>
                 </div>
-                
+                <?php endif; ?>
+
             </div>
             <!-- Page content ends here -->
         </div>
         <?php require_once(__DIR__ . '/../layout/footer.php');?>
     </div>
-    
+
+<?php if (!$is_post_locked_for_member): ?>
 <!-- Load Quill text editor -->
 <!-- Include stylesheet -->
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
@@ -364,27 +444,50 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     updatePreview();
 
     /** --- */
-    /** -- Save changes before photos upload -- */
+    /** -- Unsaved-changes protection -- */
     let isDirty = false;
-    // Listen to any changes
-    ['title', 'author', 'date', 'excerpt', 'results_url'].forEach(id => {
-        document.getElementById(id).addEventListener('input', () => {isDirty = true;})
-    });
-    quill.on('text-change', ()=> {isDirty = true;}); // content changes
 
-    //Clear on save
-    document.getElementById('post-upload-form').addEventListener('submit', function() {
+    // Listen to any change on the post form
+    ['title', 'author', 'date', 'excerpt', 'results_url'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {isDirty = true;});
+    });
+    document.getElementById('photo_credits').addEventListener('change', () => {isDirty = true;});
+    quill.on('text-change', () => {isDirty = true;});
+
+    // Clear flag when saving — runs before the form actually navigates.
+    // Also guards against accidental double-click by blocking subsequent submits.
+    let submitting = false;
+    document.getElementById('post-upload-form').addEventListener('submit', function(e) {
+        if (submitting) { e.preventDefault(); return; }
+        submitting = true;
         document.getElementById('content').value = quill.root.innerHTML;
         isDirty = false;
-    });  // ← this closing was missing
+        this.querySelectorAll('button[type="submit"]').forEach(b => b.classList.add('disabled'));
+    });
 
-    //Stop user upon uploading
-    document.getElementById('photos-upload-form').addEventListener('submit', function(e){
-        if(isDirty){
+    // Universal safety net — catches navbar links, "← Wróć do panelu",
+    // gallery buttons (set cover / delete), browser back, tab close, reload.
+    // Browsers ignore custom messages here and show their own generic prompt.
+    window.addEventListener('beforeunload', function(e) {
+        if (isDirty) {
             e.preventDefault();
-            alert('Masz niezapisane zmiany! Najpierw zapisz post (szkic).');
+            e.returnValue = ''; // required by some older browsers
         }
     });
+
+    // Photos upload: keep the explicit alert — more helpful than the generic
+    // browser prompt because it tells the user exactly what to do.
+    // (Form only renders in edit mode, so guard against null on new-post page.)
+    const photosForm = document.getElementById('photos-upload-form');
+    if (photosForm) {
+        photosForm.addEventListener('submit', function(e){
+            if(isDirty){
+                e.preventDefault();
+                alert('Masz niezapisane zmiany! Najpierw zapisz post (szkic).');
+            }
+        });
+    }
 </script>
+<?php endif; ?>
 </body>
 </html>
