@@ -45,5 +45,7 @@
         <a href="https://github.com/AlexSzczygielski/argo_website" target="_blank" aria-label="Source code on GitHub" class="text-dark ms-2">
             <i class="fab fa-github"></i>
         </a>
+        <span class="mx-2">·</span>
+        <a href="/prywatnosc.php" class="text-dark">Polityka prywatności</a>
     </div>
 </footer>

@@ -45,6 +45,13 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
         error_log($e->getMessage()); // log the real error
         $error = "Błąd logowania. Spróbuj ponownie."; // show this to user
     }
+
+    // rate-limit failed logins. Any failure path (bad email, bad password,
+    // DB error) costs the attacker ~2s — no timing oracle, no DoS risk
+    // beyond worker occupancy.
+    if (isset($error)) {
+        sleep(2);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -77,6 +84,10 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
                 <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
             <button type="submit" class="btn btn-primary w-100">Zaloguj się</button>
+            <p class="text-center text-muted small mt-3 mb-0">
+                Informacje o przetwarzaniu danych:
+                <a href="/prywatnosc.php">polityka prywatności</a>.
+            </p>
         </form>
     </div>
 </div>

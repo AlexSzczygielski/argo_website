@@ -44,6 +44,35 @@ Manage users manually via phpMyAdmin — user table is excluded from automated D
 
 ---
 
+## Account Provisioning
+
+Accounts are created manually by an admin via phpMyAdmin. There is **no self-serve password change** by design.
+
+**Flow:**
+1. Admin generates a strong random password (16+ chars).
+2. Admin bcrypts it: `php -r "echo password_hash('<password>', PASSWORD_BCRYPT) . PHP_EOL;"`.
+3. Admin runs `INSERT INTO users (name, surname, email, password, admin) VALUES (...)` with the bcrypt hash.
+4. Admin emails the plaintext password to the new member.
+5. Member logs in with that password and continues to use it.
+
+**Forgotten password:** member retrieves it from their email. If email access is also lost, admin generates and inserts a new password.
+
+**Deletion request (RODO art. 17):** when a member asks to be removed:
+1. `DELETE FROM users WHERE email = '<email>';` via phpMyAdmin.
+2. Decide on posts authored by them — `UPDATE posts SET author = 'ARGO' WHERE author = '<their name>';` is the usual call (keep content, anonymise authorship). The posts themselves are club content, not personal data.
+3. Delete any gallery directories owned only by them via SFTP if applicable.
+
+See [`prywatnosc.php`](../prywatnosc.php) §8 — this is the procedure that backs the rights advertised there.
+
+**Rationale.** This is the deliberate alternative to the usual "user picks their own password + change-password page" pattern. Two reasons:
+
+- **Prevents weak passwords.** A user-chosen `user` or `password123` is crackable in seconds regardless of bcrypt — bcrypt only protects against brute-force when the password itself has entropy. Admin-set strong passwords keep that guarantee.
+- **Eliminates credential cross-contamination.** If a member reused their banking password on Argo, a DB compromise could expose it across other services. Admin-set passwords guarantee no overlap with the member's other accounts.
+
+The trade-off accepted: passwords live in members' inboxes indefinitely. If a member's email is compromised, their Argo password is exposed alongside everything else in that inbox. This is the same exposure model as every "password reset link" email used by major sites, so the risk is conventional, not elevated.
+
+---
+
 ## Post Workflow
 
 ```
@@ -97,3 +126,5 @@ Draft → Pending → Published
 - **Session regenerated on login** (`session_regenerate_id(true)` + CSRF token rotation in `login.php`) — defeats session fixation
 - **Stored-XSS protection on post content** — Quill HTML runs through HTMLPurifier (`sanitiser.php`, library vendored at `plugins/htmlpurifier/`) on both save and preview. Strips `<script>`, event handlers, `javascript:`/`data:` URLs, iframes; preserves Quill's `ql-*` classes. Payload assertions in `tools/test_sanitiser.php`.
 - **Session cookie flags** (`session_bootstrap.php`) — `Secure` (env-pinned via `APP_ENV`, so dev over plain HTTP still works), `HttpOnly` (JS can't read PHPSESSID), `SameSite=Lax` (browser blocks cookie on cross-site POSTs — second layer alongside CSRF tokens).
+- **Upload directory hardening** (`storage/.htaccess`) — Apache refuses to serve `.php`/`.phtml`/`.phar`/`.pl`/`.py`/`.cgi`/`.sh`/etc. under `storage/`. If a malicious file ever bypasses the MIME check in `upload_gallery.php`, it can't be executed by hitting its URL. (Originally also `php_flag engine off` for belt-and-braces, removed because AGH's `AllowOverride` doesn't permit `Options`.)
+- **Login rate-limit** (`login.php`) — every failed login path (bad email, bad password, DB error) sleeps 2 s before responding. Reduces brute-force throughput by ~100×; no DB state, no per-IP tracking, no timing oracle on which field was wrong.
