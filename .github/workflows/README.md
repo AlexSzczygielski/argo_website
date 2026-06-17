@@ -1,7 +1,6 @@
 # GitHub Actions Workflows
 
 TODO:
-- [ ] add file synchro before new push
 - [ ] fix the db_psswd.php issue
 ## `deploy_website.yaml`
 Automatically deploys the website to AGH VPS on every push to `main`.
@@ -16,7 +15,11 @@ Automatically deploys the website to AGH VPS on every push to `main`.
 1. Connects to AGH internal network via OpenVPN
 2. Loads SSH deploy key onto the runner
 3. Syncs repository contents to `public_html/` via rsync over SSH
-   - Excludes: `.git`, `.github`, `tools/`, `db_backups/`, `*.ovpn`, `*.md`
+   - Excludes: `.git`, `.github`, `tools/`, `db_backups/`, `storage/cache/`, `storage/images/2*`, `*.ovpn`, `*.md`
+
+**Why `storage/images/2*` is excluded:** user uploads land under `storage/images/YYYY/<slug>/` (see `dashboard/upload_gallery.php`). Treating those year-prefixed directories as VPS-owned prevents `rsync --delete` from wiping photos that members uploaded after the last reverse sync into the repo. Site assets directly under `storage/images/` (logos, `landing_page.jpeg`, `dla_czlonkow/`) still deploy normally because they don't start with `2`.
+
+**Why `storage/cache/` is excluded:** HTMLPurifier writes its definition cache there at runtime; the directory is owned by the VPS and should persist across deploys.
 
 For setup and key rotation instructions see the main [README.md](../../README.md).
 
