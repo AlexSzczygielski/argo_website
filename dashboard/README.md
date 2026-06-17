@@ -19,6 +19,9 @@ Password-protected CMS panel for managing blog posts. Accessible at `/dashboard/
 | `login.php` | Login page with frosted glass UI |
 | `logout.php` | Destroys session, redirects to `/` |
 | `auth_check.php` | Session guard — include at top of every protected page |
+| `session_bootstrap.php` | Sets session cookie flags (`secure`/`httponly`/`samesite`) and calls `session_start()` — required by every entry point that uses sessions |
+| `csrf.php` | CSRF token helpers — `csrf_field()` for forms, `csrf_verify()` in POST handlers |
+| `sanitiser.php` | HTMLPurifier wrapper — `sanitise_post_html()` for Quill content |
 | `panel.php` | Main dashboard — paginated post list with status filter |
 | `post_form.php` | Add/edit post form with Quill editor and live iframe preview |
 | `preview.php` | Preview endpoint — renders post via `layout/post_content.php` |
@@ -93,3 +96,4 @@ Draft → Pending → Published
 - **CSRF tokens** on every state-changing form — helper in `csrf.php` (`csrf_field()` / `csrf_verify()`), one token per session, verified in every POST handler
 - **Session regenerated on login** (`session_regenerate_id(true)` + CSRF token rotation in `login.php`) — defeats session fixation
 - **Stored-XSS protection on post content** — Quill HTML runs through HTMLPurifier (`sanitiser.php`, library vendored at `plugins/htmlpurifier/`) on both save and preview. Strips `<script>`, event handlers, `javascript:`/`data:` URLs, iframes; preserves Quill's `ql-*` classes. Payload assertions in `tools/test_sanitiser.php`.
+- **Session cookie flags** (`session_bootstrap.php`) — `Secure` (env-pinned via `APP_ENV`, so dev over plain HTTP still works), `HttpOnly` (JS can't read PHPSESSID), `SameSite=Lax` (browser blocks cookie on cross-site POSTs — second layer alongside CSRF tokens).

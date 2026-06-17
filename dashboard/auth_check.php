@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once(__DIR__ . '/session_bootstrap.php');
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header('Location: /dashboard/login.php');
     exit;
