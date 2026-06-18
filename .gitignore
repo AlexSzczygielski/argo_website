@@ -4,3 +4,5 @@ __pycache__/
 venv/
 db_psswd.php
 storage/cache/
+.env
+*.csv

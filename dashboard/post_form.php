@@ -210,6 +210,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <?php endif; ?>
                     <?php endif; ?>
 
+                    <?php if (!empty($_SESSION['gallery_upload_errors'])): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Nie udało się przesłać niektórych zdjęć:</strong>
+                            <ul class="mb-0 mt-2">
+                                <?php foreach ($_SESSION['gallery_upload_errors'] as $err): ?>
+                                    <li><code><?= htmlspecialchars($err['name']) ?></code> — <?= htmlspecialchars($err['reason']) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        <?php unset($_SESSION['gallery_upload_errors']); ?>
+                    <?php endif; ?>
+
 
                 <?php if ($is_post_locked_for_member): ?>
                     <!-- Read-only lockout for members on a pending or published post -->

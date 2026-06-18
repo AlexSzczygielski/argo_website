@@ -9,9 +9,16 @@
 function resize_if_needed(string $path, string $mime, int $max_px = 1920): void {
     [$width, $height] = getimagesize($path);
 
-    // always convert to JPEG - resize only if needed
+    // Read EXIF orientation for JPEGs - iPhone stores landscape pixels with a rotation tag.
+    // We re-encode below (which strips EXIF), so we must bake the rotation into pixels.
+    $orientation = 1;
+    if ($mime === 'image/jpeg' && function_exists('exif_read_data')) {
+        $exif = @exif_read_data($path);
+        if (!empty($exif['Orientation'])) $orientation = (int)$exif['Orientation'];
+    }
+
     $needs_resize = ($width > $max_px || $height > $max_px);
-    if (!$needs_resize && $mime === 'image/jpeg') return; // already JPEG, already small
+    if (!$needs_resize && $mime === 'image/jpeg' && $orientation === 1) return;
 
     $ratio = $needs_resize ? min($max_px / $width, $max_px / $height) : 1;
     $new_w = (int)($width * $ratio);
@@ -32,6 +39,18 @@ function resize_if_needed(string $path, string $mime, int $max_px = 1920): void 
     imagefill($dst, 0, 0, $white);
 
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_w, $new_h, $width, $height);
+
+    // Apply EXIF orientation. imagerotate angles are counter-clockwise.
+    switch ($orientation) {
+        case 2: imageflip($dst, IMG_FLIP_HORIZONTAL); break;
+        case 3: $dst = imagerotate($dst, 180, 0); break;
+        case 4: imageflip($dst, IMG_FLIP_VERTICAL); break;
+        case 5: imageflip($dst, IMG_FLIP_VERTICAL);   $dst = imagerotate($dst, -90, 0); break;
+        case 6: $dst = imagerotate($dst, -90, 0); break;
+        case 7: imageflip($dst, IMG_FLIP_HORIZONTAL); $dst = imagerotate($dst, -90, 0); break;
+        case 8: $dst = imagerotate($dst, 90, 0); break;
+    }
+
     imagejpeg($dst, $path, 85);
 
     imagedestroy($src);
@@ -105,36 +124,78 @@ try{
     }
 
     $errors = 0;
+    $error_details = [];
+    $upload_err_messages = [
+        UPLOAD_ERR_INI_SIZE   => 'Plik przekracza limit serwera (upload_max_filesize).',
+        UPLOAD_ERR_FORM_SIZE  => 'Plik przekracza limit formularza.',
+        UPLOAD_ERR_PARTIAL    => 'Plik został przesłany tylko częściowo.',
+        UPLOAD_ERR_NO_FILE    => 'Nie wybrano pliku.',
+        UPLOAD_ERR_NO_TMP_DIR => 'Brak katalogu tymczasowego na serwerze.',
+        UPLOAD_ERR_CANT_WRITE => 'Nie udało się zapisać pliku na dysku.',
+        UPLOAD_ERR_EXTENSION  => 'Rozszerzenie PHP zablokowało przesyłanie.',
+    ];
+
     $sort_stmt = $pdo->prepare('SELECT COALESCE(MAX(sort_order), 0) FROM post_gallery WHERE post_id = ?');
     $sort_stmt->execute([$post_id]);
     $sort_start = (int)$sort_stmt->fetchColumn();
 
     foreach ($files as $i => $file) {
-        if ($file['error'] !== UPLOAD_ERR_OK)          { $errors++; continue; }
-        if ($file['size'] > $max_bytes)                 { $errors++; continue; }
+        $orig_name = $file['name'] !== '' ? $file['name'] : ('plik_' . ($i + 1));
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => $upload_err_messages[$file['error']] ?? ('Błąd przesyłania (kod ' . $file['error'] . ').')];
+            continue;
+        }
+        if ($file['size'] > $max_bytes) {
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => 'Plik większy niż 5 MB (' . round($file['size'] / 1048576, 1) . ' MB).'];
+            continue;
+        }
 
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if (!in_array($ext, $allowed_ext, true))        { $errors++; continue; }
+        if (!in_array($ext, $allowed_ext, true)) {
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => 'Nieobsługiwane rozszerzenie „' . $ext . '” (dozwolone: jpg, jpeg, png, webp, gif).'];
+            continue;
+        }
 
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mime  = $finfo->file($file['tmp_name']);
-        if (!in_array($mime, $allowed_mime, true))      { $errors++; continue; }
+        if (!in_array($mime, $allowed_mime, true)) {
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => 'Nieobsługiwany typ pliku (' . ($mime ?: 'nieznany') . ').'];
+            continue;
+        }
 
-        $filename = uniqid('img_', true) . '.' . $ext;
-        $dest     = $fs_directory . '/' . $filename;
-
-        // always save as jpg regardless of upload format
         $filename = $slug . '_' . uniqid() . '.jpg';
         $dest     = $fs_directory . '/' . $filename;
 
-        if (!move_uploaded_file($file['tmp_name'], $dest)) { $errors++; continue; }
-        resize_if_needed($dest, $mime);
+        if (!move_uploaded_file($file['tmp_name'], $dest)) {
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => 'Nie udało się zapisać pliku w katalogu docelowym.'];
+            continue;
+        }
+
+        try {
+            resize_if_needed($dest, $mime);
+        } catch (Throwable $e) {
+            @unlink($dest);
+            $errors++;
+            $error_details[] = ['name' => $orig_name, 'reason' => 'Błąd przetwarzania obrazu: ' . $e->getMessage()];
+            error_log('upload_gallery resize failed for ' . $orig_name . ': ' . $e->getMessage());
+            continue;
+        }
 
         $stmt = $pdo->prepare(
             'INSERT INTO post_gallery (post_id, filename, directory, sort_order)
             VALUES (?, ?, ?, ?)'
         );
         $stmt->execute([$post_id, $filename, $db_directory, $sort_start + $i + 1]);
+    }
+
+    if (!empty($error_details)) {
+        $_SESSION['gallery_upload_errors'] = $error_details;
     }
 
     $uploaded = count($files) - $errors;
