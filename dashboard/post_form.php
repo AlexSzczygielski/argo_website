@@ -127,6 +127,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt->bindValue(':status', $status);
             $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
             $stmt->execute();
+            require_once(__DIR__ . '/activity_log.php');
+            log_action('post.update', (int)$post_id, ['status' => $status, 'action' => $action]);
             if ($action === 'submit_review') {
                 header('Location: /dashboard/submit_post.php?id=' . $post_id);
                 exit;
@@ -156,6 +158,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
              * After INSERT - redirect to the same page, so that photos can be added
              */
             $new_id = $pdo->lastInsertId();
+            require_once(__DIR__ . '/activity_log.php');
+            log_action('post.create', (int)$new_id, ['status' => $status, 'action' => $action]);
             if ($action === 'submit_review') {
                 header('Location: /dashboard/submit_post.php?id=' . $new_id);
                 exit;

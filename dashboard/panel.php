@@ -42,6 +42,9 @@ $filter = $_GET['status'] ?? 'all';
                 <!-- Adding new posts / more actions -->
                 <div class="d-flex flex-wrap gap-2 mb-4">
                     <a href="/dashboard/post_form.php" class="btn btn-sm btn-outline-primary">+ Dodaj nowy post</a>
+                    <?php if (!empty($_SESSION['admin'])): ?>
+                        <a href="/dashboard/activity_feed.php" class="btn btn-sm btn-outline-secondary">Log aktywności</a>
+                    <?php endif; ?>
                 </div>
                 <hr class="mb-4">
                 

@@ -69,6 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare('DELETE FROM post_gallery WHERE id = :image_id');
                 $stmt->bindValue(':image_id',$image_id, PDO::PARAM_INT);
                 $stmt->execute();
+                require_once(__DIR__ . '/activity_log.php');
+                log_action('gallery.delete', $image_id, ['post_id' => $post_id, 'filename' => $image['filename']]);
                 header('Location: ' . $redirect_base . '&message=saved');
                 exit;
 

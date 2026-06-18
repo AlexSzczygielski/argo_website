@@ -27,4 +27,19 @@ CREATE TABLE IF NOT EXISTS users(
     surname varchar(255),
     password varchar(255) NOT NULL,
     admin TINYINT(1) DEFAULT 0
-)
+);
+
+CREATE TABLE IF NOT EXISTS activity_log(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    user_id int NULL,
+    action varchar(40) NOT NULL,
+    target_type varchar(20) NULL,
+    target_id int NULL,
+    details JSON NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_created (created_at),
+    INDEX idx_user (user_id),
+    CONSTRAINT fk_activity_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE SET NULL
+);

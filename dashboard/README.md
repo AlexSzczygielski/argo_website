@@ -29,6 +29,8 @@ Password-protected CMS panel for managing blog posts. Accessible at `/dashboard/
 | `delete_post.php` | Deletes post and cascades gallery rows (admin only) |
 | `submit_post.php` | Confirmation page for "Wyślij do zatwierdzenia" — flips a draft to `pending` after the author confirms |
 | `revert_post.php` | Reverts a `pending` or `published` post back to `draft` so the author can edit it (POST-only) |
+| `activity_log.php` | Logging helper — `log_action()` writes one row to the `activity_log` table; swallows errors so logging issues can't break user actions |
+| `activity_feed.php` | Admin-only paginated view of the activity log, joined with users for current-name display |
 | `upload_gallery.php` | Handles gallery image uploads — validates, resizes, stores to `storage/images/YYYY/slug/` |
 | `delete_gallery_image.php` | Deletes a gallery image from disk and DB — post owner or admin only |
 | `set_cover.php` | Sets `cover_image` on a post by selecting from existing gallery images |
@@ -144,3 +146,4 @@ This adds explicit transitions: edits to a non-draft post require a deliberate r
 - **Session cookie flags** (`session_bootstrap.php`) — `Secure` (env-pinned via `APP_ENV`, so dev over plain HTTP still works), `HttpOnly` (JS can't read PHPSESSID), `SameSite=Lax` (browser blocks cookie on cross-site POSTs — second layer alongside CSRF tokens).
 - **Upload directory hardening** (`storage/.htaccess`) — Apache refuses to serve `.php`/`.phtml`/`.phar`/`.pl`/`.py`/`.cgi`/`.sh`/etc. under `storage/`. If a malicious file ever bypasses the MIME check in `upload_gallery.php`, it can't be executed by hitting its URL. (Originally also `php_flag engine off` for belt-and-braces, removed because AGH's `AllowOverride` doesn't permit `Options`.)
 - **Login rate-limit** (`login.php`) — every failed login path (bad email, bad password, DB error) sleeps 2 s before responding. Reduces brute-force throughput by ~100×; no DB state, no per-IP tracking, no timing oracle on which field was wrong.
+- **Activity logging** (`activity_log.php` → `activity_log` table) — every state-changing action (login success/failure, post create/update/submit/approve/revert/delete, gallery upload/delete/set-cover) writes one row. Stores `user_id` (FK, `ON DELETE SET NULL`), action name, target reference, and a JSON details blob. No IP addresses, no name snapshots. Admin-only feed at `activity_feed.php`. Disclosed in `prywatnosc.php` §2, §3, §5.

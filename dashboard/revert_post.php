@@ -29,9 +29,20 @@ try {
     // Guard with status IN ('pending','published') — covers both lockout
     // paths in post_form.php and stays idempotent if double-submitted.
     // Won't touch a post already in draft (no-op redirect still fine).
+    // capture pre-update status for the log
+    $pre = $pdo->prepare("SELECT status FROM posts WHERE id = :id");
+    $pre->bindValue(':id', $post_id, PDO::PARAM_INT);
+    $pre->execute();
+    $previous_status = $pre->fetchColumn() ?: null;
+
     $stmt = $pdo->prepare("UPDATE posts SET status = 'draft' WHERE id = :id AND status IN ('pending', 'published')");
     $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
     $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        require_once(__DIR__ . '/activity_log.php');
+        log_action('post.revert', $post_id, ['from' => $previous_status, 'to' => 'draft']);
+    }
 } catch (Exception $e) {
     error_log("revert_post error: " . $e->getMessage());
     header('Location: /dashboard/post_form.php?id=' . $post_id . '&message=error');

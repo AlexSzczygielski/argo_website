@@ -43,9 +43,17 @@ jobs:
                     chmod 600 ~/.ssh/argo_deploy
                 
                 - name: Dump database
+                  # --ignore-table excludes:
+                  #   users         — credentials never leave AGH infrastructure
+                  #   activity_log  — audit trail; grows unbounded, references
+                  #                   user_ids (would also need scrubbing on
+                  #                   user deletion if kept in PRs)
                   run: |
                     mkdir -p db_backups
-                    MYSQL_PWD=${{ secrets.DB_PASS }} mysqldump --ignore-table=argo.users -h mysql.agh.edu.pl -u argo argo > db_backups/data.sql
+                    MYSQL_PWD=${{ secrets.DB_PASS }} mysqldump \
+                      --ignore-table=argo.users \
+                      --ignore-table=argo.activity_log \
+                      -h mysql.agh.edu.pl -u argo argo > db_backups/data.sql
                 
                 - name: Check if anything changed
                   id: check

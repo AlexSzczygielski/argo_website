@@ -34,9 +34,13 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
                 $_SESSION['user_id'] = $db_credentials['id'];
                 $_SESSION['user_name'] = $db_credentials['name'] . " " . $db_credentials['surname'];
                 $_SESSION['admin'] = $db_credentials['admin'];
+                require_once(__DIR__ . '/activity_log.php');
+                log_action('auth.login.success');
                 header('Location: /dashboard/panel.php');
                 exit;
             } else{
+                require_once(__DIR__ . '/activity_log.php');
+                log_action('auth.login.failure', null, ['email' => $email]);
                 $error = "Zły adres e-mail lub hasło, spróbuj ponownie.";
             }
         }

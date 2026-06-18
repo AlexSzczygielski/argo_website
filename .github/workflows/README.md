@@ -60,7 +60,9 @@ Under **Settings → Actions → General → Workflow permissions**:
 ## `dump_db.yaml`
 Manually triggered (or called by `full_sync.yaml`) — dumps the full `argo` MySQL database and opens a PR with the updated dump.
 
-**The `users` table is excluded from the dump (--ignore-table=argo.users) to prevent credential exposure in version control.**
+**Excluded tables:**
+- `users` — prevents credential exposure in version control
+- `activity_log` — audit trail isn't needed in backups and grows unbounded; references to user_ids would also require scrubbing on user deletion if committed to PRs
 
 ### Requirements
 | Secret | Description |

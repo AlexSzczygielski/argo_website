@@ -137,6 +137,11 @@ try{
         $stmt->execute([$post_id, $filename, $db_directory, $sort_start + $i + 1]);
     }
 
+    $uploaded = count($files) - $errors;
+    if ($uploaded > 0) {
+        require_once(__DIR__ . '/activity_log.php');
+        log_action('gallery.upload', $post_id, ['uploaded' => $uploaded, 'errors' => $errors]);
+    }
     $msg = $errors === 0 ? 'saved' : ($errors === count($files) ? 'error' : 'partial');
     header('Location: ' . $redirect_base . '&message=' . $msg);
     exit;

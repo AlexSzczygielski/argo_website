@@ -31,6 +31,7 @@ Built and maintained end-to-end as a solo project: frontend, backend, database d
 - **PR-gated reverse sync** — the CMS writes to the production server, and a workflow pulls those changes back into the repo as a pull request, so the CMS never needs git access and nothing reaches `main` unreviewed
 - **Automated weekly DB backups** committed via PR, with the `users` table excluded to keep credentials out of version control
 - **Security hardening** — path traversal protection (`realpath()` + base path checks), whitelist validation on filters, ownership checks on destructive actions, secrets in GitHub Secrets
+- **Append-only audit log** — every state-changing CMS action (auth, post lifecycle, gallery changes) writes one row to an `activity_log` table; FK to users with `ON DELETE SET NULL` for GDPR-clean user deletion; admin-only paginated feed at `/dashboard/activity_feed.php`; excluded from automated DB dumps
 
 ---
 

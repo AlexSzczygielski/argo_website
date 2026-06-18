@@ -44,6 +44,8 @@ try{
     $stmt->bindValue(':id',$post_id, PDO::PARAM_INT);
     $stmt->bindValue(':cover_image',$image_path);
     $stmt->execute();
+    require_once(__DIR__ . '/activity_log.php');
+    log_action('gallery.set_cover', $post_id, ['image' => $image_path]);
     header('Location: ' . $redirect_base . '&message=saved');
     exit;
 

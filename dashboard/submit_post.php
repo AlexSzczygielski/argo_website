@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE posts SET status = 'pending' WHERE id = :id");
             $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
             $stmt->execute();
+            require_once(__DIR__ . '/activity_log.php');
+            log_action('post.submit_for_review', $post_id);
         } catch (Exception $e) {
             error_log("submit_post error: " . $e->getMessage());
             header('Location: /dashboard/post_form.php?id=' . $post_id . '&message=error');

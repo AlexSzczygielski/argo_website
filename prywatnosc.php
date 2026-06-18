@@ -51,13 +51,18 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <li>Hasło — przechowywane wyłącznie w postaci hashu bcrypt
                         (nie da się go odzyskać w postaci jawnej)</li>
                     <li>Treści publikowane w panelu (posty na blogu, zdjęcia) wraz z informacją o autorze</li>
+                    <li>Log aktywności w panelu — data i typ wykonanej akcji
+                        (np. logowanie, edycja postu, dodanie zdjęcia) wraz z odwołaniem
+                        do identyfikatora użytkownika. Log nie zawiera adresów IP.
+                        W przypadku nieudanego logowania zapisywany jest podany adres e-mail.</li>
                 </ul>
 
                 <h3 class="mt-4">3. Cele i podstawa prawna przetwarzania</h3>
                 <p>Dane członków przetwarzane są w celu:</p>
                 <ul>
                     <li>udostępnienia panelu administracyjnego do publikowania treści na stronie klubu,</li>
-                    <li>prowadzenia kont użytkowników, ich autoryzacji oraz przypisywania autorstwa publikowanych treści.</li>
+                    <li>prowadzenia kont użytkowników, ich autoryzacji oraz przypisywania autorstwa publikowanych treści,</li>
+                    <li>zapewnienia bezpieczeństwa i rozliczalności działań w panelu (log aktywności).</li>
                 </ul>
                 <p>
                     Podstawą prawną przetwarzania jest <strong>art. 6 ust. 1 lit. f RODO</strong> —
@@ -87,6 +92,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     Dane członków są przechowywane do momentu zgłoszenia żądania ich usunięcia.
                     Konto może zostać usunięte w dowolnym momencie na prośbę użytkownika
                     (patrz §8) lub z inicjatywy administratora.
+                </p>
+                <p>
+                    Wpisy w logu aktywności są przechowywane bezterminowo dla celów audytu, jednak
+                    po usunięciu konta tracą powiązanie z osobą — pozostaje anonimowy zapis akcji
+                    bez możliwości zidentyfikowania użytkownika.
                 </p>
 
                 <h3 class="mt-4">6. Odbiorcy danych</h3>

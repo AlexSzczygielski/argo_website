@@ -51,7 +51,18 @@ erDiagram
         tinyint admin
     }
 
+    activity_log {
+        int id PK
+        int user_id FK
+        varchar action
+        varchar target_type
+        int target_id
+        json details
+        datetime created_at
+    }
+
     posts ||--o{ post_gallery : "has"
+    users ||--o{ activity_log : "performs"
 ```
 
 ---
@@ -98,6 +109,26 @@ Full image path is constructed as `directory/filename` at render time.
 
 **`users` table is excluded from automated DB dumps for security. Manage users manually via phpMyAdmin.**
 
+### `activity_log`
+
+Append-only audit trail of actions performed in the CMS panel. Written by `dashboard/activity_log.php` (`log_action()`); read by `dashboard/activity_feed.php` (admin-only paginated view).
+
+| Column | Type | Nullable | Default | Description |
+|--------|------|----------|---------|-------------|
+| `id` | INT AUTO_INCREMENT | No | — | Primary key, auto-assigned |
+| `user_id` | INT | Yes | NULL | FK → `users.id`. `ON DELETE SET NULL` so logs survive user deletion |
+| `action` | VARCHAR(40) | No | — | Dotted-string event name, e.g. `auth.login.success`, `post.submit_for_review`, `gallery.delete` |
+| `target_type` | VARCHAR(20) | Yes | NULL | Type of affected entity (`post`, `gallery`, `auth`). Derived from `action` prefix by the helper |
+| `target_id` | INT | Yes | NULL | ID of the affected entity. No FK — audit entries must survive entity deletion |
+| `details` | JSON | Yes | NULL | Free-form context (attempted email on failed login, upload counts, from/to status on revert, etc.) |
+| `created_at` | DATETIME | Yes | `CURRENT_TIMESTAMP` | When the action occurred |
+
+Indexed on `created_at` (timeline queries) and `user_id` (per-user history).
+
+**Privacy:** no IP addresses, no name snapshots. When a user is deleted, the FK `SET NULL` clears their `user_id` automatically — log entries become anonymous "(usunięty użytkownik)" in the feed. Disclosed in `prywatnosc.php` §2, §3, §5.
+
+**`activity_log` is excluded from automated DB dumps** — audit trail isn't needed in backups and would otherwise need PII scrubbing on every user deletion.
+
 ---
 
 ## Files
@@ -125,6 +156,7 @@ Full image path is constructed as `directory/filename` at render time.
 | 2026-06 | Added `users` table for admin authentication |
 | 2026-06 | `ALTER TABLE posts ADD COLUMN status ENUM('draft','pending','published') DEFAULT 'draft'` |
 | 2026-06 | `UPDATE posts SET status = 'published'` — migrated existing posts |
+| 2026-06 | Added `activity_log` table with FK `user_id → users(id) ON DELETE SET NULL` for CMS audit trail |
 
 ---
 

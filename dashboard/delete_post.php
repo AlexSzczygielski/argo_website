@@ -13,6 +13,8 @@ if($_SESSION['admin']){
             $stmt = $pdo->prepare("DELETE FROM posts WHERE id = :id");
             $stmt->bindValue(':id', $post_id, PDO::PARAM_INT);
             $stmt->execute();
+            require_once(__DIR__ . '/activity_log.php');
+            log_action('post.delete', (int)$post_id);
         }
         require_once(__DIR__ . '/messages.php');
         header('Location: /dashboard/panel.php?message=' . MSG_DELETED);
