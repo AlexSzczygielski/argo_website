@@ -88,11 +88,6 @@ if (session_status() === PHP_SESSION_NONE) {
           $('.navbar').removeClass('scrolled');
         }
       });
-
-      //Toggle hamburger menu (narrow screens)
-      $('.navbar-toggler').on('click', function() {
-        $('#myNavbar').slideToggle(); // toggles the menu with a slide animation
-      });
     });
   </script>
 <?php endif; ?>
