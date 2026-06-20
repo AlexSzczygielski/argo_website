@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'storage/images/2*/**'
+      - 'db_backups/**'
+      - 'tools/**'
+      - '**/*.md'
+      - '.github/**'
   workflow_dispatch:
     inputs:
       ref:

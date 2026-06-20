@@ -21,6 +21,11 @@ Automatically deploys the website to AGH VPS on every push to `main`.
 
 **Why `storage/cache/` is excluded:** HTMLPurifier writes its definition cache there at runtime; the directory is owned by the VPS and should persist across deploys.
 
+### Skipping no-op deploys
+The trigger uses `paths-ignore` to skip pushes that only touch paths the rsync wouldn't push anyway (`storage/images/2*/**`, `db_backups/**`, `tools/**`, `**/*.md`, `.github/**`). This means merging a CMS sync PR — which only touches `storage/images/YYYY/<slug>/` or `db_backups/data.sql` — does not trigger a deploy. Mixed PRs (e.g. PHP edits + new blog images) still deploy correctly.
+
+Keep this list in sync with the rsync `--exclude` flags in the deploy step. If you start pushing a path the rsync excludes, you'll waste a VPN session on a no-op deploy; if you start excluding a path the rsync pushes, real changes will silently fail to deploy.
+
 For setup and key rotation instructions see the main [README.md](../../README.md).
 
 ---
@@ -81,3 +86,15 @@ Manually triggered (or called by `full_sync.yaml`) — dumps the full `argo` MyS
 
 ## `full_sync.yaml`
 Runs `sync_files_vps.yaml` and `dump_db.yaml` in parallel. Triggered manually or automatically every Sunday at 2am.
+
+---
+
+## Branch protection
+
+`main` is protected via the `protect-main` ruleset (Settings → Rules → Rulesets). This is what enforces the security guarantees documented under `sync_files_vps.yaml`:
+
+- **Require a pull request before merging** — no direct pushes to `main`, so the CMS sync workflows (and any future automation) must go through PR review
+- **Block force pushes** — deploy history on `main` cannot be rewritten
+- **Restrict deletions** — `main` cannot be deleted
+
+The repository admin is on the bypass list for emergency direct pushes. Do not remove protection without understanding that `deploy_website.yaml` auto-deploys every push to `main` straight to production.
