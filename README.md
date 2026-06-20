@@ -7,6 +7,7 @@
 **Live site: [argo.agh.edu.pl](https://argo.agh.edu.pl)**
 
 [![Deploy](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml/badge.svg)](https://github.com/AlexSzczygielski/argo_website/actions/workflows/deploy_website.yaml)
+[![Lint PHP](https://github.com/AlexSzczygielski/argo_website/actions/workflows/lint.yaml/badge.svg)](https://github.com/AlexSzczygielski/argo_website/actions/workflows/lint.yaml)
 [![Last commit](https://img.shields.io/github/last-commit/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website/commits)
 [![Repo size](https://img.shields.io/github/repo-size/AlexSzczygielski/argo_website)](https://github.com/AlexSzczygielski/argo_website)
 [![Website](https://img.shields.io/website?url=https://argo.agh.edu.pl)](https://argo.agh.edu.pl)
