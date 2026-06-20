@@ -89,6 +89,25 @@ Runs `sync_files_vps.yaml` and `dump_db.yaml` in parallel. Triggered manually or
 
 ---
 
+## `lint.yaml`
+Runs `php -l` (syntax check) on every PHP file in the repo. Triggered on PRs targeting `main` and on pushes to `main`.
+
+### How it works
+1. Checks out the repo
+2. Installs PHP via [`shivammathur/setup-php`](https://github.com/shivammathur/setup-php), pinned to the AGH VPS version (currently 8.2)
+3. Runs `php -l` on every `.php` file, excluding `tools/` and `storage/cache/`, parallelized 4-way to match the runner's vCPU count
+
+### What it catches
+Syntax errors only — missing semicolons, unbalanced braces, typos in keywords. It does not catch undefined variables, missing function calls, or type mismatches; for that, a static analyzer like PHPStan or Psalm would be the next step.
+
+### Why this matters here
+`deploy_website.yaml` auto-deploys every push to `main` straight to production. Without a syntax gate, a typo in a `.php` file goes live immediately. Lint runs in seconds and catches the cheap-to-prevent class of breakage before it ships.
+
+### Keeping the PHP version in sync
+The pinned `php-version` should match the AGH VPS. 
+
+---
+
 ## Branch protection
 
 `main` is protected via the `protect-main` ruleset (Settings → Rules → Rulesets). This is what enforces the security guarantees documented under `sync_files_vps.yaml`:

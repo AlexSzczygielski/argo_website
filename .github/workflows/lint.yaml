@@ -1,0 +1,28 @@
+name: Lint PHP
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'  # AGH VPS version (PHP 8.2.31 as of 2026-06)
+
+      - name: Lint all PHP files
+        run: |
+          find . -name "*.php" \
+            -not -path "./tools/*" \
+            -not -path "./storage/cache/*" \
+            -print0 | xargs -0 -n1 -P4 php -l
