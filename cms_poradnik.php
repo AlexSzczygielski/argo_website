@@ -254,7 +254,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 </div>
                 <div class="mt-3">
                     <p class="mb-2">Po wybraniu zdjęć z dysku zatwierdź przesyłanie przyciskiem:</p>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="return false;">Dodaj zdjęcia (potwierdź)</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="return false;">Prześlij zdjęcia (potwierdź)</button>
                     <p class="cms-screenshot-caption mt-2">Zdjęcia są przesyłane na serwer dopiero po kliknięciu tego przycisku — samo wybranie plików z dysku nic jeszcze nie robi.</p>
                 </div>
             </section>

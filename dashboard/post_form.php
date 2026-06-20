@@ -330,7 +330,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 <form method="POST" id="photos-upload-form" enctype="multipart/form-data" action="/dashboard/upload_gallery.php?post_id=<?= $post_id ?>">
                                     <?= csrf_field() ?>
                                     <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp,image/gif" class="form-control mb-2">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm">Dodaj zdjęcia (potwierdź)</button>
+                                    <button type="submit" class="btn btn-outline-primary btn-sm">Prześlij zdjęcia na serwer (potwierdź)</button>
                                 </form>
                             </div>
                             <!-- existing images + upload form here -->
