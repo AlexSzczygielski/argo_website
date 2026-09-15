@@ -108,9 +108,9 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                         <div class="col-lg-6">
                             <h2 class="dolacz-cta-title">Spróbuj swoich sił!</h2>
                             <p class="dolacz-cta-text">
-                                Masz dodatkowe pytania? Skontaktuj się z nami poprzez e-mail lub przyjdź na trening — chętnie udzielimy odpowiedzi i zachęcimy Cię do wstąpienia w nasze szeregi.
+                                Wypełnij formularz kontaktowy (przycisk poniżej), korzystając ze swojego maila AGH. Masz dodatkowe pytania? Skontaktuj się z nami poprzez e-mail lub przyjdź na trening — chętnie udzielimy odpowiedzi i zachęcimy Cię do wstąpienia w nasze szeregi.
                             </p>
-                            <a href="mailto:argo@agh.edu.pl" class="dolacz-btn-primary">Dołącz do nas!</a>
+                            <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=PwOxgOAhgkq7wPBf3M07yM-Xa0THU7pMhLrElNwbQopUN0U5WUsxSTdWT0FCNjZZVVVUN0NVSjNUSy4u" target="_blank" class="dolacz-btn-primary">Dołącz do nas!</a>
                             <br>
                             <a href="mailto:argo@agh.edu.pl" class="partnerzy-cta-email-link">argo@agh.edu.pl</a>
                         </div>
