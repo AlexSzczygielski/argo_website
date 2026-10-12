@@ -47,5 +47,7 @@
         </a>
         <span class="mx-2">·</span>
         <a href="/prywatnosc.php" class="text-dark">Polityka prywatności</a>
+        <span class="mx-2">·</span>
+        <a href="/regulamin.php" class="text-dark">Regulamin</a>
     </div>
 </footer>
