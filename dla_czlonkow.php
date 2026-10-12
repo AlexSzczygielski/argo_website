@@ -88,6 +88,17 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     <br>
 
                     <section class="mb-4">
+                        <h2>Dokumenty</h2>
+                        <ul class="list">
+                            <li class="mb-2">
+                                <a href="regulamin.php" class="text-break">
+                                    Regulamin Organizacji
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="mb-4">
                         <h2>Deklaracje</h2>
 
                         <ul class="list">
