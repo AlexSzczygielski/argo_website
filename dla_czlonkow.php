@@ -95,6 +95,11 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                                     Regulamin Organizacji
                                 </a>
                             </li>
+                            <li class="mb-2">
+                                <a href="regulamin_zmiany.php" class="text-break">
+                                    Projekt zmian Regulaminu (v9)
+                                </a>
+                            </li>
                         </ul>
                     </section>
 
