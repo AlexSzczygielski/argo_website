@@ -1,6 +1,6 @@
 <?php
 $page_title = "Projekt zmian Regulaminu - SKR Argo AGH";
-$page_description = "Projekt zmian Regulaminu Uczelnianej Organizacji Studenckiej SKR Argo AGH – wersja v9";
+$page_description = "Projekt zmian Regulaminu Uczelnianej Organizacji Studenckiej SKR Argo AGH – wersja v10";
 $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 ?>
 <!DOCTYPE html>
@@ -172,17 +172,17 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                 <div class="change-banner mt-5">
                     <div class="badge-draft">Projekt zmian</div>
                     <h1>Zmiany w Regulaminie Organizacji</h1>
-                    <p>Wersja v9 &mdash; do zatwierdzenia przez Walne Zebranie. Dokument przedstawia różnice względem obowiązującego Regulaminu z 31.12.2024&nbsp;r.</p>
+                    <p>Wersja v10 &mdash; do zatwierdzenia przez Walne Zebranie. Dokument przedstawia różnice względem obowiązującego Regulaminu z 31.12.2024&nbsp;r.</p>
                 </div>
 
                 <!-- Summary -->
                 <div class="change-summary-box">
                     <strong>Podsumowanie zmian:</strong>
                     <ul>
-                        <li><strong>§ 3</strong> &mdash; dodanie nowego obowiązku członka: przestrzeganie zasad korzystania ze sprzętu</li>
-                        <li><strong>§ 3 ust. 7</strong> &mdash; dodanie nowej podstawy wykluczenia: naruszenie zasad korzystania ze sprzętu</li>
+                        <li><strong>§ 3 ust. 5</strong> &mdash; nowy obowiązek członka: dbanie o sprzęt i przestrzeganie zasad korzystania (§ 6)</li>
+                        <li><strong>§ 3 ust. 7</strong> &mdash; nowa podstawa wykluczenia: naruszenie zasad korzystania ze sprzętu</li>
                         <li><strong>§ 5 ust. 8</strong> &mdash; zmiana „rok kalendarzowy" na „rok akademicki"</li>
-                        <li><strong>§ 6 (nowy)</strong> &mdash; cały nowy paragraf regulujący zasady wypożyczania i korzystania ze sprzętu Organizacji</li>
+                        <li><strong>§ 6 (nowy)</strong> &mdash; zasady wypożyczania sprzętu (próg wartości: 1000 zł), sankcje, odwołania</li>
                     </ul>
                 </div>
 
@@ -205,7 +205,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                             <span class="ctx">stosować się do postanowień organów Organizacji; </span>
                             przestrzegać postanowień niniejszego Regulaminu<span class="diff-del">.</span><span class="diff-ins">;</span>
                             <br>
-                            <span class="diff-ins">przestrzegać zasad korzystania ze sprzętu Organizacji określonych w § 6.</span>
+                            <span class="diff-ins">dbać o sprzęt pozostający w dyspozycji Organizacji oraz przestrzegać zasad korzystania z niego, określonych w § 6.</span>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                             <span class="diff-ins">, z zastrzeżeniem pkt 5</span>
                             <span class="ctx">;</span>
                             <br><br>
-                            <span class="diff-ins">naruszenia zasad korzystania ze sprzętu Organizacji określonych w § 6, w przypadkach wskazanych w § 6 ust. 8 pkt 3.</span>
+                            <span class="diff-ins">naruszenia zasad korzystania ze sprzętu Organizacji w przypadkach wskazanych w § 6 ust. 8 pkt 3.</span>
                         </div>
                     </div>
                 </div>
@@ -252,7 +252,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
                         <div class="new-para">
                             <span class="para-num">Ust. 1.</span>
-                            Przez sprzęt Organizacji rozumie się sprzęt żeglarski o istotnej wartości, w szczególności komplety żagli, pozostający w dyspozycji Organizacji.
+                            Przez sprzęt Organizacji rozumie się sprzęt żeglarski o wartości <span class="diff-del">istotnej</span><span class="diff-ins">powyżej 1000 złotych</span>, w szczególności komplety żagli, pozostający w dyspozycji Organizacji.
                         </div>
 
                         <div class="new-para">
@@ -313,7 +313,7 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
 
                         <div class="new-para">
                             <span class="para-num">Ust. 11.</span>
-                            Od uchwały w sprawie zakazu, o którym mowa w ust. 8 pkt 2, osobie, której ona dotyczy, przysługuje wniosek o ponowne rozpatrzenie sprawy przez Zarząd, złożony w formie dokumentowej w terminie 14 dni od otrzymania informacji, o której mowa w ust. 10. Zarząd rozpatruje wniosek w terminie 14 dni od jego otrzymania.
+                            Od uchwały w sprawie zakazu, o którym mowa w ust. 8 pkt 2, osobie, której ona dotyczy, przysługuje wniosek o ponowne rozpatrzenie sprawy przez Zarząd, złożony w formie dokumentowej w terminie 14 dni od otrzymania informacji, o której mowa w ust. 10. Zarząd rozpatruje wniosek w terminie 14 dni od jego otrzymania. <span class="diff-ins">Od negatywnego rozpatrzenia odwołania służy odwołanie do Walnego Zebrania, które rozpatruje je na najbliższym spotkaniu, bez konieczności zwoływania go w trybie nadzwyczajnym.</span>
                         </div>
 
                         <div class="new-para">
@@ -328,9 +328,12 @@ $page_image = "https://argo.agh.edu.pl/storage/images/argologo.png";
                     </div>
                 </div>
 
-                <p class="text-muted small mt-3">
-                    Pełny tekst obowiązującego regulaminu: <a href="/regulamin.php">Regulamin SKR Argo AGH</a>
-                </p>
+                <div class="d-flex align-items-center gap-3 mt-4 flex-wrap">
+                    <a href="/storage/docs/regulamin_projekt_zmian_v10.pdf" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-file-pdf me-1"></i> Pobierz projekt zmian (PDF, v10)
+                    </a>
+                    <a href="/regulamin.php" class="text-muted small">Pełny tekst obowiązującego regulaminu &rarr;</a>
+                </div>
 
             </div>
         </div>
