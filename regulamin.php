@@ -25,7 +25,7 @@ $regulamin_pdf = "/storage/docs/regulamin_argo_17_10_2026.pdf";
             <!-- Page content starts here -->
             <div class="container p-4">
                 <h1 class="mt-5"><strong>Regulamin</strong></h1>
-                <p class="text-muted">Uczelnianej Organizacji Studenckiej Studencki Klub Regatowy Argo AGH</p>
+                <p class="text-muted">Studenckiego Klubu Regatowego Argo AGH</p>
                 <p class="text-muted">Obowiązuje od 17.10.2026 r.</p>
 
                 <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
