@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="storage/images/argologo.png" alt="Argo Logo" width="250">
+  <img src="storage/images/argologo_ARGO_clean.png" alt="Argo Logo" width="250">
   <h1>Studenckie Koło Regatowe Argo AGH - Club Website with Custom CMS</h1>
 </div>
 
